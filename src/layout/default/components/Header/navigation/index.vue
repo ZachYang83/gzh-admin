@@ -74,7 +74,7 @@ export default {};
 
 @font-face {
   font-family: YouSheBiaoTiYuan;
-  src: url("@/assets/font/PangMenZhengDaoBiaoTiTi.otf");
+  src: url("@/assets/font/YouSheBiaoTiYuan.otf");
 }
 
 @font-face {

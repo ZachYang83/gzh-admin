@@ -90,7 +90,7 @@ let activeNav = ref(0);
 <style lang="scss" scoped>
 @font-face {
   font-family: YouSheBiaoTiYuan;
-  src: url("@/assets/font/PangMenZhengDaoBiaoTiTi.otf");
+  src: url("@/assets/font/YouSheBiaoTiYuan.otf");
 }
 .tbqy-wrap {
   width: 100%;

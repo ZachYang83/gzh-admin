@@ -39,7 +39,7 @@ export default {
 <style scoped>
 @font-face {
   font-family: ALIBABAPUHUITI;
-  src: url("@/assets/font/PangMenZhengDaoBiaoTiTi.otf");
+  src: url("@/assets/font/ALIBABAPUHUITI.TTF");
 }
 .card-box {
   width: v-bind(width);
