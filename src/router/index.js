@@ -103,6 +103,20 @@ export const constantRoutes = [
       },
     ],
   },
+  {
+    path: "/shenbao",
+    component: LayoutDefault,
+    redirect: "/shenbao/index",
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/shenbao/index.vue"),
+        name: "Shenbao",
+        file: "shenbao/index.vue",
+        meta: { title: "场景申报", icon: "iconfont icon-shiyongwendang mr-5" },
+      },
+    ],
+  },
 ];
 
 /**

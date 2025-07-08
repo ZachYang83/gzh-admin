@@ -63,21 +63,36 @@
         <div
           class="nav-item flex-center"
           :class="{ active: activeNav == 0 }"
-          @click="activeNav = 0"
+          @click="changeNav(0)"
         >
           人工智能类企业数量对比
         </div>
         <div
           class="nav-item flex-center"
           :class="{ active: activeNav == 1 }"
-          @click="activeNav = 1"
+          @click="changeNav(1)"
         >
           胡润中国人工智能企业50强对比
         </div>
       </div>
       <div class="chart-box flex-center">
-        <img v-if="activeNav == 0" class="bar-chart" src="../imgs/tbqy-chart-common.png" >
-        <img v-else class="bar-chart" src="../imgs/tbqy-chart-hurun.png" >
+        <GradientBarChart
+          :chart-data="chart.chartData"
+          :axis="chart.axis"
+          :series="chart.series"
+          :tooltip="chart.tooltip"
+          :legend="chart.legend"
+          :grid="chart.grid"
+          :label-font-size="chart.labelFontSize"
+          :value-label-visible="chart.valueLabelVisible"
+          :chart-direction="chart.chartDirection"
+          :color-list="chart.colorList"
+          :barBorderRadius="chart.barBorderRadius"
+          :autoplay="chart.autoplay"
+          :bar-axisName="chart.barAxisName"
+        />
+        <!-- <img v-if="activeNav == 0" class="bar-chart" src="../imgs/tbqy-chart-common.png" >
+        <img v-else class="bar-chart" src="../imgs/tbqy-chart-hurun.png" > -->
       </div>
     </div>
   </div>
@@ -85,6 +100,75 @@
 
 <script setup>
 let activeNav = ref(0);
+import { reactive } from "vue";
+import hooks from "@/hooks";
+
+const { useChartOption, useScreenModuleData } = hooks;
+const { formatTooltip } = useChartOption();
+const chart = reactive({
+  chartData: [
+    {
+      name: "北京",
+      qiyeCount: 2400,
+    },
+    {
+      name: "上海",
+      qiyeCount: 6000,
+    },
+    {
+      name: "广州",
+      qiyeCount: 2191,
+    },
+    {
+      name: "深圳",
+      qiyeCount: 2800,
+    },
+  ],
+  axis: {
+    property: "name",
+  },
+  series: {
+    name: "企业数量",
+    property: "qiyeCount",
+  },
+  tooltip: {
+    trigger: "axis",
+    formatter: (p) => formatTooltip(p, { unit: ["家"], scale: 1 }),
+  },
+  grid: {
+    top: "20%",
+    bottom: "1%",
+    left: "1%",
+    right: "1%",
+  },
+  legend: {},
+  colorList: ["#4f9aff", "rgba(11,42,84,.3)"],
+  labelFontSize: 14,
+  autoplay: true,
+  valueLabelVisible: true,
+  chartDirection: "horizontal",
+  barBorderRadius: [5, 5, 0, 0],
+  barAxisName: "单位：家",
+});
+
+const changeNav = (index) => {
+  activeNav.value = index;
+  if(index === 0) {
+    chart.chartData = [
+      { name: "北京", qiyeCount: 2400 },
+      { name: "上海", qiyeCount: 6000 },
+      { name: "广州", qiyeCount: 2191 },
+      { name: "深圳", qiyeCount: 2800 },
+    ];
+  } else {
+    chart.chartData = [
+      { name: "北京", qiyeCount: 20 },
+      { name: "上海", qiyeCount: 9 },
+      { name: "广州", qiyeCount: 4 },
+      { name: "深圳", qiyeCount: 8 },
+    ];
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -146,7 +230,8 @@ let activeNav = ref(0);
       font-size: 14px;
       font-weight: 400;
       color: rgba(216, 240, 255, 0.5);
-      cursor: default;
+      cursor: pointer;
+      user-select: none;
     }
 
     .active {

@@ -1,21 +1,16 @@
 <template>
-  <Chart
-    :option="option"
-    :width="width"
-    :height="height"
-    :duration="duration"
-    :autoplay="autoplay"
-  />
+  <Chart :option="option" :width="width" :height="height" :duration="duration" :autoplay="autoplay" />
 </template>
 
 <script setup>
 import Chart from "@/components/chart/Default/index.vue";
 import { ref, watch } from "vue";
+import { graphic } from "echarts";
 import hooks from "@/hooks";
 
 defineOptions(
   {
-    name: "BarChart"
+    name: "GradientBarChart"
   }
 );
 
@@ -44,6 +39,10 @@ const props = defineProps({
     type: String,
     default: "vertical", // horizontal | vertical
   },
+  barAxisName: {
+    type: String,
+    default: "名称",
+  },
   // 坐标轴数值配置
   axis: {
     type: Object,
@@ -54,13 +53,11 @@ const props = defineProps({
   },
   // 条形数值配置
   series: {
-    type: Array,
-    default: () => [
-      {
-        name: "数值",
-        property: "value",
-      },
-    ],
+    type: Object,
+    default: () => ({
+      name: "数值",
+      property: "value",
+    }),
   },
   // 颜色列表
   colorList: {
@@ -109,6 +106,26 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  // 柱状图圆角大小
+  barBorderRadius: {
+    type: Array,
+    default: () => [20, 20, 0, 0],
+  },
+  // 柱状图背景颜色
+  barColor: {
+    type: [Object, String],
+    default: null,
+  },
+  // 坐标字体倾斜角度
+  textFontRotate: {
+    type: Number,
+    default: 0,
+  },
+  // 字间距
+  textLableInterval: {
+    type: [Number, String],
+    default: 'auto',
+  }
 });
 
 const { useChartOption } = hooks;
@@ -117,17 +134,23 @@ const { getAxisData } = useChartOption();
 const option = ref(null);
 
 const setOption = (chartData = []) => {
+
   const {
     chartDirection,
     axis,
     series,
     colorList,
+    barAxisName,
     scale,
     labelFontSize,
     valueLabelVisible,
     legend,
     grid,
     tooltip,
+    barBorderRadius,
+    barColor,
+    textFontRotate,
+    textLableInterval
   } = props;
 
   const fontSize = labelFontSize * scale;
@@ -137,29 +160,39 @@ const setOption = (chartData = []) => {
   const axisData = getAxisData(chartData, axis.property);
 
   // 处理显示数据
-  let customSeries = [];
-  series.forEach((e, index) => {
-    customSeries.push({
-      name: e.name,
-      type: "bar",
-      // stack: "all",
-      barMaxWidth: "25%",
-      z: index + 5,
-      barGap: "10%",
-      itemStyle: {
-        color: colorList[index],
+  let customSeries = [
+  ];
+  customSeries.push({
+    name: series.name,
+    type: "bar",
+    barWidth: "40%",
+    silent: true,
+    itemStyle: {
+      borderRadius: barBorderRadius,
+      color: barColor
+        ? barColor
+        : new graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: colorList[0],
+          },
+          {
+            offset: 1,
+            color: colorList[1], // 100% 处的颜色
+          },
+        ]),
+    },
+    label: {
+      show: valueLabelVisible,
+      color: fontColor,
+      fontSize,
+      position: chartDirection === "horizontal" ? "top" : "right",
+      formatter: (params) => {
+        return params.value > 0 ? params.value : "";
       },
-      label: {
-        show: valueLabelVisible,
-        color: fontColor,
-        fontSize,
-        position: chartDirection === "horizontal" ? "top" : "right",
-        formatter: (params) => {
-          return params.value > 0 ? params.value : "";
-        },
-      },
-      data: chartData.map((i) => i[e.property]),
-    });
+    },
+    data: chartData.map((i) => i[series.property]),
+    zlevel: 10,
   });
 
   let categorySet = [
@@ -180,26 +213,29 @@ const setOption = (chartData = []) => {
         },
       },
       axisLabel: {
-        // interval: 0,
+        interval: textLableInterval,
+        rotate: chartDirection === "horizontal" && textFontRotate !== 0 ? textFontRotate : 0,
         color: fontColor,
-        fontSize,
+        fontSize: fontSize,
+        // width:30,
+        // overflow:'break',
+        formatter: function (params) {
+          if (params.length < 4) {
+            return params
+          } else {
+            return params.substring(0, 3) + '\n' + params.substring(3, 6) + '\n' + params.substring(6, 9) + '\n' + params.substring(9, 12)
+          }
+        },
       },
       data: axisData,
     },
   ];
   let valueSet = [
     {
+      name: barAxisName,
       stack: "all",
       type: "value",
       splitLine: {
-        show: true,
-        lineStyle: {
-          color: "#4b647f",
-          // type: "dashed",
-          width: 0.8 * scale,
-        },
-      },
-      axisLine: {
         show: false,
         lineStyle: {
           color: "#4b647f",
@@ -207,10 +243,25 @@ const setOption = (chartData = []) => {
           width: 0.8 * scale,
         },
       },
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: "#4b647f",
+          // type: "dashed",
+          width: 0.8 * scale,
+        },
+      },
       axisLabel: {
-        // interval: 0,
+        interval: textLableInterval,
+        rotate: chartDirection === "vertical" && textFontRotate !== 0 ? textFontRotate : 0,
         color: fontColor,
         fontSize,
+      },
+      splitArea: {
+        show: true,
+        areaStyle: {
+          color: ["rgba(250,250,250,0.05)", "rgba(250,250,250,0.0)"],
+        },
       },
     },
   ];
@@ -224,7 +275,7 @@ const setOption = (chartData = []) => {
     },
     trigger: "axis",
     axisPointer: {
-      type: "line",
+      type: "shadow",
     },
     backgroundColor: "rgba(0,0,0,0.6)",
     borderColor: "transparent",
@@ -233,7 +284,7 @@ const setOption = (chartData = []) => {
   };
 
   // 图例
-  const customLegend = {
+  const customLegend = Object.keys(legend).length === 0 ? false : {
     itemWidth: 12 * scale,
     itemHeight: 12 * scale,
     itemGap: 20 * scale,
@@ -241,19 +292,27 @@ const setOption = (chartData = []) => {
       color: fontColor,
       fontSize,
     },
-    data: series.map((e) => e.name),
+    data: [series.name],
     ...legend,
   };
 
   // 网格
   const customGrid = {
-    top: "10%",
+    top: "1%",
     bottom: "1%",
     left: "1%",
     right: "1%",
     containLabel: true,
     ...grid,
   };
+
+  if (!chartData.length) {
+    return;
+  }
+
+  const max = chartData.reduce((prev, current) =>
+    prev[series.property] > current[series.property] ? prev : current
+  );
 
   option.value = {
     tooltip: customTooltip,
@@ -262,7 +321,20 @@ const setOption = (chartData = []) => {
     color: colorList,
     yAxis: chartDirection === "horizontal" ? valueSet : categorySet,
     xAxis: chartDirection === "horizontal" ? categorySet : valueSet,
-    series: customSeries,
+    series: [
+      ...customSeries,
+      // {
+      //   name: "背景",
+      //   type: "bar",
+      //   barWidth: "50%",
+      //   barGap: "-100%",
+      //   data: chartData.map((i) => max[series.property]),
+      //   itemStyle: {
+      //     color: "rgba(255,255,255,0.1)",
+      //   },
+      //   zlevel: 9,
+      // },
+    ],
   };
 };
 
@@ -280,6 +352,6 @@ watch(
   () => props.scale,
   () => {
     setOption(props.chartData);
-  },
+  }
 );
 </script>

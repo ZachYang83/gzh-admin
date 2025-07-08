@@ -39,13 +39,18 @@ export default {
 <style scoped>
 @font-face {
   font-family: ALIBABAPUHUITI;
+<<<<<<< HEAD
   src: url("@/assets/font/ALIBABAPUHUITI.TTF");
+=======
+  src: url("@/assets/font/ALIBABAPUHUITI.otf");
+>>>>>>> f0984b738aca1b2d015c6c7d950c66327c45190d
 }
 .card-box {
   width: v-bind(width);
   height: v-bind(height);
   box-sizing: border-box;
   font-family: ALIBABAPUHUITI;
+  user-select: none;
 }
 
 .card-body {
@@ -65,6 +70,7 @@ export default {
   height: 35px;
   padding-left: 10px;
   background: rgba(21, 77, 160, 0.3);
+  user-select: none;
 }
 
 .card-content{
