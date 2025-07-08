@@ -3,9 +3,6 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-// 初始化指令
-import initDirectives from "./directives";
-
 // 路由权限
 import "./permission.js";
 
@@ -23,6 +20,5 @@ import "virtual:svg-icons-register";
 
 const app = createApp(App);
 app.config.productionTip = false;
-initDirectives(app);
 
 app.use(store).use(router).mount("#app");

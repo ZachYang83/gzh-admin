@@ -38,7 +38,7 @@
       <div class="right3 flex-center">
         <div class="card-body">
           <!-- <Cjsb></Cjsb> -->
-          <div class="shenbao"></div>
+          <div class="shenbao" @click="goToShenbao"></div>
         </div>
       </div>
       <div class="right4 flex-center">
@@ -59,6 +59,12 @@ import Cjsb from "./components/cjsb.vue";
 import Cygm from "./components/cygm.vue";
 import Tbqy from "./components/tbqy.vue";
 import Xctg from "./components/xctg.vue";
+import common from "common";
+const { toPage } = common();
+
+const goToShenbao = () => {
+  toPage("/shenbao");
+};
 </script>
 
 <style lang="scss" scoped>
