@@ -1,0 +1,54 @@
+// cover some element-plus styles
+.el-dialog {
+  border-radius: 6px !important;
+
+  &__headerbtn .el-dialog__close {
+    font-size: 20px;
+  }
+}
+
+.el-card {
+  border-radius: 4px;
+}
+
+.el-pager li {
+  outline: none !important;
+}
+
+.el-alert--info {
+  // background: lighten(#{$primary-color}, 40%) !important;
+  color: $primary-color !important;
+  align-items: flex-start;
+
+  .el-alert__closebtn {
+    color: $primary-color !important;
+  }
+
+  .el-alert__content {
+    padding-right: 10px;
+  }
+}
+
+.el-table {
+  th.el-table__cell {
+    background: #f8f8f8;
+  }
+}
+
+.el-form--inline {
+  .el-form-item {
+    margin-right: 15px !important;
+  }
+}
+
+/*隐藏文字*/
+.el-menu--collapse .el-submenu__title span {
+  display: none !important;
+}
+/*隐藏 > */
+.el-menu--collapse .el-submenu__title .el-submenu__icon-arrow {
+  display: none !important;
+}
+
+
+

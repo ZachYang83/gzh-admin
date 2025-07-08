@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12.947021484375" height="13.22509765625" viewBox="0 0 12.947021484375 13.22509765625" fill="none">
+<g filter="url(#filter_26_123)">
+<path     fill="#FDBD00"  d="M4.73702 5.72255C3.99997 6.09107 3.99997 7.13402 4.73702 7.50255L7.49702 8.89255C8.16192 9.225 8.94702 8.73593 8.94702 7.99255L8.94702 5.23255C8.94702 4.48917 8.16192 4.0001 7.49702 4.33255L4.73702 5.72255Z">
+</path>
+</g>
+<defs>
+<filter id="filter_26_123" x="0" y="0" width="12.947021484375" height="13.22509765625" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="feFloodId_26_123"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha_26_123"/>
+<feOffset dx="0" dy="0"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha_26_123" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.9921568627450981 0 0 0 0 0.7411764705882353 0 0 0 0 0 0 0 0 1 0"/>
+<feBlend mode="normal" in2="feFloodId_26_123" result="dropShadow_1_26_123"/>
+<feBlend mode="normal" in="SourceGraphic" in2="dropShadow_1_26_123" result="shape_26_123"/>
+</filter>
+</defs>
+</svg>
