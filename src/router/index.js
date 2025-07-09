@@ -58,7 +58,21 @@ export const constantRoutes = [
         name: "Scene",
         file: "scene-case/index.vue",
         meta: { title: "场景案例", icon: "iconfont icon-shiyongwendang mr-5" },
-      }
+      },
+      {
+        path: "table",
+        component: () => import("@/views/scene-case/table.vue"),
+        name: "scenceTable",
+        file: "scene-case/table.vue",
+        meta: { title: "场景列表", icon: "iconfont icon-shiyongwendang mr-5" },
+      },
+      {
+        path: "detail",
+        component: () => import("@/views/scene-case/detail.vue"),
+        name: "sceneDetail",
+        file: "scene-case/detail.vue",
+        meta: { title: "场景详情", icon: "iconfont icon-shiyongwendang mr-5" },
+      },
     ],
   },
   {
