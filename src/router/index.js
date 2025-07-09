@@ -58,7 +58,7 @@ export const constantRoutes = [
         name: "Scene",
         file: "scene-case/index.vue",
         meta: { title: "场景案例", icon: "iconfont icon-shiyongwendang mr-5" },
-      },
+      }
     ],
   },
   {
