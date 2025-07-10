@@ -10,84 +10,71 @@
             <svg-icon icon-class="corner1" size = 0.6rem class="bottomright"></svg-icon>
         </div>
         <div class="board-list">
-            <transition-group 
-                name="fade-up"
-                tag="div"
-                class="board-list-inner"
+            <div 
+                v-for="(item, index) in localData" 
+                :key="item.title" 
+                class="board-item"
+                @click="goToDetail(item.target)"
             >
-                <div 
-                    v-for="(item, index) in localData" 
-                    :key="item.title" 
-                    class="board-item"
-                    @click="goToDetail(item.target)"
-                >
-                    <div class="item-title" >{{ item.title }}</div>
-                    <div class="item-content">{{ item.content }}</div>
-                </div>
-            </transition-group>
+                <div class="item-title" >{{ item.title }}</div>
+                <div class="item-content">{{ item.content }}</div>
+            </div>
         </div>
-        <div class="more" @click="goToNextItem()">更多</div>
+        <!-- <div class="more" @click="goToNextItem()">更多</div> -->
    </div>
 </template>
 
-<script>
-import useCommon from "@/common";
-export default {
-    name: "SceneHomeBoard",
-    watch: {
-        data(newVal) {
-            this.localData = [...newVal];
-        }
+<script setup>
+import { ref, watch } from 'vue';
+import common from "common";
+
+const { toPage } = common();
+
+const props = defineProps({
+    title: {
+        type: String,
+        default: "场景板块标题",
     },
-    props: {
-        title: {
-            type: String,
-            default: "场景板块标题",
-        },
-        intro: {
-            type: String,
-            default: "这是一段100字的场景板块简介，这是一段80字的场景板块简介，这是一段100字的场景板块简介，这是一段100字的场景板块简介，这是一段",
-        },
-        target: {
-            type: String,
-            default: "./table",
-        },
-        data: {
-            type: Array,
-            default: () => [
-                { title: "场景标题1", content: "这是一个场景板块的内容示例", target: "./detail" },
-                { title: "场景标题2", content: "这是另一个场景板块的内容示例", target: "./detail" },
-                { title: "场景标题3", content: "这是第三个场景板块的内容示例", target: "./detail" },
-                { title: "场景标题4", content: "这是第四个场景板块的内容示例", target: "./detail" },
-                { title: "场景标题5", content: "这是第五个场景板块的内容示例", target: "./detail" },
-                { title: "场景标题6", content: "这是第六个场景板块的内容示例", target: "./detail" },
-            ],
-        },
+    intro: {
+        type: String,
+        default: "这是一段100字的场景板块简介，这是一段80字的场景板块简介，这是一段100字的场景板块简介，这是一段100字的场景板块简介，这是一段",
     },
-    data(){
-        return {
-            localData: [...this.data]
-        };
+    target: {
+        type: String,
+        default: "./table",
     },
-    methods: {
-        goToDetail(path) {
-            //console.log("Navigating to:", path);
-            this.toPage(path);
-        },
-    
-        goToNextItem() {
-            if (this.localData.length > 0) {
-                this.localData.push(this.localData.shift());
-            }
-        }
+    data: {
+        type: Array,
+        default: () => [
+            { title: "场景标题1", content: "这是一个场景板块的内容示例", target: "./detail" },
+            { title: "场景标题2", content: "这是另一个场景板块的内容示例", target: "./detail" },
+            { title: "场景标题3", content: "这是第三个场景板块的内容示例", target: "./detail" },
+            { title: "场景标题4", content: "这是第四个场景板块的内容示例", target: "./detail" },
+            { title: "场景标题5", content: "这是第五个场景板块的内容示例", target: "./detail" },
+            { title: "场景标题6", content: "这是第六个场景板块的内容示例", target: "./detail" },
+        ],
     },
-    setup(){
-        const { toPage } = useCommon();
-        return {
-            toPage
-        };
+});
+
+const localData = ref([...props.data]);
+
+// 监听 props.data 变化并更新 localData
+watch(
+    () => props.data,
+    (newVal) => {
+        localData.value = [...newVal];
     }
-};
+);
+
+function goToDetail(path) {
+    toPage(path);
+}
+
+function goToNextItem() {
+    if (localData.value.length > 0) {
+        localData.value.push(localData.value.shift());
+    }
+}
 </script>
 
 <style scoped>
@@ -102,6 +89,8 @@ export default {
     border: 1px solid rgba(0, 170, 255, 1);
     border-image: linear-gradient(0deg, rgba(0, 213, 255, 1) 0%, rgba(0, 132, 255, 1) 100%) 30;
     border-radius:4px;
+    display: flex;
+    flex-direction: column;
 }
 
 .title{
@@ -142,20 +131,27 @@ export default {
 
 .board-list {
     width: 100%;
-    height: calc(100% - 140px); /* 减去标题和简介的高度 */
-}
-.board-list-inner{
-    width: 100%;
-    height: 100%;
+    /*height: calc(100% - 140px);  减去标题和简介的高度 */
+    flex: 1;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 10px;
-    overflow: hidden;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    /*隐藏滑动条*/
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
     gap: 1.5%;
+    &::-webkit-scrollbar {
+        display: none; /* Chrome, Safari 和 Opera */
+    }
 }
 .board-item {
-    flex: 0 0 23%;
+    scroll-snap-align: start;
+    flex: 0 0 23.5%;
     width:100%;
     padding: 15px;
     border: 1px solid rgba(140,194,255,0.36);
@@ -164,15 +160,20 @@ export default {
     backdrop-filter: blur(4px);
     border-radius: 8px;
     cursor: pointer;
-    transition: 0.5s ease;
+    transition: 0.3s ease;
+    
 }
+.board-item:hover {
+    background-color: rgba(255,255,255,0.3);
+}
+
 .item-title {
     font-weight: bold;
     font-size: 16px;
 }
 .item-content {
     margin-top: 10px;
-    font-size: 12px;
+    font-size: 14px;
 }
 .more {
     width: 100%;

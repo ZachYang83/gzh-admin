@@ -1,35 +1,30 @@
 <template>
-   <div class = "board-wrap">
-        <img :src = "img_src" alt = "figure-board" />
-        <div class = "board-figure">
-            <span>{{ count }}</span>个
-        </div>
-        <div class = "board-title">
-            <span>{{ title }}</span>
-        </div>
-   </div>
+  <div class="board-wrap">
+    <img :src="img_src" alt="figure-board" />
+    <div class="board-figure">
+      <span>{{ count }}</span>个
+    </div>
+    <div class="board-title">
+      <span>{{ title }}</span>
+    </div>
+  </div>
 </template>
 
-<script>
-export default {
-    name: "Figureboard",
-    props: {
-        img_src: {
-            type: String,
-            default: "src/views/scene-case/imgs/icon-qbcj.png"
-        },
-        count: {
-            type: Number,
-            default: 236
-        },
-        title: {
-            type: String,
-            default: "应用场景"
-        }
+<script setup name="Figureboard">
+const props = defineProps({
+    img_src: {
+        type: String,
+        default: "src/views/scene-case/imgs/icon-qbcj.png"
+    },
+    count: {
+        type: Number,
+        default: 236
+    },
+    title: {
+        type: String,
+        default: "应用场景"
     }
-}
-
-
+});
 </script>
 
 <style lang = "scss" scoped>

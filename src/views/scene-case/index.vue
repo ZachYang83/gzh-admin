@@ -19,9 +19,10 @@
 
       <div class="cj-list-boards">
         <div class="left-btn">
-          <svg-icon icon-class="double-arrow" size="2rem" @click="rollToNextLeft()"></svg-icon>
+          <svg-icon icon-class="double-arrow" size="2rem" @click="previousBoard()" v-if="currentBoardIndex > 0"></svg-icon>
         </div>
         <div class="boards-wrap">
+          
           <SceneHomeBoard
             v-for="(board, index) in SceneHomeBoards"
             :key="index"
@@ -32,7 +33,7 @@
           />
         </div>
         <div class="right-btn">
-          <svg-icon icon-class="double-arrow" size="2rem" @click="rollToNextRight()"></svg-icon>
+          <svg-icon icon-class="double-arrow" size="2rem" @click="nextBoard()" v-if="currentBoardIndex < figureData.length - 4"></svg-icon>
         </div>
       </div>
     </div>
@@ -45,6 +46,8 @@ import SceneHomeBoard from "./components/scene-home-board.vue";
 import common from "common";
 
 const { toPage } = common();
+
+const currentBoardIndex = ref(0);
 
 // 图标面板数据（可替换为接口获取）
 const figureData = [
@@ -112,11 +115,25 @@ const goToDetail = (path) => {
   if (path) toPage(path);
 };
 
-const rollToNextLeft = () => {
+const previousBoard = () => {
+  currentBoardIndex.value -= 1;
   // 实现左滚动逻辑
+  const boardsWrap = document.querySelector('.boards-wrap');
+  if (boardsWrap) {
+    // 计算新的滚动位置
+    const newScrollLeft = boardsWrap.scrollLeft - boardsWrap.clientWidth*0.255; // 0.255=0.235+0.02
+    boardsWrap.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
+  }
 };
-const rollToNextRight = () => {
+const nextBoard = () => {
+  currentBoardIndex.value += 1;
   // 实现右滚动逻辑
+  const boardsWrap = document.querySelector('.boards-wrap');
+  if (boardsWrap) {
+    // 计算新的滚动位置
+    const newScrollLeft = boardsWrap.scrollLeft + boardsWrap.clientWidth*0.255; // 0.255=0.235+0.02-1px
+    boardsWrap.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
+  }
 };
 </script>
 
@@ -149,15 +166,7 @@ const rollToNextRight = () => {
   justify-content: space-between;
   //background-color: #ff8d1a;
 }
-// .separator-wrap {
-//   position:absolute;
-//   width: 90%;
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-//   justify-content: space-between;
 
-// }
 .separator {
   width: 2.6vw;
   height: 0.5vh;
@@ -178,6 +187,7 @@ const rollToNextRight = () => {
   width: 2%;
   height: fit-content;
   margin: 0.5%;
+  cursor: pointer;
   //background-color: #ff8d1a;
 } 
 
