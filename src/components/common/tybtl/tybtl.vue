@@ -1,7 +1,7 @@
 <template>
    <div class = "bt-wrap">
-        <div class = "back-icon" v-if="!isHome">
-            <svg-icon icon-class="arrow-back" class="svg-icon" size="60%" @click="$router.back()" />
+        <div class = "back-icon" >
+            <svg-icon icon-class="arrow-back" class="svg-icon" size=3em @click="$router.back()" v-if="!isHome"/>
         </div>
         <div class = "title-text">
             <span>{{ title }}</span>
@@ -37,6 +37,8 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
   }
   .back-icon {
       width: 25%;

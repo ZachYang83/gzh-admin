@@ -1,0 +1,185 @@
+<template>
+   <div class="board-wrap">
+        <div class="title" @click="goToDetail(target)">
+            <span>{{ title }}</span>
+            <div class = "btn">全部>></div>
+        </div>
+        <div class="intro">
+            <svg-icon icon-class="corner1" size = 0.6rem class="topleft"></svg-icon>
+            {{ intro }}
+            <svg-icon icon-class="corner1" size = 0.6rem class="bottomright"></svg-icon>
+        </div>
+        <div class="board-list">
+            <transition-group 
+                name="fade-up"
+                tag="div"
+                class="board-list-inner"
+            >
+                <div 
+                    v-for="(item, index) in localData" 
+                    :key="item.title" 
+                    class="board-item"
+                    @click="goToDetail(item.target)"
+                >
+                    <div class="item-title" >{{ item.title }}</div>
+                    <div class="item-content">{{ item.content }}</div>
+                </div>
+            </transition-group>
+        </div>
+        <div class="more" @click="goToNextItem()">更多</div>
+   </div>
+</template>
+
+<script>
+import useCommon from "@/common";
+export default {
+    name: "SceneHomeBoard",
+    watch: {
+        data(newVal) {
+            this.localData = [...newVal];
+        }
+    },
+    props: {
+        title: {
+            type: String,
+            default: "场景板块标题",
+        },
+        intro: {
+            type: String,
+            default: "这是一段100字的场景板块简介，这是一段80字的场景板块简介，这是一段100字的场景板块简介，这是一段100字的场景板块简介，这是一段",
+        },
+        target: {
+            type: String,
+            default: "./table",
+        },
+        data: {
+            type: Array,
+            default: () => [
+                { title: "场景标题1", content: "这是一个场景板块的内容示例", target: "./detail" },
+                { title: "场景标题2", content: "这是另一个场景板块的内容示例", target: "./detail" },
+                { title: "场景标题3", content: "这是第三个场景板块的内容示例", target: "./detail" },
+                { title: "场景标题4", content: "这是第四个场景板块的内容示例", target: "./detail" },
+                { title: "场景标题5", content: "这是第五个场景板块的内容示例", target: "./detail" },
+                { title: "场景标题6", content: "这是第六个场景板块的内容示例", target: "./detail" },
+            ],
+        },
+    },
+    data(){
+        return {
+            localData: [...this.data]
+        };
+    },
+    methods: {
+        goToDetail(path) {
+            //console.log("Navigating to:", path);
+            this.toPage(path);
+        },
+    
+        goToNextItem() {
+            if (this.localData.length > 0) {
+                this.localData.push(this.localData.shift());
+            }
+        }
+    },
+    setup(){
+        const { toPage } = useCommon();
+        return {
+            toPage
+        };
+    }
+};
+</script>
+
+<style scoped>
+
+.board-wrap {
+    position: relative;
+    height: 100%;
+    flex:0 0 23.5%;
+    padding: 10px;
+    background: linear-gradient(to bottom, rgba(204,226,255,0.2), rgba(0,91,219,0.4)),
+                url(../imgs/bg-list-cj.png) center;
+    border: 1px solid rgba(0, 170, 255, 1);
+    border-image: linear-gradient(0deg, rgba(0, 213, 255, 1) 0%, rgba(0, 132, 255, 1) 100%) 30;
+    border-radius:4px;
+}
+
+.title{
+    width:100%;
+    height:30px;
+    padding:5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+    align-items: center;
+    cursor: pointer;
+    span {
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+
+.intro {
+    position: relative;
+    height: 70px;
+    margin-top: 10px;
+    padding: 8px 15px;
+}
+
+.topleft, .bottomright {
+    position: absolute;
+}
+
+.topleft {
+    top: 0; left: 0;
+}
+
+.bottomright {
+    bottom: 0; right: 0;
+    transform: rotate(180deg);
+}
+
+.board-list {
+    width: 100%;
+    height: calc(100% - 140px); /* 减去标题和简介的高度 */
+}
+.board-list-inner{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    overflow: hidden;
+    gap: 1.5%;
+}
+.board-item {
+    flex: 0 0 23%;
+    width:100%;
+    padding: 15px;
+    border: 1px solid rgba(140,194,255,0.36);
+    box-sizing: border-box;
+    background-color: rgba(255,255,255,0.2);
+    backdrop-filter: blur(4px);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+.item-title {
+    font-weight: bold;
+    font-size: 16px;
+}
+.item-content {
+    margin-top: 10px;
+    font-size: 12px;
+}
+.more {
+    width: 100%;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+</style>

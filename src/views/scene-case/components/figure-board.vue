@@ -45,6 +45,7 @@ export default {
         background-repeat: no-repeat;
         background-position: center;
         overflow: hidden;
+        cursor: pointer;
     }
     img {
         height: 50%;
