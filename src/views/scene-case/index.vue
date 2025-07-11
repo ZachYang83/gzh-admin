@@ -1,7 +1,7 @@
 <template>
   <div class="cj-wrap">
     <div class="main-title">
-      <Tybtl title="千行百业应用场景全覆盖" isHome="True"></Tybtl>
+      <Tybtl title="千行百业应用场景全覆盖" :isHome="true"></Tybtl>
     </div>
     <div class="main-content">
       <div class="figure-boards">
@@ -19,9 +19,10 @@
 
       <div class="cj-list-boards">
         <div class="left-btn">
-          <svg-icon icon-class="double-arrow" size="2rem" @click="rollToNextLeft()"></svg-icon>
+          <svg-icon icon-class="double-arrow" size="2rem" @click="previousBoard()" v-if="currentBoardIndex > 0"></svg-icon>
         </div>
         <div class="boards-wrap">
+          
           <SceneHomeBoard
             v-for="(board, index) in SceneHomeBoards"
             :key="index"
@@ -32,7 +33,7 @@
           />
         </div>
         <div class="right-btn">
-          <svg-icon icon-class="double-arrow" size="2rem" @click="rollToNextRight()"></svg-icon>
+          <svg-icon icon-class="double-arrow" size="2rem" @click="nextBoard()" v-if="currentBoardIndex < figureData.length - 4"></svg-icon>
         </div>
       </div>
     </div>
@@ -42,81 +43,243 @@
 <script setup>
 import Figureboard from "./components/figure-board.vue";
 import SceneHomeBoard from "./components/scene-home-board.vue";
+import Api from "@/api/scene/index.js";
 import common from "common";
 
 const { toPage } = common();
 
+const currentBoardIndex = ref(0);
+
 // 图标面板数据（可替换为接口获取）
-const figureData = [
+const figureData = ref([
   {
     img_src: "src/views/scene-case/imgs/icon-qbcj.png",
-    count: 90,
+    count: 0,
     title: "全部场景",
-    path: "/scene/table"
+    path: "/scene/table",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-zzly.png",
-    count: 10,
-    title: "制造领域",
-    path: ""
+    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    count: 0,
+    title: "智能制造",
+    path: "/scene/table",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-ylly.png",
-    count: 10,
-    title: "医疗领域",
-    path: ""
+    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    count: 0,
+    title: "医药健康",
+    path: "/scene/table",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-jtly.png",
-    count: 10,
-    title: "交通领域",
-    path: ""
+    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    count: 0,
+    title: "综合交通",
+    path: "/scene/table",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-cszl.png",
-    count: 10,
+    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    count: 0,
+    title: "能源环保",
+    path: "/scene/table",
+  },
+  {
+    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    count: 0,
     title: "城市治理",
-    path: ""
+    path: "/scene/table",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-jyly.png",
-    count: 10,
-    title: "教育领域",
-    path: ""
+    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    count: 0,
+    title: "商贸流通",
+    path: "/scene/table",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-zwfw.png",
-    count: 10,
+    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    count: 0,
+    title: "教育教学",
+    path: "/scene/table",
+  },
+  {
+    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    count: 0,
+    title: "智能办公",
+    path: "/scene/table",
+  },
+  {
+    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    count: 0,
+    title: "数字创意",
+    path: "/scene/table",
+  },
+  {
+    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    count: 0,
     title: "政务服务",
-    path: ""
+    path: "/scene/table",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-qtly.png",
-    count: 20,
-    title: "其他领域",
-    path: ""
-  }
-];
-const SceneHomeBoards = ref([])
-onMounted(async () => {
-  try {
-    const response = await import('./data/scene-data.json')
-    SceneHomeBoards.value = response.default || response
-  } catch (error) {
-    console.error('加载场景数据失败:', error)
-  }
-})
+    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    count: 0,
+    title: "智能安防",
+    path: "/scene/table",
+  },
+  {
+    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    count: 0,
+    title: "现代农业",
+    path: "/scene/table",
+  },
+]);
+
+const SceneHomeBoards = ref([
+  {
+    title: "智能制造",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "医药健康",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "综合交通",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "能源环保",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "城市治理",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "商贸流通",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "教育教学",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "智能办公",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "数字创意",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "政务服务",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "智能安防",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "现代农业",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+]);
+onMounted(() => {
+  //获取各类场景数量
+  Api.getCaseCount().then((res) => {
+    let resData = res.data;
+    for (let i = 1; i < figureData.value.length; i++) {
+      const figItem = figureData.value[i];
+      const matchedItem = resData.find(
+        (itemObj) => itemObj.field === figItem.title
+      );
+      if (matchedItem) {
+        figItem.count = matchedItem.count;
+      }
+      const totalCount = resData.reduce(
+        (sum, itemObj) => sum + itemObj.count,
+        0
+      );
+      figureData.value[0].count = totalCount;
+    }
+  });
+
+  // 获取场景
+  Api.getCase().then((res) => {
+    let resData = res.data;
+
+    SceneHomeBoards.value.forEach((board) => {
+      // 筛选data中sceneClass与当前board.title一致的数据
+      const matchedData = resData.filter(
+        (item) => item.sceneClass === board.title
+      );
+      // 将筛选结果赋值给该领域的data属性
+      board.data = matchedData;
+    });
+  });
+
+});
 
 // 跳转方法
 const goToDetail = (path) => {
   if (path) toPage(path);
 };
 
-const rollToNextLeft = () => {
+const previousBoard = () => {
+  currentBoardIndex.value -= 1;
   // 实现左滚动逻辑
+  const boardsWrap = document.querySelector(".boards-wrap");
+  if (boardsWrap) {
+    // 计算新的滚动位置
+    const newScrollLeft =
+      boardsWrap.scrollLeft - boardsWrap.clientWidth * 0.255; // 0.255=0.235+0.02
+    boardsWrap.scrollTo({ left: newScrollLeft, behavior: "smooth" });
+  }
 };
-const rollToNextRight = () => {
+const nextBoard = () => {
+  currentBoardIndex.value += 1;
   // 实现右滚动逻辑
+  const boardsWrap = document.querySelector(".boards-wrap");
+  if (boardsWrap) {
+    // 计算新的滚动位置
+    const newScrollLeft =
+      boardsWrap.scrollLeft + boardsWrap.clientWidth * 0.255; // 0.255=0.235+0.02-1px
+    boardsWrap.scrollTo({ left: newScrollLeft, behavior: "smooth" });
+  }
 };
 </script>
 
@@ -149,17 +312,9 @@ const rollToNextRight = () => {
   justify-content: space-between;
   //background-color: #ff8d1a;
 }
-// .separator-wrap {
-//   position:absolute;
-//   width: 90%;
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-//   justify-content: space-between;
 
-// }
 .separator {
-  width: 2.6vw;
+  width: 1.4vw;
   height: 0.5vh;
   border-radius: 0.25vh;
   background: #ff8d1a;
@@ -178,6 +333,7 @@ const rollToNextRight = () => {
   width: 2%;
   height: fit-content;
   margin: 0.5%;
+  cursor: pointer;
   //background-color: #ff8d1a;
 } 
 
@@ -204,3 +360,4 @@ const rollToNextRight = () => {
 
 
 </style>
+
