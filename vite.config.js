@@ -88,12 +88,12 @@ export default defineConfig(({ mode }) => {
       port,
       // 是否开启https
       https: false,
-      proxy: {
-        '/api': {
-          target: 'http://192.168.28.244:9696',
+      proxy:{
+        "/scene":{
+          target: "http://192.168.28.244:9696",
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, '')
-        }
+          // rewrite: (path) => path.replace(/^\/enterprise/, "/enterprise"),
+        },
       }
     },
     resolve: {

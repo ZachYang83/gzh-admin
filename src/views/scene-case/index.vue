@@ -43,9 +43,8 @@
 <script setup>
 import Figureboard from "./components/figure-board.vue";
 import SceneHomeBoard from "./components/scene-home-board.vue";
+import Api from "@/api/scene/index.js";
 import common from "common";
-import axios from "axios";
-
 
 const { toPage } = common();
 
@@ -57,123 +56,210 @@ const figureData = ref([
     img_src: "src/views/scene-case/imgs/icon-qbcj.png",
     count: 0,
     title: "全部场景",
-    path: "/scene/table"
+    path: "/scene/table",
   },
   {
     img_src: "src/views/scene-case/imgs/icon-znzz.png",
     count: 0,
-    title: "智能制造",//
-    path: ""
+    title: "智能制造", //
+    path: "",
   },
   {
     img_src: "src/views/scene-case/imgs/icon-yyjk.png",
     count: 0,
-    title: "医药健康",//
-    path: ""
+    title: "医药健康", //
+    path: "",
   },
   {
     img_src: "src/views/scene-case/imgs/icon-zhjt.png",
     count: 0,
-    title: "综合交通",//
-    path: ""
-  },
-  {
-    img_src: "src/views/scene-case/imgs/icon-cszl.png",
-    count: 0,
-    title: "城市治理",//
-    path: ""
-  },
-  {
-    img_src: "src/views/scene-case/imgs/icon-jyjx.png",
-    count: 0,
-    title: "教育教学",//
-    path: ""
-  },
-  {
-    img_src: "src/views/scene-case/imgs/icon-zwfw.png",
-    count: 0,
-    title: "政务服务",//
-    path: ""
-  },
-  //商贸流通
-  {
-    img_src: "src/views/scene-case/imgs/icon-smlt.png",
-    count: 0,
-    title: "商贸流通",
-    path: ""
-  },
-  //数字创意
-  {
-    img_src: "src/views/scene-case/imgs/icon-szcy.png",
-    count: 0,
-    title: "数字创意",
-    path: ""
-  },
-  //智能办公
-  {
-    img_src: "src/views/scene-case/imgs/icon-znbg.png",
-    count: 0,
-    title: "智能办公",
-    path: ""
-  },
-  //智能安防
-  {
-    img_src: "src/views/scene-case/imgs/icon-znaf.png",
-    count: 0,
-    title: "智能安防",
-    path: ""
-  },
-  //现代农业
-  {
-    img_src: "src/views/scene-case/imgs/icon-xdny.png",
-    count: 0,
-    title: "现代农业",
-    path: ""
+    title: "综合交通", //
+    path: "",
   },
   //能源环保
   {
     img_src: "src/views/scene-case/imgs/icon-nyhb.png",
     count: 0,
     title: "能源环保",
-    path: ""
-  }
+    path: "",
+  },
+  {
+    img_src: "src/views/scene-case/imgs/icon-cszl.png",
+    count: 0,
+    title: "城市治理", //
+    path: "",
+  },
+  {
+    img_src: "src/views/scene-case/imgs/icon-jyjx.png",
+    count: 0,
+    title: "教育教学", //
+    path: "",
+  },
+  {
+    img_src: "src/views/scene-case/imgs/icon-zwfw.png",
+    count: 0,
+    title: "政务服务", //
+    path: "",
+  },
+  //商贸流通
+  {
+    img_src: "src/views/scene-case/imgs/icon-smlt.png",
+    count: 0,
+    title: "商贸流通",
+    path: "",
+  },
+  //数字创意
+  {
+    img_src: "src/views/scene-case/imgs/icon-szcy.png",
+    count: 0,
+    title: "数字创意",
+    path: "",
+  },
+  //智能办公
+  {
+    img_src: "src/views/scene-case/imgs/icon-znbg.png",
+    count: 0,
+    title: "智能办公",
+    path: "",
+  },
+  //智能安防
+  {
+    img_src: "src/views/scene-case/imgs/icon-znaf.png",
+    count: 0,
+    title: "智能安防",
+    path: "",
+  },
+  //现代农业
+  {
+    img_src: "src/views/scene-case/imgs/icon-xdny.png",
+    count: 0,
+    title: "现代农业",
+    path: "",
+  },
+  
 ]);
-const fetchFigureData = async () => {
-  try {
-    const response = await axios.get("/api/scene/scene-case/getCaseCount");
-    //console.log("请求成功:", response.data);
-    if (response.data.code === "00000") {
-      const apiData = response.data.data|| [];
-      // 计算全部场景数量
-      const totalAll = apiData.reduce((sum, item) => sum + item.count, 0);
-      figureData.value[0].count = totalAll;
 
-      // 更新每个具体领域的 count
-      for (let i = 1; i < figureData.value.length; i++) {
-        const fieldTitle = figureData.value[i].title;
-        const matched = apiData.find(item => item.field === fieldTitle);
-        if (matched) {
-          figureData.value[i].count = matched.count;
-        }
-      }
-    }
-  } catch (error) {
-    console.error("请求失败:", error);
-  }
-};
-
+const SceneHomeBoards = ref([
+  {
+    title: "智能制造",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "医药健康",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "综合交通",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "能源环保",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "城市治理",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "商贸流通",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "教育教学",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "智能办公",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "数字创意",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "政务服务",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "智能安防",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "现代农业",
+    intro:
+      "制造业正加速与人工智能融合，推动智能制造、质量检测、自动化生产等场景创新。",
+    target: "./table",
+    data: [],
+  },
+]);
 onMounted(() => {
-  fetchFigureData();
+  //获取各类场景数量
+  Api.getCaseCount().then((res) => {
+    let resData = res.data;
+    for (let i = 1; i < figureData.value.length; i++) {
+      const figItem = figureData.value[i];
+      const matchedItem = resData.find(
+        (itemObj) => itemObj.field === figItem.title
+      );
+      if (matchedItem) {
+        figItem.count = matchedItem.count;
+      }
+      const totalCount = resData.reduce(
+        (sum, itemObj) => sum + itemObj.count,
+        0
+      );
+      figureData.value[0].count = totalCount;
+    }
+  });
+
+  // 获取场景
+  Api.getCase().then((res) => {
+    let resData = res.data;
+
+    SceneHomeBoards.value.forEach((board) => {
+      // 筛选data中sceneClass与当前board.title一致的数据
+      const matchedData = resData.filter(
+        (item) => item.sceneClass === board.title
+      );
+      // 将筛选结果赋值给该领域的data属性
+      board.data = matchedData;
+    });
+  });
+
 });
-const SceneHomeBoards = ref([])
-onMounted(async () => {
-  try {
-    const response = await import('./data/scene-data.json')
-    SceneHomeBoards.value = response.default || response
-  } catch (error) {
-    console.error('加载场景数据失败:', error)
-  }
-})
 
 // 跳转方法
 const goToDetail = (path) => {
@@ -183,21 +269,23 @@ const goToDetail = (path) => {
 const previousBoard = () => {
   currentBoardIndex.value -= 1;
   // 实现左滚动逻辑
-  const boardsWrap = document.querySelector('.boards-wrap');
+  const boardsWrap = document.querySelector(".boards-wrap");
   if (boardsWrap) {
     // 计算新的滚动位置
-    const newScrollLeft = boardsWrap.scrollLeft - boardsWrap.clientWidth*0.255; // 0.255=0.235+0.02
-    boardsWrap.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
+    const newScrollLeft =
+      boardsWrap.scrollLeft - boardsWrap.clientWidth * 0.255; // 0.255=0.235+0.02
+    boardsWrap.scrollTo({ left: newScrollLeft, behavior: "smooth" });
   }
 };
 const nextBoard = () => {
   currentBoardIndex.value += 1;
   // 实现右滚动逻辑
-  const boardsWrap = document.querySelector('.boards-wrap');
+  const boardsWrap = document.querySelector(".boards-wrap");
   if (boardsWrap) {
     // 计算新的滚动位置
-    const newScrollLeft = boardsWrap.scrollLeft + boardsWrap.clientWidth*0.255; // 0.255=0.235+0.02-1px
-    boardsWrap.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
+    const newScrollLeft =
+      boardsWrap.scrollLeft + boardsWrap.clientWidth * 0.255; // 0.255=0.235+0.02-1px
+    boardsWrap.scrollTo({ left: newScrollLeft, behavior: "smooth" });
   }
 };
 </script>

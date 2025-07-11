@@ -2,7 +2,8 @@
   <div class="board-wrap">
     <img :src="img_src" alt="figure-board" />
     <div class="board-figure">
-      <span>{{ displayCount  }}</span>个
+      <span>{{ displayCount }}</span
+      >个
     </div>
     <div class="board-title">
       <span>{{ title }}</span>
@@ -53,55 +54,52 @@ watch(
     immediate: true // 立即触发一次，如果 count 已经有值
   }
 )
-
 </script>
 
-<style lang = "scss" scoped>
-    .board-wrap {
-        height: 70%;
-        width: 4.5vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        background-image: url("../imgs/bg-figure-board.png");
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        background-position: center;
-        overflow: hidden;
-        cursor: pointer;
-    }
-    img {
-        height: 50%;
-        padding-top: 15%;
-        padding-bottom: 5%;
-        
-    }
-    .board-figure {
-        width: 100%;
-        height: 28%;
-        display: flex;
-        justify-content: center;
-        align-items:baseline;
-        background: linear-gradient(to bottom, white, #B2EBFF, #0DCAF0);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        font-weight: 600;
-        font-size: 16px;
-        span{
-            font-size: 28px;
-        }
-    }
-    .board-title {
-        width: 100%;
-        height: 22%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 12px;
-        font-weight: 600;
-        color: #A7B5C6;
-    }
-
+<style lang="scss" scoped>
+.board-wrap {
+  height: 70%;
+  width: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-image: url("../imgs/bg-figure-board.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+img {
+  height: 50%;
+  padding-top: 15%;
+  padding-bottom: 5%;
+}
+.board-figure {
+  width: 100%;
+  height: 28%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  background: linear-gradient(to bottom, white, #b2ebff, #0dcaf0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 600;
+  font-size: 16px;
+  span {
+    font-size: 32px;
+  }
+}
+.board-title {
+  width: 100%;
+  height: 22%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #a7b5c6;
+}
 </style>

@@ -11,16 +11,15 @@
         </div>
         <div class="board-list">
             <div 
-                v-for="(item, index) in localData" 
+                v-for="(item, index) in props.data" 
                 :key="item.title" 
                 class="board-item"
                 @click="goToDetail(item.target)"
             >
-                <div class="item-title" >{{ item.title }}</div>
-                <div class="item-content">{{ item.content }}</div>
+                <div class="item-title" >{{ item.projectName }}</div>
+                <div class="item-content">{{ item.supportingUnit }}</div>
             </div>
         </div>
-        <!-- <div class="more" @click="goToNextItem()">更多</div> -->
    </div>
 </template>
 
@@ -46,35 +45,15 @@ const props = defineProps({
     data: {
         type: Array,
         default: () => [
-            { title: "场景标题1", content: "这是一个场景板块的内容示例", target: "./detail" },
-            { title: "场景标题2", content: "这是另一个场景板块的内容示例", target: "./detail" },
-            { title: "场景标题3", content: "这是第三个场景板块的内容示例", target: "./detail" },
-            { title: "场景标题4", content: "这是第四个场景板块的内容示例", target: "./detail" },
-            { title: "场景标题5", content: "这是第五个场景板块的内容示例", target: "./detail" },
-            { title: "场景标题6", content: "这是第六个场景板块的内容示例", target: "./detail" },
         ],
     },
 });
 
-const localData = ref([...props.data]);
-
-// 监听 props.data 变化并更新 localData
-watch(
-    () => props.data,
-    (newVal) => {
-        localData.value = [...newVal];
-    }
-);
 
 function goToDetail(path) {
     toPage(path);
 }
 
-function goToNextItem() {
-    if (localData.value.length > 0) {
-        localData.value.push(localData.value.shift());
-    }
-}
 </script>
 
 <style scoped>
