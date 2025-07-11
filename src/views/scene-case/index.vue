@@ -59,77 +59,84 @@ const figureData = ref([
     path: "/scene/table",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    img_src: "src/views/scene-case/imgs/icon-znzz.png",
     count: 0,
-    title: "智能制造",
-    path: "/scene/table",
+    title: "智能制造", //
+    path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    img_src: "src/views/scene-case/imgs/icon-yyjk.png",
     count: 0,
-    title: "医药健康",
-    path: "/scene/table",
+    title: "医药健康", //
+    path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    img_src: "src/views/scene-case/imgs/icon-zhjt.png",
     count: 0,
-    title: "综合交通",
-    path: "/scene/table",
+    title: "综合交通", //
+    path: "",
   },
+  //能源环保
   {
-    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    img_src: "src/views/scene-case/imgs/icon-nyhb.png",
     count: 0,
     title: "能源环保",
-    path: "/scene/table",
+    path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    img_src: "src/views/scene-case/imgs/icon-cszl.png",
     count: 0,
-    title: "城市治理",
-    path: "/scene/table",
+    title: "城市治理", //
+    path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    img_src: "src/views/scene-case/imgs/icon-jyjx.png",
+    count: 0,
+    title: "教育教学", //
+    path: "",
+  },
+  {
+    img_src: "src/views/scene-case/imgs/icon-zwfw.png",
+    count: 0,
+    title: "政务服务", //
+    path: "",
+  },
+  //商贸流通
+  {
+    img_src: "src/views/scene-case/imgs/icon-smlt.png",
     count: 0,
     title: "商贸流通",
-    path: "/scene/table",
+    path: "",
   },
+  //数字创意
   {
-    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
-    count: 0,
-    title: "教育教学",
-    path: "/scene/table",
-  },
-  {
-    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
-    count: 0,
-    title: "智能办公",
-    path: "/scene/table",
-  },
-  {
-    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    img_src: "src/views/scene-case/imgs/icon-szcy.png",
     count: 0,
     title: "数字创意",
-    path: "/scene/table",
+    path: "",
   },
+  //智能办公
   {
-    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    img_src: "src/views/scene-case/imgs/icon-znbg.png",
     count: 0,
-    title: "政务服务",
-    path: "/scene/table",
+    title: "智能办公",
+    path: "",
   },
+  //智能安防
   {
-    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    img_src: "src/views/scene-case/imgs/icon-znaf.png",
     count: 0,
     title: "智能安防",
-    path: "/scene/table",
+    path: "",
   },
+  //现代农业
   {
-    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    img_src: "src/views/scene-case/imgs/icon-xdny.png",
     count: 0,
     title: "现代农业",
-    path: "/scene/table",
+    path: "",
   },
+  
 ]);
 
 const SceneHomeBoards = ref([
