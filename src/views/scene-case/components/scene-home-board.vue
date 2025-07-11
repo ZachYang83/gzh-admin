@@ -12,9 +12,9 @@
         <div class="board-list">
             <div 
                 v-for="(item, index) in props.data" 
-                :key="item.title" 
+                :key="item.id" 
                 class="board-item"
-                @click="goToDetail(item.target)"
+                @click="goToDetail(item.id)"
             >
                 <div class="item-title" >{{ item.projectName }}</div>
                 <div class="item-content">{{ item.supportingUnit }}</div>
@@ -24,9 +24,9 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { useRouter } from "vue-router";
+const router = useRouter();
 import common from "common";
-
 const { toPage } = common();
 
 const props = defineProps({
@@ -50,9 +50,16 @@ const props = defineProps({
 });
 
 
-function goToDetail(path) {
-    toPage(path);
-}
+const goToDetail = (id) => {
+    console.log(id,'id');
+    
+  router.replace({
+    name: "sceneDetail",
+    query: {
+      id: id,
+    },
+  });
+};
 
 </script>
 
