@@ -11,7 +11,6 @@
   </div>
 </template>
 
-
 <script setup name="Figureboard">
 const props = defineProps({
     img_src: {

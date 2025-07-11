@@ -3,7 +3,7 @@
       <div class = "title">{{ title }}</div>
       <div class = "main-content">
         <div class = "left">
-            <img src="@assets/images/bg-detail-board.png" alt="背景图" class="bg-image">
+            <img src="@/assets/images/bg-detail-board.png" alt="背景图" class="bg-image" v-if = "ifimg">
         </div>
         <div class = "right">
             <div class = "line1">{{ key1 }}:{{ value1 }}</div>
@@ -14,8 +14,41 @@
    </div>
 </template>
 
-<script setup>
-
+<script setup name="BoardType1">
+const props = defineProps({
+  ifimg: {
+    type: Boolean,
+    default: true
+  },
+  title: {
+    type: String,
+    default: "标题"
+  },
+  key1: {
+    type: String,
+    default: "关键字1"
+  },
+  value1: {
+    type: String,
+    default: "值1"
+  },
+  key2: {
+    type: String,
+    default: "关键字2"
+  },
+  value2: {
+    type: String,
+    default: "值2"
+  },
+  key3: {
+    type: String,
+    default: "关键字3"
+  },
+  value3: {
+    type: String,
+    default: "值3"
+  }
+});
 
 
 </script>
@@ -25,7 +58,12 @@
   font-family: YouSheBiaoTiHei;
   src: url("@/assets/font/YouSheBiaoTiHei.ttf");
 }
-
+.board-wrap{
+  width:100px;
+  height: 100px;
+  display: flex; 
+  background-color: rgb(255, 145, 0);
+}
 
 
 
