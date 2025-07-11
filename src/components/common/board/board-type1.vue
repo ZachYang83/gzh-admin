@@ -59,8 +59,8 @@ const props = defineProps({
   src: url("@/assets/font/YouSheBiaoTiHei.ttf");
 }
 .board-wrap{
-  width:100px;
-  height: 100px;
+  width:100%;
+  height: 100%;
   display: flex; 
   background-color: rgb(255, 145, 0);
 }

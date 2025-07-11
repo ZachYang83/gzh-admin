@@ -2,7 +2,7 @@
   <div class="board-wrap">
     <img :src="img_src" alt="figure-board" />
     <div class="board-figure">
-      <span>{{ count }}</span>个
+      <span>{{ displayCount  }}</span>个
     </div>
     <div class="board-title">
       <span>{{ title }}</span>
@@ -25,12 +25,41 @@ const props = defineProps({
         default: "应用场景"
     }
 });
+const displayCount = ref(0)
+const startAnimation = (start = 0, end = 0, duration = 2000) => {
+  const startTime = performance.now()
+
+  const animate = (currentTime) => {
+    const timeElapsed = currentTime - startTime
+    const progress = Math.min(timeElapsed / duration, 1)
+    displayCount.value = Math.floor(progress * (end - start) + start)
+
+    if (timeElapsed < duration) {
+      requestAnimationFrame(animate)
+    }
+  }
+
+  requestAnimationFrame(animate)
+}
+
+// 监听 props.count 变化
+watch(
+  () => props.count,
+  (newCount) => {
+    //duration = log(newCount*20,2) 
+    startAnimation(0, newCount, Math.sqrt(newCount) * 200);
+  },
+  {
+    immediate: true // 立即触发一次，如果 count 已经有值
+  }
+)
+
 </script>
 
 <style lang = "scss" scoped>
     .board-wrap {
-        height: 80%;
-        width: 6vw;
+        height: 70%;
+        width: 4.5vw;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -61,7 +90,7 @@ const props = defineProps({
         font-weight: 600;
         font-size: 16px;
         span{
-            font-size: 32px;
+            font-size: 28px;
         }
     }
     .board-title {
@@ -70,7 +99,7 @@ const props = defineProps({
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 600;
         color: #A7B5C6;
     }

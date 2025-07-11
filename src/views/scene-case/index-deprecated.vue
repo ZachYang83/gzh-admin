@@ -51,6 +51,14 @@ const { toPage } = common();
 
 const currentBoardIndex = ref(0);
 
+const listedFields =  [
+  "智能制造",
+  "医药健康",
+  "综合交通",
+  "城市治理",
+  "教育教学",
+  "政务服务"
+];
 // 图标面板数据（可替换为接口获取）
 const figureData = ref([
   {
@@ -95,50 +103,14 @@ const figureData = ref([
     title: "政务服务",//
     path: ""
   },
-  //商贸流通
   {
-    img_src: "src/views/scene-case/imgs/icon-smlt.png",
+    img_src: "src/views/scene-case/imgs/icon-qtly.png",
     count: 0,
-    title: "商贸流通",
-    path: ""
-  },
-  //数字创意
-  {
-    img_src: "src/views/scene-case/imgs/icon-szcy.png",
-    count: 0,
-    title: "数字创意",
-    path: ""
-  },
-  //智能办公
-  {
-    img_src: "src/views/scene-case/imgs/icon-znbg.png",
-    count: 0,
-    title: "智能办公",
-    path: ""
-  },
-  //智能安防
-  {
-    img_src: "src/views/scene-case/imgs/icon-znaf.png",
-    count: 0,
-    title: "智能安防",
-    path: ""
-  },
-  //现代农业
-  {
-    img_src: "src/views/scene-case/imgs/icon-xdny.png",
-    count: 0,
-    title: "现代农业",
-    path: ""
-  },
-  //能源环保
-  {
-    img_src: "src/views/scene-case/imgs/icon-nyhb.png",
-    count: 0,
-    title: "能源环保",
+    title: "其他领域",//商贸流通，数字创意，智能办公，智能安防，现代农业，能源环保...
     path: ""
   }
 ]);
-const fetchFigureData = async () => {
+const fetchData = async () => {
   try {
     const response = await axios.get("/api/scene/scene-case/getCaseCount");
     //console.log("请求成功:", response.data);
@@ -149,13 +121,19 @@ const fetchFigureData = async () => {
       figureData.value[0].count = totalAll;
 
       // 更新每个具体领域的 count
-      for (let i = 1; i < figureData.value.length; i++) {
+      for (let i = 1; i < figureData.value.length - 1; i++) {
         const fieldTitle = figureData.value[i].title;
         const matched = apiData.find(item => item.field === fieldTitle);
         if (matched) {
           figureData.value[i].count = matched.count;
         }
       }
+
+      // 计算其他领域数量
+      const otherCount = apiData
+        .filter(item => !listedFields.includes(item.field))
+        .reduce((sum, item) => sum + item.count, 0);
+      figureData.value[figureData.value.length - 1].count = otherCount;
     }
   } catch (error) {
     console.error("请求失败:", error);
@@ -163,7 +141,7 @@ const fetchFigureData = async () => {
 };
 
 onMounted(() => {
-  fetchFigureData();
+  fetchData();
 });
 const SceneHomeBoards = ref([])
 onMounted(async () => {
@@ -233,7 +211,7 @@ const nextBoard = () => {
 }
 
 .separator {
-  width: 1.4vw;
+  width: 2.6vw;
   height: 0.5vh;
   border-radius: 0.25vh;
   background: #ff8d1a;

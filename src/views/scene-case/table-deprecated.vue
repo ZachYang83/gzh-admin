@@ -4,30 +4,32 @@
       <Tybtl title="应用场景列表"></Tybtl>
     </div>
     <div class="main-content">
-      <div class = "menu">
-        <div class = search-box>
-          <input type="text" placeholder="请输入关键词" class = "input-box"/>
-          <button class = "search-btn" @click="goToDetail('./table')">
-            <svg-icon icon-class="search" size="1.2rem"></svg-icon>
-            查询
-          </button>
-          
-        </div>
-        <div class = "menu-items" >
-          行业领域：
-          <div class = "menu-item" v-for ="(item, index) in scenes" :key="index" :class="{ active: activeIndex === index }" @click="filterScene(item)">
-            <span>{{ item }}</span>
+      <div class = "left">
+        <div class = "menu">
+          <div class = search-box>
+            <input type="text" placeholder="请输入关键词" class = "input-box"/>
+            <button class = "search-btn" @click="goToDetail('./table')">
+              <svg-icon icon-class="search" size="1.2rem"></svg-icon>
+              查询
+            </button>
+            
+          </div>
+          <div class = "menu-title">行业领域：</div>
+          <div class = "menu-items" >
+            <div class = "menu-item" v-for ="(item, index) in scenes" :key="index" :class="{ active: activeIndex === index }" @click="filterScene(item)">
+              <span>{{ item }}</span>
+            </div>
           </div>
         </div>
       </div>
-      
-      <div class = "main-table">
-        <BoardType1 v-for = "n in 8" ></BoardType1>
-      </div>
-      <div class = "table-footer">
+      <div class = "right">
+        <div class = "cj-table">
+          <BoardType1 v-for = "n in 8" ></BoardType1>
+        </div>
+        <div class = "cj-table-footer">
 
+        </div>
       </div>
-      
     </div>
   </div>
 </template>
@@ -58,7 +60,6 @@ const filterScene = (item) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
 }
 .main-title{
   width: 100%;
@@ -70,19 +71,25 @@ const filterScene = (item) => {
   height: calc(100% - 70px);
   padding: 1% 5%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+}
+.left {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 
 
 .menu {
-  width: 70%;
+  width: 80%;
   height:fit-content;
-  // background: linear-gradient(to bottom, rgba(39,115,255,0.1), rgba(0,90,255,0.2));
-  // border: 1px solid rgba(0, 170, 255, 1);
-  // border-image: linear-gradient(0deg, rgba(0, 213, 255, 1) 0%, rgba(0, 132, 255, 1) 100%) 30;
-  //padding: 20px;
+  background: linear-gradient(to bottom, rgba(39,115,255,0.1), rgba(0,90,255,0.2));
+  border: 1px solid rgba(0, 170, 255, 1);
+  border-image: linear-gradient(0deg, rgba(0, 213, 255, 1) 0%, rgba(0, 132, 255, 1) 100%) 30;
+  
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -102,9 +109,9 @@ const filterScene = (item) => {
   padding: 0 10px;
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgb(255, 255, 255);
+  border: 3px solid rgb(255, 255, 255);
   border-radius: 4px;
-  border-image: linear-gradient(20deg, rgb(42, 152, 255) 30%, rgb(203, 230, 255) 35%, rgba(10, 137, 255) 40%) 1/2px;
+  border-image: linear-gradient(20deg, rgb(42, 152, 255) 30%, rgb(203, 230, 255) 35%, rgba(10, 137, 255) 40%) 1/3px;
   
 }
 .search-btn {
@@ -125,16 +132,15 @@ const filterScene = (item) => {
   cursor: pointer;
 }
 
-
+.menu-title {
+  font-size: 16px;
+  font-weight:500;
+}
 
 .menu-items{
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
   gap: 10px;
-  color: #D8F0FF;
-  font-size: 16px;
 }
 
 .menu-item{
@@ -155,20 +161,23 @@ const filterScene = (item) => {
   color: #007bff;
 }
 
+.right {
+  width: 70%;
+  height: 100%;
 
+  display: flex;
+  flex-direction: column;
+  
+}
 
-.main-table {
-  flex:1;
+.cj-table {
+  height:100%;
   width: 100%;
   background-color: #1e7bd8;
-  display: grid;
-  
-  grid-gap: 20px;
-  padding: 20px;
 }
 
 
-.table-footer {
+.cj-table-footer {
   height: 40px;
   display: flex;
   justify-content: center;
