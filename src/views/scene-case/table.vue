@@ -8,7 +8,7 @@
         <div class = "menu">
           <div class = search-box>
             <input type="text" placeholder="请输入关键词" class = "input-box"/>
-            <button class = "search-btn" @click="goToDetail('./table')">
+            <button class = "search-btn" @click="goToDetail('./detail')">
               <svg-icon icon-class="search" size="1.2rem"></svg-icon>
               查询
             </button>
@@ -39,18 +39,29 @@ import common from "common";
 import {ref} from "vue";
 import BoardType1 from "../../components/common/board/board-type1.vue";
 const { toPage } = common();
+import Api from "@/api/scene/index.js";
+const props = defineProps(['kind'])
 
 const goToDetail = (path) => {
   toPage(path);
 };
-
-
 const scenes = ref(["全部", "智能制造", "医药健康", "综合交通", "能源环保", "城市治理", "政务服务", "现代服务业", "消费", "其他"]);
+<<<<<<< HEAD
 const activeIndex = ref(0);
 const filterScene = (item) => {
   console.log(scenes.value.indexOf(item));
   activeIndex.value = scenes.value.indexOf(item);
 };
+=======
+
+onMounted(() => {
+  // 获取场景
+  Api.getByClass({'scene_class':props.kind}).then((res) => {
+    let resData = res.data;
+    console.log(resData,'res');
+  });
+});
+>>>>>>> dev-yzh
 </script>
 
 <style lang="scss" scoped>

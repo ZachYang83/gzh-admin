@@ -12,11 +12,29 @@ export default {
     },
 
     // 获取场景
-    getCase: (params) =>{
+    getAll: (params) =>{
          return request({
-            url: '/scene/scene-case/getCase',
+            url: '/scene/scene-case/getAll',
             method: 'get',
             params
         })
-    }
+    },
+
+    // 根据id获取场景
+    getCaseById:(params)=>{
+        return request({
+            url: '/scene/scene-case/id',
+            method: 'get',
+            params
+        })
+    },
+
+    //根据类型获取对应的场景列表-分页
+    getByClass:(params)=>{
+        return request({
+            url: '/scene/scene-case/getByClass',
+            method: 'get',
+            params
+        })
+    },
 };

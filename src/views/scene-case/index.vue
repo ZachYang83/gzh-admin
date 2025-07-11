@@ -10,19 +10,27 @@
             :img_src="item.img_src"
             :count="item.count"
             :title="item.title"
-            @click="goToDetail(item.path)"
+            @click="goToTable(item.title)"
           />
           <!-- 最后一个元素不渲染分隔线 -->
-          <div v-if="index < figureData.length - 1" class="separator" :key="'sep' + index"></div>
+          <div
+            v-if="index < figureData.length - 1"
+            class="separator"
+            :key="'sep' + index"
+          ></div>
         </template>
       </div>
 
       <div class="cj-list-boards">
         <div class="left-btn">
-          <svg-icon icon-class="double-arrow" size="2rem" @click="previousBoard()" v-if="currentBoardIndex > 0"></svg-icon>
+          <svg-icon
+            icon-class="double-arrow"
+            size="2rem"
+            @click="previousBoard()"
+            v-if="currentBoardIndex > 0"
+          ></svg-icon>
         </div>
         <div class="boards-wrap">
-          
           <SceneHomeBoard
             v-for="(board, index) in SceneHomeBoards"
             :key="index"
@@ -33,7 +41,12 @@
           />
         </div>
         <div class="right-btn">
-          <svg-icon icon-class="double-arrow" size="2rem" @click="nextBoard()" v-if="currentBoardIndex < figureData.length - 4"></svg-icon>
+          <svg-icon
+            icon-class="double-arrow"
+            size="2rem"
+            @click="nextBoard()"
+            v-if="currentBoardIndex < figureData.length - 4"
+          ></svg-icon>
         </div>
       </div>
     </div>
@@ -45,8 +58,9 @@ import Figureboard from "./components/figure-board.vue";
 import SceneHomeBoard from "./components/scene-home-board.vue";
 import Api from "@/api/scene/index.js";
 import common from "common";
-
 const { toPage } = common();
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const currentBoardIndex = ref(0);
 
@@ -136,7 +150,6 @@ const figureData = ref([
     title: "现代农业",
     path: "",
   },
-  
 ]);
 
 const SceneHomeBoards = ref([
@@ -246,7 +259,7 @@ onMounted(() => {
   });
 
   // 获取场景
-  Api.getCase().then((res) => {
+  Api.getAll().then((res) => {
     let resData = res.data;
 
     SceneHomeBoards.value.forEach((board) => {
@@ -258,12 +271,17 @@ onMounted(() => {
       board.data = matchedData;
     });
   });
-
 });
 
 // 跳转方法
-const goToDetail = (path) => {
-  if (path) toPage(path);
+const goToTable = (title) => {
+  // toPage("./table");
+  router.replace({
+    name: "scenceTable",
+    query: {
+      kind: title,
+    },
+  });
 };
 
 const previousBoard = () => {
@@ -335,36 +353,30 @@ const nextBoard = () => {
   align-items: center;
   justify-content: center;
 }
-.left-btn, 
+.left-btn,
 .right-btn {
   width: 2%;
   height: fit-content;
   margin: 0.5%;
   cursor: pointer;
   //background-color: #ff8d1a;
-} 
-
+}
 
 .left-btn {
   transform: rotate(180deg);
 }
 .right-btn {
-  
 }
 .boards-wrap {
   width: 90%;
   height: 100%;
   display: flex;
   flex-direction: row;
-  gap:2%;
+  gap: 2%;
   align-items: center;
   justify-content: space-between;
   //background-color: antiquewhite;
   padding: 1vh 0;
   overflow: hidden;
 }
-
-
-
 </style>
-

@@ -65,6 +65,9 @@ export const constantRoutes = [
         name: "scenceTable",
         file: "scene-case/table.vue",
         meta: { title: "场景列表", icon: "iconfont icon-shiyongwendang mr-5" },
+        props(route){
+          return route.query
+        }
       },
       {
         path: "detail",
@@ -72,6 +75,9 @@ export const constantRoutes = [
         name: "sceneDetail",
         file: "scene-case/detail.vue",
         meta: { title: "场景详情", icon: "iconfont icon-shiyongwendang mr-5" },
+        props(route){
+          return route.query
+        }
       },
     ],
   },
