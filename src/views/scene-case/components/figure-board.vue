@@ -26,7 +26,6 @@ const props = defineProps({
         default: "应用场景"
     }
 });
-
 const displayCount = ref(0)
 const startAnimation = (start = 0, end = 0, duration = 2000) => {
   const startTime = performance.now()

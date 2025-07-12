@@ -33,7 +33,7 @@ const props = defineProps({
 
 const goBack = () => {
   router.back();
-  // router.push({ name: 'Scene' })
+  //router.push({ name: 'Scene' })
 };
 </script>
 
