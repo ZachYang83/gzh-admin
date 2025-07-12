@@ -26,8 +26,6 @@
 <script setup>
 import { useRouter } from "vue-router";
 const router = useRouter();
-import common from "common";
-const { toPage } = common();
 // 跳转方法
 const goToTable = (title) => {
   // toPage("./table");
@@ -59,11 +57,11 @@ const props = defineProps({
 });
 
 
-const goToDetail = (sceneid) => {    
+const goToDetail = (id) => {    
   router.push({
     name: "sceneDetail",
     query: {
-      sceneid: sceneid,
+      id: id,
     },
   });
 };

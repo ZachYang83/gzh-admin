@@ -1,10 +1,10 @@
 <template>
    <div class = "board-wrap">
     <div class = "inner-wrap">
-      <div class = "title" @click = "goToDetail(sceneid)">{{ title }}</div>
+      <div class = "title" @click = "goToDetail(id)">{{ title }}</div>
       <div class = "main-content">
-        <div class = "left">
-            <img src="@/assets/images/bg-2.jpg" alt="背景图" class="bg-image" v-if = "ifimg">
+        <div class = "left" v-if = "ifimg">
+            <img src="@/assets/images/bg-2.jpg" alt="背景图" class="bg-image">
         </div>
         <div class = "right">
           <div class = "line1">{{ key1 }}：<span>{{ value1 }}</span></div>
@@ -17,15 +17,14 @@
 </template>
 
 <script setup name="BoardType1">
-import { id } from 'element-plus/lib/locale/index.js';
 import { useRouter } from "vue-router";
 const router = useRouter();
 
-const goToDetail = (sceneid) => {
+const goToDetail = (id) => {
   router.push({
-    name: "sceneDetail",
+    name: props.detailName,
     query: {
-      sceneid: sceneid,
+      id: id,
     },
   });
 };
@@ -39,9 +38,13 @@ const props = defineProps({
     type: String,
     default: "这是应用场景的标题"
   },
-  sceneid: {
+  id: {
     type: Number,
     default: 1
+  },
+  detailName: {
+    type: String,
+    default: "sceneDetail"
   },
   key1: {
     type: String,
@@ -110,6 +113,7 @@ const props = defineProps({
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
+  gap:20px;
 }
 
 .left {
@@ -128,11 +132,12 @@ const props = defineProps({
   
 }
 .right{
-    width:70%;
+    flex:1;
     height: 100%;
     display: flex;
     flex-direction: column;
     gap:0.5rem;
+
   }
 
   .line2 > span{

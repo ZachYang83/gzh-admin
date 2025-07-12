@@ -35,13 +35,14 @@
     </div>
     <div class="main-container">
       <div class="main-container-dem">
-        <flexBox title="最新需求">
+        <flexBox title="最新需求" @click="goToTable('demTable')">
           <template #content>
             <div class="item-wrap">
               <div
                 class="item"
                 v-for="(item, index) in demandScene"
                 :key="item.id"
+                @click.stop = "goToDemDetail(item.id)"
               >
                 <div class="item-title">
                   {{ item.requirementName }}
@@ -58,13 +59,14 @@
         </flexBox>
       </div>
       <div class="main-container-sup">
-        <flexBox title="最新供给">
+        <flexBox title="最新供给" @click="goToTable('supTable')"> 
           <template #content>
             <div class="item-wrap">
               <div
                 class="item"
                 v-for="(item, index) in supplyScene"
                 :key="item.id"
+              @click.stop="goToSupDetail(item.id)"
               >
                 <div class="item-title">
                   {{ item.productName }}
@@ -94,6 +96,7 @@ const modules = [Autoplay, Pagination, Navigation];
 import supplyApi from "@/api/supDemMatch/supply.js";
 import demandApi from "@/api/supDemMatch/demand.js";
 import productApi from "@/api/product/index.js";
+import router from "../../router";
 const supplyScene = ref([]);
 const demandScene = ref([]);
 const productScene = ref([]);
@@ -111,6 +114,35 @@ onMounted(() => {
     productScene.value = resData;
   });
 });
+
+// 跳转方法
+const goToTable = (title) => {
+  if(title === "supTable") {
+    router.push({name:"supTable"});
+    
+  } else {
+    router.push({name:"demTable"});
+  }
+};
+
+
+const goToSupDetail = (id) => {
+  router.push({
+    name: "supDetail",
+    query: {
+      id: id,
+    },
+  });
+};
+
+
+const goToDemDetail = (id) => {
+  router.push({ name: "demDetail", 
+    query: {
+      id: id,
+    },
+  });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -120,7 +152,6 @@ onMounted(() => {
   padding: 5px 140px;
   overflow-y: auto;
 }
-
 .top-bar {
   display: flex;
   align-items: center;

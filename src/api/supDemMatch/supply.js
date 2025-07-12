@@ -10,4 +10,25 @@ export default {
             params
         })
     },
+    getByClass: (params) => {
+        return request({
+            url: '/supDemMatch/supply-list/getByClass',
+            method: 'get',
+            params
+        })
+    },
+    getById: (params) => {
+        return request({
+            url: '/supDemMatch/supply-list/id',
+            method: 'get',
+            params
+        })
+    },
+    getByKeywords: (params) => {
+        return request({
+            url: '/supDemMatch/supply-list/keywords',
+            method: 'get',
+            params
+        })
+    }
 };

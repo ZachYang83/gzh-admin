@@ -63,8 +63,8 @@ const otherInfo = ref({
 const contact = ref("如需联系洽谈，请拨打：1234567890");
 
 onMounted(() => {
-  if(route.query.sceneid){
-    sceneid.value = Number(route.query.sceneid);
+  if(route.query.id){
+    sceneid.value = Number(route.query.id);
     console.log(sceneid.value,'sceneid'); 
   }
   // 根据id获取场景
