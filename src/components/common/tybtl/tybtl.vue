@@ -56,6 +56,7 @@ const goBack = () => {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .title-text {
   width: 75%;

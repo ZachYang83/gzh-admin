@@ -1,7 +1,7 @@
 <template>
    <div class = "board-wrap">
     <div class = "inner-wrap">
-      <div class = "title" @click = "goToDetail(id)">{{ title }}</div>
+      <div class = "title" @click = "goToDetail(sceneid)">{{ title }}</div>
       <div class = "main-content">
         <div class = "left">
             <img src="@/assets/images/bg-2.jpg" alt="背景图" class="bg-image" v-if = "ifimg">
@@ -18,6 +18,17 @@
 
 <script setup name="BoardType1">
 import { id } from 'element-plus/lib/locale/index.js';
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const goToDetail = (sceneid) => {
+  router.push({
+    name: "sceneDetail",
+    query: {
+      sceneid: sceneid,
+    },
+  });
+};
 
 const props = defineProps({
   ifimg: {
@@ -28,9 +39,9 @@ const props = defineProps({
     type: String,
     default: "这是应用场景的标题"
   },
-  id: {
-    type: String,
-    default: "0"
+  sceneid: {
+    type: Number,
+    default: 1
   },
   key1: {
     type: String,

@@ -22,7 +22,7 @@
     </div>
     <div class="main-content">  
       <div class = "main-table">
-        <BoardType1 v-for = "(data) in sceneData" :title=data.projectName key1="支持单位" key2="行业领域" key3="简介" :value1=data.supportingUnit :value2=data.sceneClass :value3=data.discription></BoardType1>
+        <BoardType1 v-for = "(data) in sceneData" :sceneid="data.id" :title=data.projectName key1="支持单位" key2="行业领域" key3="简介" :value1=data.supportingUnit :value2=data.sceneClass :value3=data.discription></BoardType1>
       </div>
       <div class = "table-footer">
         <div class = "page-btns">

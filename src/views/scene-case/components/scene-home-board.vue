@@ -1,8 +1,8 @@
 <template>
    <div class="board-wrap">
-        <div class="title" @click="goToDetail(target)">
+        <div class="title">
             <span>{{ title }}</span>
-            <div class = "btn">全部>></div>
+            <div class = "btn" @click="goToTable(title)">全部>></div>
         </div>
         <div class="intro">
             <svg-icon icon-class="corner1" size = 0.6rem class="topleft"></svg-icon>
@@ -28,7 +28,16 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 import common from "common";
 const { toPage } = common();
-
+// 跳转方法
+const goToTable = (title) => {
+  // toPage("./table");
+  router.push({
+    name: "scenceTable",
+    query: {
+      kind: title,
+    },
+  });
+};
 const props = defineProps({
     title: {
         type: String,
@@ -50,13 +59,11 @@ const props = defineProps({
 });
 
 
-const goToDetail = (id) => {
-    console.log(id,'id');
-    
-  router.replace({
+const goToDetail = (sceneid) => {    
+  router.push({
     name: "sceneDetail",
     query: {
-      id: id,
+      sceneid: sceneid,
     },
   });
 };
