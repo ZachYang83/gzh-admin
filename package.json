@@ -20,6 +20,7 @@
     "mockjs": "^1.1.0",
     "path-browserify": "^1.0.1",
     "sass-resources-loader": "^2.2.3",
+    "swiper": "^11.2.10",
     "vue": "^3.2.20",
     "vue-router": "^4.0.4",
     "vue-word-highlighter": "^1.2.5",

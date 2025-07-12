@@ -276,7 +276,7 @@ onMounted(() => {
 // 跳转方法
 const goToTable = (title) => {
   // toPage("./table");
-  router.replace({
+  router.push({
     name: "scenceTable",
     query: {
       kind: title,

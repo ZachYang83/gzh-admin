@@ -94,6 +94,16 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           // rewrite: (path) => path.replace(/^\/enterprise/, "/enterprise"),
         },
+        "/supDemMatch":{
+          target: "http://192.168.28.244:9696",
+          changeOrigin: true,
+          // rewrite: (path) => path.replace(/^\/enterprise/, "/enterprise"),
+        },
+        "/product":{
+          target: "http://192.168.28.244:9696",
+          changeOrigin: true,
+          // rewrite: (path) => path.replace(/^\/enterprise/, "/enterprise"),
+        },
       }
     },
     resolve: {
