@@ -1,5 +1,5 @@
 import path from "path";
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
 import settings from "./src/settings";
 
@@ -30,10 +30,13 @@ const port = settings.webPort;
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
+
+  const env = loadEnv(mode, process.cwd(), "");
+
   return {
-    base: mode === "production" ? "./" : "/",
+    base: mode === "production" ? "/" : "/",
     build: {
-      outDir: "dist",
+      outDir: "gzh",
       // 修改打包块限制大小
       chunkSizeWarningLimit: 10000,
     },
@@ -88,23 +91,30 @@ export default defineConfig(({ mode }) => {
       port,
       // 是否开启https
       https: false,
-      proxy:{
-        "/scene":{
-          target: "http://192.168.28.244:9696",
+      // proxy: {
+      //   "/scene": {
+      //     target: env.VITE_APP_SERVER_API,
+      //     changeOrigin: true,
+      //     // rewrite: (path) => path.replace(/^\/enterprise/, "/enterprise"),
+      //   },
+      //   "/supDemMatch": {
+      //     target: env.VITE_APP_SERVER_API,
+      //     changeOrigin: true,
+      //     // rewrite: (path) => path.replace(/^\/enterprise/, "/enterprise"),
+      //   },
+      //   "/product": {
+      //     target: env.VITE_APP_SERVER_API,
+      //     changeOrigin: true,
+      //     // rewrite: (path) => path.replace(/^\/enterprise/, "/enterprise"),
+      //   },
+      // },
+      proxy: {
+        "/api": {
+          target: env.VITE_APP_SERVER_API,
           changeOrigin: true,
-          // rewrite: (path) => path.replace(/^\/enterprise/, "/enterprise"),
+          rewrite: (path) => path.replace(/^\/api/, ""),
         },
-        "/supDemMatch":{
-          target: "http://192.168.28.244:9696",
-          changeOrigin: true,
-          // rewrite: (path) => path.replace(/^\/enterprise/, "/enterprise"),
-        },
-        "/product":{
-          target: "http://192.168.28.244:9696",
-          changeOrigin: true,
-          // rewrite: (path) => path.replace(/^\/enterprise/, "/enterprise"),
-        },
-      }
+      },
     },
     resolve: {
       alias: {
@@ -131,7 +141,7 @@ export default defineConfig(({ mode }) => {
           px2viewport({
             unitToConvert: "px",
             viewportWidth: 1920,
-            viewportHeight: 1080, 
+            viewportHeight: 1080,
             unitPrecision: 3,
             viewportUnit: "vw",
             // exclude: /node_modules\/vant/i,

@@ -11,7 +11,7 @@ export default {
    * @type {string} *
    * @description 系统标题
    */
-  sysTitle: "广智汇",
+  sysTitle: "广智能",
 
   /**
    * @type {string} *
@@ -23,6 +23,6 @@ export default {
    * @type {number} *
    * @description 开发环境下项目运行端口
    */
-  webPort: 6006,
+  webPort: 8686,
 
 };

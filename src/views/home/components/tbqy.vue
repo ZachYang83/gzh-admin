@@ -45,7 +45,7 @@
             alt="收税前200的企业"
           />
           <div class="data">
-            <span class="count">2191</span><span class="unit">亿元</span>
+            <span class="count">48.6</span><span class="unit">亿元</span>
             <div class="name">收税前200的企业</div>
           </div>
         </div>

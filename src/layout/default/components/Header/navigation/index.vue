@@ -11,43 +11,42 @@
       </router-link>
 
       <router-link
-        to="/app"
-        class="nav-item left flex-center"
-        active-class="active"
-      >
-        应用平台
-      </router-link>
-
-      <router-link
         to="/scene"
         class="nav-item left flex-center"
         active-class="active"
       >
         场景案例
       </router-link>
+
+      <router-link
+        to="/app"
+        class="nav-item left flex-center"
+        active-class="active"
+      >
+        应用平台
+      </router-link>
     </div>
 
     <!-- 中央标题 -->
     <div class="center-title">
-      <h1 class="title">广智汇</h1>
+      <h1 class="title">广智能</h1>
     </div>
 
     <!-- 右侧导航 -->
     <div class="right-nav">
-      <router-link
-        to="/algorithm"
-        class="nav-item right flex-center"
-        active-class="active"
-      >
-        算法超市
-      </router-link>
-
       <router-link
         to="/supDemMatch"
         class="nav-item right flex-center"
         active-class="active"
       >
         供需对接
+      </router-link>
+      <router-link
+        to="/algorithm"
+        class="nav-item right flex-center"
+        active-class="active"
+      >
+        算法超市
       </router-link>
 
       <router-link

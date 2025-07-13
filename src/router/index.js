@@ -45,6 +45,13 @@ export const constantRoutes = [
         file: "app-plat/index.vue",
         meta: { title: "应用平台", icon: "iconfont icon-shiyongwendang mr-5" },
       },
+      {
+        path: "productDetail",
+        component: () => import("@/views/app-plat/productDetail.vue"),
+        name: "ProductDetail",
+        file: "app-plat/productDetail.vue",
+        meta: { title: "终端产品详情", icon: "iconfont icon-shiyongwendang mr-5" },
+      },
     ],
   },
   {

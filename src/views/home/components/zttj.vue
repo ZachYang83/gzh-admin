@@ -29,14 +29,14 @@ const cardList = ref([
     path: "/scene",
     imgSrc: getImage("zttj-cj.png"),
     alt: "场景图标",
-    count: 328,
+    count: 129,
     name: "场景",
   },
   {
     path: "/app",
     imgSrc: getImage("zttj-yypt.png"),
     alt: "应用平台图标",
-    count: 17,
+    count: 125,
     name: "应用平台",
   },
   {
@@ -50,7 +50,7 @@ const cardList = ref([
     path: "/supDemMatch",
     imgSrc: getImage("zttj-gxdj.png"),
     alt: "供需对接",
-    count: 154,
+    count: 235,
     name: "供需对接",
   },
   {
