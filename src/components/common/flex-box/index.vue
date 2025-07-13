@@ -2,9 +2,12 @@
   <div class="card-box flex-center">
     <div class="card-body">
       <div class="card-title">
-        <svg-icon icon-class="dianzhui-left" class="svg-icon" size="1rem" />
-        <span>{{ title }}</span>
-        <svg-icon icon-class="dianzhui-right" class="svg-icon" size="1rem" />
+        <div class="card-title-left">
+          <svg-icon icon-class="dianzhui-left" class="svg-icon" size="1rem" />
+          <span>{{ title }}</span>
+          <svg-icon icon-class="dianzhui-right" class="svg-icon" size="1rem" />
+        </div>
+        <div class="card-title-right"><slot name="more"> </slot></div>
       </div>
       <div class="card-content">
         <slot name="content">
@@ -62,14 +65,22 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   height: 35px;
   padding-left: 10px;
   background: rgba(21, 77, 160, 0.3);
   user-select: none;
+
+  .card-title-left{
+    flex:5;
+  }
+  .card-title-right{
+    flex:1;
+  }
 }
 
-.card-content{
+.card-content {
   width: 100%;
   height: calc(100% - 35px);
 }
@@ -95,6 +106,5 @@ export default {
 }
 
 .default-content {
- 
 }
 </style>

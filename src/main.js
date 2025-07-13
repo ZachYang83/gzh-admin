@@ -2,6 +2,12 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import 'swiper/css' // 引入基本样式
+import 'swiper/css/pagination' // 引入分页器样式
+import 'swiper/css/navigation' // 引入导航按钮样式
+import { Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+
 
 // 路由权限
 import "./permission.js";
@@ -20,5 +26,13 @@ import "virtual:svg-icons-register";
 
 const app = createApp(App);
 app.config.productionTip = false;
+// 全局注册Swiper组件
+app.component('Swiper', Swiper)
+app.component('SwiperSlide', SwiperSlide)
+
+// 全局配置Swiper模块
+app.config.globalProperties.$swiper = {
+  modules: [Autoplay, Pagination, Navigation]
+}
 
 app.use(store).use(router).mount("#app");

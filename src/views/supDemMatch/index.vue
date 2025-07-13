@@ -7,15 +7,15 @@
         :slidesPerView="1"
         :spaceBetween="30"
         :centeredSlides="true"
-        :loop="true"
+        :loop="productScene.length >= 4"
         :autoplay="{
-          delay: 2000,
+          delay: 4000,
           disableOnInteraction: false,
         }"
         :pagination="{
           clickable: true,
         }"
-        :modules="modules"
+        :modules="$swiper.modules"
         class="swiper-wrap"
       >
         <swiper-slide v-for="(item, index) in productScene" :key="item.id">
@@ -36,12 +36,18 @@
     <div class="main-container">
       <div class="main-container-dem">
         <flexBox title="最新需求">
+          <template #more
+            ><div class="flex-center" @click="gotoList('DemandList')">
+              更多>>
+            </div></template
+          >
           <template #content>
             <div class="item-wrap">
               <div
                 class="item"
                 v-for="(item, index) in demandScene"
                 :key="item.id"
+                @click="gotoDemandDetail(item.id)"
               >
                 <div class="item-title">
                   {{ item.requirementName }}
@@ -59,12 +65,18 @@
       </div>
       <div class="main-container-sup">
         <flexBox title="最新供给">
+          <template #more
+            ><div class="flex-center" @click="gotoList('SupplyList')">
+              更多>>
+            </div></template
+          >
           <template #content>
             <div class="item-wrap">
               <div
                 class="item"
                 v-for="(item, index) in supplyScene"
                 :key="item.id"
+                @click="gotoSupplyDetail(item.id)"
               >
                 <div class="item-title">
                   {{ item.productName }}
@@ -85,15 +97,18 @@
 </template>
 
 <script setup>
-import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-const modules = [Autoplay, Pagination, Navigation];
+// import { Swiper, SwiperSlide } from "swiper/vue";
+// import "swiper/css";
+// import "swiper/css/pagination";
+// import "swiper/css/navigation";
+// import { Autoplay, Pagination, Navigation } from "swiper/modules";
+// const modules = [Autoplay, Pagination, Navigation];
 import supplyApi from "@/api/supDemMatch/supply.js";
 import demandApi from "@/api/supDemMatch/demand.js";
 import productApi from "@/api/product/index.js";
+import { useRouter } from "vue-router";
+const router = useRouter();
+
 const supplyScene = ref([]);
 const demandScene = ref([]);
 const productScene = ref([]);
@@ -111,6 +126,29 @@ onMounted(() => {
     productScene.value = resData;
   });
 });
+
+const gotoList = (name) => {
+  router.push({
+    name: name,
+  });
+};
+
+const gotoDemandDetail = (id) => {
+  router.push({
+    name: "DemandDetail",
+    query: {
+      id: id,
+    },
+  });
+};
+const gotoSupplyDetail = (id) => {
+  router.push({
+    name: "SupplyDetail",
+    query: {
+      id: id,
+    },
+  });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -136,7 +174,7 @@ onMounted(() => {
 
 .scene-swiper {
   width: 100%;
-  height: 400px;
+  height: 340px;
   flex-direction: column;
   padding: 5px;
   border-radius: 2px;
@@ -255,8 +293,8 @@ onMounted(() => {
     padding: 10px;
     box-sizing: border-box;
 
-    &:hover{
-      border: #0071F2 1px solid;
+    &:hover {
+      border: #0071f2 1px solid;
     }
 
     .item-title {
