@@ -1,7 +1,7 @@
 <template>
   <div class="cj-table-wrap">
     <div class="main-title">
-      <Tybtl title="应用场景列表"></Tybtl>
+      <Tybtl title="需求广场"></Tybtl>
     </div>
     
     <div class = "menu">
@@ -20,9 +20,9 @@
         </div>
       </div>
     </div>
-    <div class="main-content">  
+    <div class="main-content"> 
       <div class = "main-table">
-        <BoardType1 v-for = "(data) in sceneData" :id="data.id" :title=data.projectName key1="支持单位" key2="行业领域" key3="简介" :value1=data.supportingUnit :value2=data.sceneClass :value3=data.discription></BoardType1>
+        <BoardType1 v-for = "(data) in sceneData" :ifimg="false" detailName="demDetail" :id="data.id" :title=data.requirementName key1="需求方" key2="行业领域" key3="简介" :value1=data.requireUnit :value2=data.sceneClass :value3=data.discription></BoardType1>
       </div>
       <div class = "table-footer">
         <div class = "page-btns">
@@ -36,20 +36,15 @@
 </template>
 
 <script setup>
-import common from "common";
 import { ref } from "vue";
 import BoardType1 from "../../components/common/board/board-type1.vue";
-const { toPage } = common();
-import Api from "@/api/scene/index.js";
+import Api from "@/api/supDemMatch/demand.js";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute(); 
 const props = defineProps(['kind'])
 
-const goToDetail = (path) => {
-  toPage(path);
-};
-const scenes = ref(["全部", "智能制造", "医药健康", "综合交通", "能源环保", "城市治理", "教育教学", "政务服务", "商贸流通", "数字创意", "智能办公", "智能安防", "现代农业"]);
+const scenes = ref(["全部", "智能制造", "医药健康", "综合交通", "城市治理", "教育教学", "商贸流通", "智能办公", "能源环保", "政务服务", "智慧物流"]);
 const activeIndex =ref(0)
 const totalCount = ref(0);
 const sceneData = ref(null);
@@ -94,24 +89,13 @@ const filterScene = (pageNum = 1) =>{
       totalCount.value = resData.total;
     });
   }
-  
-  
 }
 
 onMounted(() => {
   // 获取场景
-  if(route.query.kind){
-    let kind = route.query.kind;
-    if(kind === "全部场景"){
-      kind = "全部";
-    }
-    activeIndex.value = scenes.value.indexOf(kind);
+    activeIndex.value = 0;
     filterScene();
      
-    }else{
-    console.error(route.query.kind, 'not in scenes!!!!!');
-    }
-
 });
 </script>
 
@@ -226,7 +210,7 @@ input {
   // grid-template-columns: repeat(3, 1fr); /* 3列，每列等宽 */
   // grid-template-rows: repeat(3, 1fr);
   // grid-gap: 20px;
-  //padding: 20px;
+  // padding: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

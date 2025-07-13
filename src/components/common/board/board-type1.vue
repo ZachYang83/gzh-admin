@@ -1,70 +1,161 @@
 <template>
-   <div class = "board-wrap">
-      <div class = "title">{{ title }}</div>
-      <div class = "main-content">
-        <div class = "left">
-            <img src="@/assets/images/bg-detail-board.png" alt="背景图" class="bg-image" v-if = "ifimg">
+  <div class="board-wrap" @click="goToDetail(id)">
+    <div class="inner-wrap">
+      <div class="title">{{ title }}</div>
+      <div class="main-content">
+        <div class="left" v-if="ifimg">
+          <img src="@/assets/images/bg-2.jpg" alt="背景图" class="bg-image" />
         </div>
-        <div class = "right">
-            <div class = "line1">{{ key1 }}:{{ value1 }}</div>
-            <div class = "line2">{{ key2 }}:<span>{{ value2 }}</span></div>
-            <div class = "line3">{{ key3 }}:{{ value3 }}</div>
+        <div class="right">
+          <div class="line1">
+            {{ key1 }}：<span>{{ value1 }}</span>
+          </div>
+          <div class="line2">
+            {{ key2 }}：<span>{{ value2 }}</span>
+          </div>
+          <div class="line3">
+            {{ key3 }}：<span>{{ value3 }}</span>
+          </div>
         </div>
       </div>
-   </div>
+    </div>
+  </div>
 </template>
 
 <script setup name="BoardType1">
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const goToDetail = (id) => {
+  router.push({
+    name: props.detailName,
+    query: {
+      id: id,
+    },
+  });
+};
+
 const props = defineProps({
   ifimg: {
     type: Boolean,
-    default: true
+    default: true,
   },
   title: {
     type: String,
-    default: "标题"
+    default: "这是应用场景的标题",
+  },
+  id: {
+    type: Number,
+    default: 1,
+  },
+  detailName: {
+    type: String,
+    default: "sceneDetail",
   },
   key1: {
     type: String,
-    default: "关键字1"
+    default: "关键字1",
   },
   value1: {
     type: String,
-    default: "值1"
+    default: "值1",
   },
   key2: {
     type: String,
-    default: "关键字2"
+    default: "关键字2",
   },
   value2: {
     type: String,
-    default: "值2"
+    default: "值2",
   },
   key3: {
     type: String,
-    default: "关键字3"
+    default: "关键字3",
   },
   value3: {
     type: String,
-    default: "值3"
-  }
+    default:
+      "",
+  },
 });
-
-
 </script>
 
-<style lang = "scss" scoped>
+<style lang="scss" scoped>
 @font-face {
   font-family: YouSheBiaoTiHei;
   src: url("@/assets/font/YouSheBiaoTiHei.ttf");
 }
-.board-wrap{
-  width:100px;
-  height: 100px;
-  display: flex; 
-  background-color: rgb(255, 145, 0);
+.board-wrap {
+  display: flex;
+  width: 33.33%;
+  height: 33.33%;
+  padding: 0.5%;
+  cursor: pointer;
 }
 
+.inner-wrap {
+  width: 100%;
+  height: 100%;
+  padding: 2% 4%;
+  display: flex;
+  flex-direction: column;
+  background-image: url("@/assets/images/bg-detail-board.png");
+  background-size: 100% 100%;
+}
+.title {
+  font-family: YouSheBiaoTiHei;
+  font-size: 20px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #d8f0ff;
+}
+.main-content {
+  width: 100%;
+  height: calc(100% - 30px);
+  padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  gap: 20px;
+}
 
+.left {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.right {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: space-around;
+}
+
+.line2 > span {
+  background: linear-gradient(40deg, #2b87ff, #2bcaff);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+.line3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(154, 168, 184, 1);
+}
 </style>

@@ -37,4 +37,12 @@ export default {
             params
         })
     },
+
+    getByKeywords: (params) => {
+        return request({
+            url: '/scene/scene-case/keywords',
+            method: 'get',
+            params
+        })
+    }
 };

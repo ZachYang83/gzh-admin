@@ -33,7 +33,7 @@ const props = defineProps({
 
 const goBack = () => {
   router.back();
-  // router.push({ name: 'Scene' })
+  //router.push({ name: 'Scene' })
 };
 </script>
 
@@ -56,6 +56,7 @@ const goBack = () => {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .title-text {
   width: 75%;

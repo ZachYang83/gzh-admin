@@ -35,11 +35,9 @@
     </div>
     <div class="main-container">
       <div class="main-container-dem">
-        <flexBox title="最新需求">
+        <flexBox title="最新需求" @click="goToTable('demTable')">
           <template #more
-            ><div class="flex-center" @click="gotoList('DemandList')">
-              更多>>
-            </div></template
+            ><div class="more-info flex-center">更多 >></div></template
           >
           <template #content>
             <div class="item-wrap">
@@ -47,13 +45,13 @@
                 class="item"
                 v-for="(item, index) in demandScene"
                 :key="item.id"
-                @click="gotoDemandDetail(item.id)"
+                @click.stop="goToDemDetail(item.id)"
               >
                 <div class="item-title">
                   {{ item.requirementName }}
                 </div>
                 <div class="item-content">
-                  {{ item.discription }}
+                   简介：{{ item.discription }}
                 </div>
                 <div class="item-label">
                   {{ item.sceneClass }}
@@ -64,11 +62,9 @@
         </flexBox>
       </div>
       <div class="main-container-sup">
-        <flexBox title="最新供给">
+        <flexBox title="最新供给" @click="goToTable('supTable')">
           <template #more
-            ><div class="flex-center" @click="gotoList('SupplyList')">
-              更多>>
-            </div></template
+            ><div class="more-info flex-center">更多 >></div></template
           >
           <template #content>
             <div class="item-wrap">
@@ -76,13 +72,13 @@
                 class="item"
                 v-for="(item, index) in supplyScene"
                 :key="item.id"
-                @click="gotoSupplyDetail(item.id)"
+                @click.stop="goToSupDetail(item.id)"
               >
                 <div class="item-title">
                   {{ item.productName }}
                 </div>
                 <div class="item-content">
-                  {{ item.discription }}
+                  简介：{{ item.discription }}
                 </div>
                 <div class="item-label">
                   {{ item.sceneClass }}
@@ -106,9 +102,7 @@
 import supplyApi from "@/api/supDemMatch/supply.js";
 import demandApi from "@/api/supDemMatch/demand.js";
 import productApi from "@/api/product/index.js";
-import { useRouter } from "vue-router";
-const router = useRouter();
-
+import router from "../../router";
 const supplyScene = ref([]);
 const demandScene = ref([]);
 const productScene = ref([]);
@@ -127,23 +121,27 @@ onMounted(() => {
   });
 });
 
-const gotoList = (name) => {
-  router.push({
-    name: name,
-  });
+// 跳转方法
+const goToTable = (title) => {
+  if (title === "supTable") {
+    router.push({ name: "supTable" });
+  } else {
+    router.push({ name: "demTable" });
+  }
 };
 
-const gotoDemandDetail = (id) => {
+const goToSupDetail = (id) => {
   router.push({
-    name: "DemandDetail",
+    name: "supDetail",
     query: {
       id: id,
     },
   });
 };
-const gotoSupplyDetail = (id) => {
+
+const goToDemDetail = (id) => {
   router.push({
-    name: "SupplyDetail",
+    name: "demDetail",
     query: {
       id: id,
     },
@@ -158,7 +156,6 @@ const gotoSupplyDetail = (id) => {
   padding: 5px 140px;
   overflow-y: auto;
 }
-
 .top-bar {
   display: flex;
   align-items: center;
@@ -292,6 +289,9 @@ const gotoSupplyDetail = (id) => {
     border-radius: 5px;
     padding: 10px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 
     &:hover {
       border: #0071f2 1px solid;
@@ -301,7 +301,7 @@ const gotoSupplyDetail = (id) => {
       font-size: 16px;
       font-weight: 600;
       letter-spacing: 0px;
-      color: rgba(255, 255, 255, 1);
+       color: #D8F0FF;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 1;
@@ -331,6 +331,13 @@ const gotoSupplyDetail = (id) => {
       line-height: 20.27px;
       color: rgba(154, 168, 184, 1);
     }
+  }
+}
+
+.more-info {
+  &:hover {
+    color: #0071f2;
+    cursor: pointer;
   }
 }
 </style>
