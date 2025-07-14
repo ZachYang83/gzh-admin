@@ -36,7 +36,7 @@ export function configSetting(config) {
 }
 
 const service = axios.create({
-    baseURL: '', // url = base url + request url
+    baseURL: import.meta.env.VITE_APP_BASE_API, // url = base url + request url
     timeout: 200000
 });
 

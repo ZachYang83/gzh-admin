@@ -61,85 +61,88 @@ import Api from "@/api/scene/index.js";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
+const getImage = (imageName) => {
+  return new URL(`./imgs/${imageName}`, import.meta.url).href;
+};
 
 const currentBoardIndex = ref(0);
 
 // 图标面板数据（可替换为接口获取）
 const figureData = ref([
   {
-    img_src: "src/views/scene-case/imgs/icon-qbcj.png",
+    img_src:  getImage("icon-qbcj.png"),
     count: 0,
     title: "全部场景",
     path: "/scene/table",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-znzz.png",
+    img_src: getImage("icon-znzz.png"),
     count: 0,
     title: "智能制造", 
     path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-yyjk.png",
+    img_src: getImage("icon-yyjk.png"),
     count: 0,
     title: "医药健康", 
     path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-zhjt.png",
+    img_src: getImage("icon-zhjt.png"),
     count: 0,
     title: "综合交通", 
     path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-nyhb.png",
+    img_src: getImage("icon-nyhb.png"),
     count: 0,
     title: "能源环保",
     path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-cszl.png",
+    img_src: getImage("icon-cszl.png"),
     count: 0,
     title: "城市治理", 
     path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-jyjx.png",
+    img_src: getImage("icon-jyjx.png"),
     count: 0,
     title: "教育教学", 
     path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-zwfw.png",
+    img_src: getImage("icon-zwfw.png"),
     count: 0,
     title: "政务服务", 
     path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-smlt.png",
+    img_src: getImage("icon-smlt.png"),
     count: 0,
     title: "商贸流通",
     path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-szcy.png",
+    img_src: getImage("icon-szcy.png"),
     count: 0,
     title: "数字创意",
     path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-znbg.png",
+    img_src: getImage("icon-znbg.png"),
     count: 0,
     title: "智能办公",
     path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-znaf.png",
+    img_src: getImage("icon-znaf.png"),
     count: 0,
     title: "智能安防",
     path: "",
   },
   {
-    img_src: "src/views/scene-case/imgs/icon-xdny.png",
+    img_src: getImage("icon-xdny.png"),
     count: 0,
     title: "现代农业",
     path: "",

@@ -82,7 +82,6 @@
 @font-face {
   font-family: YouSheBiaoTiYuan;
   src: url("@/assets/font/YouSheBiaoTiYuan.otf");
-  src: url("@/assets/font/YouSheBiaoTiYuan.otf");
 }
 
 @font-face {

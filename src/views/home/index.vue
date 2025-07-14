@@ -16,7 +16,7 @@
     </div>
     <div class="sy-center-wrap flex-center">
       <div class="center-top">
-        <Xctg></Xctg>
+         <Xctg></Xctg>
       </div>
       <div class="center-bottom">
         <flexBox title="AI助手">

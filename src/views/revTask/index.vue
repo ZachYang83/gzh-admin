@@ -1,10 +1,5 @@
-<template>
-  <h1>揭榜挂帅</h1>
-</template>
+<template></template>
 
-<script setup>
-</script>
+<script setup></script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
