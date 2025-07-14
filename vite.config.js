@@ -8,7 +8,8 @@ import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import { viteMockServe } from "vite-plugin-mock";
-import px2viewport from "postcss-px-to-viewport";
+// import px2viewport from "postcss-px-to-viewport";
+import pxToViewport from "postcss-px-to-viewport-8-plugin";
 
 const port = settings.webPort;
 
@@ -30,7 +31,6 @@ const port = settings.webPort;
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
@@ -110,7 +110,7 @@ export default defineConfig(({ mode }) => {
       // },
       proxy: {
         "/api": {
-          target: env.VITE_APP_SERVER_API,
+          target: env.VITE_APP_BASE_URL,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ""),
         },
@@ -138,7 +138,7 @@ export default defineConfig(({ mode }) => {
       },
       postcss: {
         plugins: [
-          px2viewport({
+          pxToViewport({
             unitToConvert: "px",
             viewportWidth: 1920,
             viewportHeight: 1080,

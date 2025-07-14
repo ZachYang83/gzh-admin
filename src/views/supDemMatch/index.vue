@@ -340,4 +340,21 @@ const goToDemDetail = (id) => {
     cursor: pointer;
   }
 }
+
+:deep(.swiper-pagination-bullet) {
+  width: 20px;
+  height: 8px;
+  margin: 0 6px;
+  background-color: rgba(237, 240, 245, 0.5);
+  opacity: 1;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+
+}
+
+:deep(.swiper-pagination-bullet-active) {
+  width: 50px;
+  background-color: #1B70F0;
+  border-radius: 4px;
+}
 </style>

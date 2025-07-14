@@ -15,7 +15,7 @@
 const props = defineProps({
     img_src: {
         type: String,
-        default: "src/views/scene-case/imgs/icon-qbcj.png"
+        default: "../imgs/icon-qbcj.png"
     },
     count: {
         type: Number,
