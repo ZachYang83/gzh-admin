@@ -20,7 +20,7 @@
           ></div>
         </template>
       </div>
-
+      
       <div class="cj-list-boards">
         <div class="left-btn">
           <svg-icon
@@ -32,12 +32,13 @@
         </div>
         <div class="boards-wrap">
           <SceneHomeBoard
-            v-for="(board, index) in SceneHomeBoards"
-            :key="index"
+            v-for="(board, index) in visibleBoards"
+            :key="board.title"
             :title="board.title"
             :intro="board.intro"
             :target="board.target"
             :data="board.data"
+            :class = "['scene-board',board.position]"
           />
         </div>
         <div class="right-btn">
@@ -45,7 +46,7 @@
             icon-class="double-arrow"
             size="2rem"
             @click="nextBoard()"
-            v-if="currentBoardIndex < figureData.length - 4"
+            v-if="currentBoardIndex < figureData.length - 5"
           ></svg-icon>
         </div>
       </div>
@@ -57,8 +58,7 @@
 import Figureboard from "./components/figure-board.vue";
 import SceneHomeBoard from "./components/scene-home-board.vue";
 import Api from "@/api/scene/index.js";
-import common from "common";
-const { toPage } = common();
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
@@ -75,22 +75,21 @@ const figureData = ref([
   {
     img_src: "src/views/scene-case/imgs/icon-znzz.png",
     count: 0,
-    title: "智能制造", //
+    title: "智能制造", 
     path: "",
   },
   {
     img_src: "src/views/scene-case/imgs/icon-yyjk.png",
     count: 0,
-    title: "医药健康", //
+    title: "医药健康", 
     path: "",
   },
   {
     img_src: "src/views/scene-case/imgs/icon-zhjt.png",
     count: 0,
-    title: "综合交通", //
+    title: "综合交通", 
     path: "",
   },
-  //能源环保
   {
     img_src: "src/views/scene-case/imgs/icon-nyhb.png",
     count: 0,
@@ -100,50 +99,45 @@ const figureData = ref([
   {
     img_src: "src/views/scene-case/imgs/icon-cszl.png",
     count: 0,
-    title: "城市治理", //
+    title: "城市治理", 
     path: "",
   },
   {
     img_src: "src/views/scene-case/imgs/icon-jyjx.png",
     count: 0,
-    title: "教育教学", //
+    title: "教育教学", 
     path: "",
   },
   {
     img_src: "src/views/scene-case/imgs/icon-zwfw.png",
     count: 0,
-    title: "政务服务", //
+    title: "政务服务", 
     path: "",
   },
-  //商贸流通
   {
     img_src: "src/views/scene-case/imgs/icon-smlt.png",
     count: 0,
     title: "商贸流通",
     path: "",
   },
-  //数字创意
   {
     img_src: "src/views/scene-case/imgs/icon-szcy.png",
     count: 0,
     title: "数字创意",
     path: "",
   },
-  //智能办公
   {
     img_src: "src/views/scene-case/imgs/icon-znbg.png",
     count: 0,
     title: "智能办公",
     path: "",
   },
-  //智能安防
   {
     img_src: "src/views/scene-case/imgs/icon-znaf.png",
     count: 0,
     title: "智能安防",
     path: "",
   },
-  //现代农业
   {
     img_src: "src/views/scene-case/imgs/icon-xdny.png",
     count: 0,
@@ -152,7 +146,8 @@ const figureData = ref([
   },
 ]);
 
-const SceneHomeBoards = ref([
+const sceneHomeBoards = ref([
+  {},
   {
     title: "智能制造",
     intro:
@@ -237,7 +232,19 @@ const SceneHomeBoards = ref([
     target: "./table",
     data: [],
   },
+  {}
 ]);
+const visibleBoards = computed(() => {
+  return [
+    {...sceneHomeBoards.value[currentBoardIndex.value], position: 'chip1'},
+    {...sceneHomeBoards.value[currentBoardIndex.value + 1], position: 'chip2'},
+    {...sceneHomeBoards.value[currentBoardIndex.value + 2], position: 'chip3'},
+    {...sceneHomeBoards.value[currentBoardIndex.value + 3], position: 'chip4'},  
+    {...sceneHomeBoards.value[currentBoardIndex.value + 4], position: 'chip5'},
+    {...sceneHomeBoards.value[currentBoardIndex.value + 5], position: 'chip6'}
+
+  ];
+});
 
 onMounted(() => {
   //获取各类场景数量
@@ -263,7 +270,7 @@ onMounted(() => {
   Api.getAll().then((res) => {
     let resData = res.data;
 
-    SceneHomeBoards.value.forEach((board) => {
+    sceneHomeBoards.value.forEach((board) => {
       // 筛选data中sceneClass与当前board.title一致的数据
       const matchedData = resData.filter(
         (item) => item.sceneClass === board.title
@@ -288,24 +295,11 @@ const goToTable = (title) => {
 const previousBoard = () => {
   currentBoardIndex.value -= 1;
   // 实现左滚动逻辑
-  const boardsWrap = document.querySelector(".boards-wrap");
-  if (boardsWrap) {
-    // 计算新的滚动位置
-    const newScrollLeft =
-      boardsWrap.scrollLeft - boardsWrap.clientWidth * 0.255; // 0.255=0.235+0.02
-    boardsWrap.scrollTo({ left: newScrollLeft, behavior: "smooth" });
-  }
 };
 const nextBoard = () => {
   currentBoardIndex.value += 1;
   // 实现右滚动逻辑
-  const boardsWrap = document.querySelector(".boards-wrap");
-  if (boardsWrap) {
-    // 计算新的滚动位置
-    const newScrollLeft =
-      boardsWrap.scrollLeft + boardsWrap.clientWidth * 0.255; // 0.255=0.235+0.02-1px
-    boardsWrap.scrollTo({ left: newScrollLeft, behavior: "smooth" });
-  }
+  
 };
 </script>
 
@@ -354,6 +348,9 @@ const nextBoard = () => {
   align-items: center;
   justify-content: center;
 }
+
+
+
 .left-btn,
 .right-btn {
   width: 2%;
@@ -373,11 +370,39 @@ const nextBoard = () => {
   height: 100%;
   display: flex;
   flex-direction: row;
-  gap: 2%;
+  //gap: 2%;
   align-items: center;
-  justify-content: space-between;
-  //background-color: antiquewhite;
+  justify-content: flex-start;
   padding: 1vh 0;
   overflow: hidden;
+  position: relative;
+  //background-color: #ff8d1a;
 }
+
+.scene-board {
+  //left: -25.5%;
+  transition: transform 0.5s ease-in-out;
+  position: absolute;
+  //margin-left: 2%;
+  &.chip1{
+    transform: translateX(-109%);//4*width+3*gap = 100, gap/width = 0.5k, k-N*
+  }
+  &.chip2{
+    transform: translateX(0.1%);
+  }
+  &.chip3{
+    transform: translateX(109%);
+  }
+  &.chip4{
+    transform: translateX(218%);
+  }
+  &.chip5{
+    transform: translateX(327%);
+  }
+  &.chip6{
+    transform: translateX(436%);
+  }
+}
+
+
 </style>

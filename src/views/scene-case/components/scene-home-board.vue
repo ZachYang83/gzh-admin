@@ -71,9 +71,10 @@ const goToDetail = (id) => {
 <style scoped>
 
 .board-wrap {
-    position: relative;
+    position: absolute;
     height: 100%;
-    flex:0 0 23.5%;
+    width: 23.4%;
+    /* flex:0 0 23.5%; */
     padding: 10px;
     background: linear-gradient(to bottom, rgba(204,226,255,0.2), rgba(0,91,219,0.4)),
                 url(../imgs/bg-list-cj.png) center;

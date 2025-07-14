@@ -26,29 +26,21 @@
       </div>
       <div class = "table-footer">
         <div class = "page-btns">
-          <el-pagination background layout="prev, pager, next" :size="pageSize" :total="totalCount"  v-model:current-page="currentPage" @current-change="(page) => filterScene(page)"></el-pagination>
+          <el-pagination background layout="prev, pager, next" :size="pageSize" :total="totalCount"  v-model:current-page="currentPage" @current-change="(page) => filterScene(page)" class = "pagetest" style="--el-color-primary: #3A79FC"></el-pagination>
         </div>
         <div class="cj-table-footer"></div>
       </div>
-      
+
     </div>
   </div>
 </template>
 
 <script setup>
-import common from "common";
-import { ref } from "vue";
 import BoardType1 from "../../components/common/board/board-type1.vue";
-const { toPage } = common();
 import Api from "@/api/scene/index.js";
-import { useRouter } from "vue-router";
-const router = useRouter();
 const route = useRoute(); 
 const props = defineProps(['kind'])
 
-const goToDetail = (path) => {
-  toPage(path);
-};
 const scenes = ref(["全部", "智能制造", "医药健康", "综合交通", "能源环保", "城市治理", "教育教学", "政务服务", "商贸流通", "数字创意", "智能办公", "智能安防", "现代农业"]);
 const activeIndex =ref(0)
 const totalCount = ref(0);
