@@ -48,7 +48,7 @@ watch(
   () => props.count,
   (newCount) => {
     //duration = log(newCount*20,2) 
-    startAnimation(0, newCount, Math.sqrt(newCount) * 200);
+    startAnimation(0, newCount, Math.log(newCount) * 400);
   },
   {
     immediate: true // 立即触发一次，如果 count 已经有值

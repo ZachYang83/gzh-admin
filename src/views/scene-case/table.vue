@@ -6,7 +6,7 @@
     
     <div class = "menu">
       <div class = search-box>
-        <input v-model="currentKeyword" type="text" placeholder="请输入关键词" class = "input-box"/>
+        <input v-model="currentKeyword" type="text" placeholder="请输入关键词" class = "input-box" @keyup.enter="searchKeywords(currentKeyword)" ref="refElement"/>
         <button class = "search-btn" @click="searchKeywords(currentKeyword)">
           <svg-icon icon-class="search" size="1.2rem"></svg-icon>
           查询
@@ -26,7 +26,14 @@
       </div>
       <div class = "table-footer">
         <div class = "page-btns">
-          <el-pagination background layout="prev, pager, next" :size="pageSize" :total="totalCount"  v-model:current-page="currentPage" @current-change="(page) => filterScene(page)" class = "pagetest" style="--el-color-primary: #3A79FC"></el-pagination>
+          <el-pagination
+            background
+            layout="total, prev, pager, next, jumper"
+            :size="pageSize" :total="totalCount"  
+            v-model:current-page="currentPage" 
+            @current-change="(page) => filterScene(page)" 
+            class = "pagetest">
+          </el-pagination>
         </div>
         <div class="cj-table-footer"></div>
       </div>
@@ -48,6 +55,8 @@ const sceneData = ref(null);
 const currentPage = ref(1);
 const pageSize = 9;
 const currentKeyword = ref("");
+const refElement = ref(null);
+
 const searchKeywords = (keyword)=> {
   console.log("搜索关键词:", keyword);
   currentKeyword.value = keyword;
@@ -62,6 +71,9 @@ const switchSceneClass = (item)=>{
 }
 const filterScene = (pageNum = 1) =>{
   currentPage.value = pageNum;
+  if (refElement.value){
+    refElement.value.blur();
+  }
   //不支持同时关键词和场景查询
   if(currentKeyword.value){
     console.log("当前关键词:", currentKeyword.value);
@@ -86,8 +98,6 @@ const filterScene = (pageNum = 1) =>{
       totalCount.value = resData.total;
     });
   }
-  
-  
 }
 
 onMounted(() => {
@@ -99,11 +109,9 @@ onMounted(() => {
     }
     activeIndex.value = scenes.value.indexOf(kind);
     filterScene();
-     
     }else{
     console.error(route.query.kind, 'not in scenes!!!!!');
     }
-
 });
 </script>
 
@@ -145,7 +153,6 @@ input {
 }
 .input-box {
   flex: 1;
-  margin-right: 20px; //露出右边圆角
   height: 100%;
   padding: 0 10px;
   box-sizing: border-box;
@@ -153,8 +160,9 @@ input {
   border: 2px solid rgb(255, 255, 255);
   border-radius: 4px;
   border-image: linear-gradient(20deg, rgb(42, 152, 255) 30%, rgb(203, 230, 255) 35%, rgba(10, 137, 255) 40%) 1/2px;
-  
+  position: relative;
 }
+
 .search-btn {
   position: absolute;
   right: 0;
@@ -235,7 +243,11 @@ input {
   align-items: center;
   //background-color: #f8f9fa;
 }
-.page-btns {
-  
-}
+// .page-btns {
+// }
+
+// :deep(li) {
+//   background-color: #d6be34;
+//   border:#007bff 1px solid;
+// }
 </style>

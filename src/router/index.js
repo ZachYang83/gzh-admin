@@ -100,6 +100,13 @@ export const constantRoutes = [
         file: "algorithm/index.vue",
         meta: { title: "算法超市", icon: "iconfont icon-shiyongwendang mr-5" },
       },
+      {
+        path: "detail",
+        component: () => import("@/views/algorithm/detail.vue"),
+        name: "algDetail",
+        file: "algorithm/detail.vue",
+        meta: { title: "算法详情", icon: "iconfont icon-shiyongwendang mr-5" },
+      },
     ],
   },
   {

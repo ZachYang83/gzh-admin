@@ -1,7 +1,7 @@
 <template>
   <div class="cj-table-wrap">
     <div class="main-title">
-      <Tybtl title="智能终端产品"></Tybtl>
+      <Tybtl title="智能终端产品" :isHome = "true"></Tybtl>
     </div>
     
     <div class = "menu">
@@ -26,7 +26,14 @@
       </div>
       <div class = "table-footer">
         <div class = "page-btns">
-          <el-pagination background layout="prev, pager, next" :size="pageSize" :total="totalCount"  v-model:current-page="currentPage" @current-change="(page) => filterScene(page)"></el-pagination>
+          <el-pagination 
+            background 
+            layout="total, prev, pager, next, jumper"
+            :size="pageSize" 
+            :total="totalCount"  
+            v-model:current-page="currentPage" 
+            @current-change="(page) => filterScene(page)">
+          </el-pagination>
         </div>
         <div class="cj-table-footer"></div>
       </div>
@@ -136,7 +143,6 @@ input {
 }
 .input-box {
   flex: 1;
-  margin-right: 20px; //露出右边圆角
   height: 100%;
   padding: 0 10px;
   box-sizing: border-box;
