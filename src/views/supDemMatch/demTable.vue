@@ -137,7 +137,6 @@ input {
 }
 .input-box {
   flex: 1;
-  margin-right: 20px; //露出右边圆角
   height: 100%;
   padding: 0 10px;
   box-sizing: border-box;

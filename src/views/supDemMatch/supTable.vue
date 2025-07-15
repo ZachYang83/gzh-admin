@@ -36,13 +36,9 @@
 </template>
 
 <script setup>
-import common from "common";
 import { ref } from "vue";
 import BoardType1 from "../../components/common/board/board-type1.vue";
 import Api from "@/api/supDemMatch/supply.js";
-import { useRouter } from "vue-router";
-const router = useRouter();
-const route = useRoute(); 
 const props = defineProps(['kind'])
 
 
@@ -99,8 +95,6 @@ onMounted(() => {
   // 获取场景
     activeIndex.value = 0;
     filterScene();
-     
-
 });
 </script>
 
@@ -142,7 +136,6 @@ input {
 }
 .input-box {
   flex: 1;
-  margin-right: 20px; //露出右边圆角
   height: 100%;
   padding: 0 10px;
   box-sizing: border-box;

@@ -97,10 +97,12 @@ onMounted(() => {
 }
 .detail-wrap {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  overflow-y: auto;
 }
 .main-title {
   width: 100%;

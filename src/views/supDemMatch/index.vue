@@ -1,6 +1,8 @@
 <template>
   <div class="supDem-wrap">
-    <div class="top-bar">助力企业智能化转型和创新发展</div>
+    <div class="top-bar">
+      <tybtl title = "助力企业智能化转型和创新发展" :isHome = "true"/>
+    </div>
     <div class="scene-swiper flex-center">
       <div class="swiper-topic">优秀案例展示</div>
       <swiper
@@ -9,7 +11,7 @@
         :centeredSlides="true"
         :loop="productScene.length >= 4"
         :autoplay="{
-          delay: 4000,
+          delay: 5000,
           disableOnInteraction: false,
         }"
         :pagination="{
@@ -153,40 +155,39 @@ const goToDemDetail = (id) => {
 .supDem-wrap {
   width: 100%;
   height: 100%;
-  padding: 5px 140px;
   overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .top-bar {
   display: flex;
   align-items: center;
   width: 100%;
-  height: 80px;
-  padding-left: 200px;
-  font-size: 36px;
-  font-weight: 500;
-  letter-spacing: 2.5px;
-  line-height: 49.39px;
-  color: rgba(216, 240, 255, 1);
+  height: 70px;
 }
 
 .scene-swiper {
-  width: 100%;
+  width: 80%;
   height: 340px;
   flex-direction: column;
   padding: 5px;
   border-radius: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(48, 97, 219, 0.19) 0%,
-    rgba(48, 97, 219, 0.08) 99.88%
-  );
+  // background: linear-gradient(
+  //   90deg,
+  //   rgba(48, 97, 219, 0.19) 0%,
+  //   rgba(48, 97, 219, 0.08) 99.88%
+  // );
+  background-image: url(./imgs/bg-showcase-board.png);
+  background-size: 100% 100%;
   margin-bottom: 10px;
 
   .swiper-topic {
     font-size: 24px;
     font-weight: 500;
     color: #d8f0ff;
-    margin: 5px 0;
   }
 
   .swiper-wrap {
@@ -198,14 +199,19 @@ const goToDemDetail = (id) => {
 
 .swiper-scene {
   width: 100%;
-  height: 100%;
+  height: 90%;
   display: flex;
   flex-direction: row;
   align-items: center;
-
+  gap:30px;
   .scene-img {
     flex: 2;
     height: 100%;
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   .scene-content {
@@ -261,8 +267,8 @@ const goToDemDetail = (id) => {
 
 .main-container {
   display: flex;
-  width: 100%;
-  height: auto;
+  width: 80%;
+  height: fit-content;
   justify-content: space-between;
   gap: 20px;
   .main-container-dem {
@@ -279,6 +285,9 @@ const goToDemDetail = (id) => {
   flex-wrap: wrap;
   align-content: space-around;
   justify-content: space-around;
+  overflow: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
   padding: 10px;
   gap: 10px;
 
