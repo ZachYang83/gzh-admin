@@ -8,9 +8,11 @@
         <div class = "sub-title">
           基本信息
         </div>
+        <div class = "sub-content">
         <div class = "info-item" v-for="(value, key) in basicInfo" :key="key">
           <span class = "info-label">{{ key }}：</span>
           <span class = "info-value">{{ value }}</span>
+        </div>
         </div>
       </div>
       <div class = "sub-intro">
@@ -106,7 +108,6 @@ onMounted(() => {
   gap:20px;
 }
 .info-item{
-  padding: 5px 0 5px 20px;
   font-size: 16px;
   
 }
@@ -129,9 +130,8 @@ onMounted(() => {
   width: 100%;
   height: fit-content;
   font-size: 16px;
-  line-height: 1.5;
   padding:10px 0 10px 20px;
-  line-height: 1.5rem;
+  line-height: 3rem;
 }
 img{
   cursor: pointer;
