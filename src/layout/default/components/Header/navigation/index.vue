@@ -71,15 +71,6 @@ export default {};
 <style lang="scss" scoped>
 @import "@/styles/screen-mixin.scss";
 
-@font-face {
-  font-family: YouSheBiaoTiYuan;
-  src: url("@/assets/font/YouSheBiaoTiYuan.otf");
-}
-
-@font-face {
-  font-family: YouSheBiaoTiHei;
-  src: url("@/assets/font/YouSheBiaoTiHei.ttf");
-}
 .nav-wrap {
   width: 100%;
   height: 70px;

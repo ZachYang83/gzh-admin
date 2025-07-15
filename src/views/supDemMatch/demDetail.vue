@@ -120,7 +120,7 @@ onMounted(() => {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background-image: url('@/assests/images/bg-title-2.png');
+  background-image: url('@/assets/images/bg-title-2.png');
   background-position: left bottom;
   background-repeat: no-repeat;
   color: #D8F0FF;

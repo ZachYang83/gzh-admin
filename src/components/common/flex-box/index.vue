@@ -40,10 +40,6 @@ export default {
 </script>
 
 <style scoped>
-@font-face {
-  font-family: ALIBABAPUHUITI;
-  src: url("@/assets/font/ALIBABAPUHUITI.TTF");
-}
 .card-box {
   width: v-bind(width);
   height: v-bind(height);

@@ -81,10 +81,6 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-@font-face {
-  font-family: YouSheBiaoTiHei;
-  src: url("@/assets/font/YouSheBiaoTiHei.ttf");
-}
 .board-wrap {
   display: flex;
   width: 33.33%;

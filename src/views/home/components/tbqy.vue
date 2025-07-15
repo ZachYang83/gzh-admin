@@ -172,10 +172,6 @@ const changeNav = (index) => {
 </script>
 
 <style lang="scss" scoped>
-@font-face {
-  font-family: YouSheBiaoTiYuan;
-  src: url("@/assets/font/YouSheBiaoTiYuan.otf");
-}
 .tbqy-wrap {
   width: 100%;
   height: 100%;

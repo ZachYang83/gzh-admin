@@ -45,10 +45,6 @@ const textarea = ref("");
 </script>
 
 <style lang="scss" scoped>
-@font-face {
-  font-family: YouSheBiaoTiHei;
-  src: url("@/assets/font/YouSheBiaoTiHei.ttf");
-}
 .aizs-wrap {
   width: 100%;
   height: 100%;
