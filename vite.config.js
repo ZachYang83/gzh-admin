@@ -91,23 +91,7 @@ export default defineConfig(({ mode }) => {
       port,
       // 是否开启https
       https: false,
-      // proxy: {
-      //   "/scene": {
-      //     target: env.VITE_APP_SERVER_API,
-      //     changeOrigin: true,
-      //     // rewrite: (path) => path.replace(/^\/enterprise/, "/enterprise"),
-      //   },
-      //   "/supDemMatch": {
-      //     target: env.VITE_APP_SERVER_API,
-      //     changeOrigin: true,
-      //     // rewrite: (path) => path.replace(/^\/enterprise/, "/enterprise"),
-      //   },
-      //   "/product": {
-      //     target: env.VITE_APP_SERVER_API,
-      //     changeOrigin: true,
-      //     // rewrite: (path) => path.replace(/^\/enterprise/, "/enterprise"),
-      //   },
-      // },
+      allowedHosts: ['gzpi-fclab.cn', 'www.gzpi-fclab.cn'],
       proxy: {
         "/api": {
           target: env.VITE_APP_BASE_URL,
