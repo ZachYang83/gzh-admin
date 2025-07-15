@@ -38,10 +38,6 @@ const goBack = () => {
 </script>
 
 <style lang="scss" scoped>
-@font-face {
-  font-family: ALIBABAPUHUITI;
-  src: url("@/assets/font/ALIBABAPUHUITI.TTF");
-}
 .bt-wrap {
   width: 100%;
   height: 100%;

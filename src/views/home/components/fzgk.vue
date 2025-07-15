@@ -79,16 +79,6 @@
 <script setup></script>
 
 <style lang="scss" scoped>
-@font-face {
-  font-family: YouSheBiaoTiYuan;
-  src: url("@/assets/font/YouSheBiaoTiYuan.otf");
-}
-
-@font-face {
-  font-family: ALIBABAPUHUITI;
-  src: url("@/assets/font/ALIBABAPUHUITI.TTF");
-}
-
 .fzgk-card {
   width: 100%;
   height: 100%;
