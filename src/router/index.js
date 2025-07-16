@@ -161,8 +161,15 @@ export const constantRoutes = [
         component: () => import("@/views/revTask/index.vue"),
         name: "RevTask",
         file: "revTask/index.vue",
-        meta: { title: "供需对接", icon: "iconfont icon-shiyongwendang mr-5" },
+        meta: { title: "榜单列表", icon: "iconfont icon-shiyongwendang mr-5" },
       },
+      {
+        path: "detail",
+        component: () => import("@/views/revTask/detail.vue"),
+        name: "taskDetail",
+        file: "revTask/detail.vue",
+        meta: { title: "任务详情", icon: "iconfont icon-shiyongwendang mr-5"},
+      }
     ],
   },
   {

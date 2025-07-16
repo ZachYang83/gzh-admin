@@ -3,76 +3,81 @@
         <div class = "alg-header">
             <!-- <tybtl title="算法超市" :isHome="true"></tybtl> -->
         </div>
-            <div class = "alg-figure-wrap">
-                <figure-board2 title="总数量" :figure="totalCount"></figure-board2>
-                <figure-board2 title="算法数量" :figure="algCount"></figure-board2>
-                <figure-board2 title="大模型数量" :figure="modelCount"></figure-board2>
-            </div>
+        <div class = "alg-figure-wrap">
+            <figure-board2 title="总数量" :figure="totalCount"></figure-board2>
+            <figure-board2 title="算法数量" :figure="algCount"></figure-board2>
+            <figure-board2 title="大模型数量" :figure="modelCount"></figure-board2>
+        </div>
 
-            <div class = "alg-table-filter">
-                <div class = "filters">
-                    <el-select v-model="filingTypeSelect" placeholder="请选择" @change="() => filterAlg(currentPage = 1)" :ref="(el) => refElements.push(el)">
-                        <el-option v-for="item in filingType" :key="item" :label="item" :value="item"></el-option>
-                    </el-select>
+        <div class = "alg-table-filter">
+            <div class = "filters">
+                <el-select v-model="filingTypeSelect" placeholder="请选择" @change="() => filterAlg(currentPage = 1)" :ref="(el) => refElements.push(el)">
+                    <el-option v-for="item in filingType" :key="item" :label="item" :value="item"></el-option>
+                </el-select>
 
-                    <el-select v-model="categoriesSelect" placeholder="请选择" @change="() => filterAlg(currentPage = 1)" :ref="(el) => refElements.push(el)">
-                        <el-option v-for="item in categories" :key="item" :label="item" :value="item"></el-option>
-                    </el-select>
+                <el-select v-model="categoriesSelect" placeholder="请选择" @change="() => filterAlg(currentPage = 1)" :ref="(el) => refElements.push(el)">
+                    <el-option v-for="item in categories" :key="item" :label="item" :value="item"></el-option>
+                </el-select>
 
-                    <el-select v-model="filingMonthSelect" placeholder="请选择" @change="() => filterAlg(currentPage = 1)" :ref="(el) => refElements.push(el)">
-                        <el-option v-for="item in filingMonth" :key="item" :label="item" :value="item"></el-option>
-                    </el-select>
+                <el-select v-model="filingMonthSelect" placeholder="请选择" @change="() => filterAlg(currentPage = 1)" :ref="(el) => refElements.push(el)">
+                    <el-option v-for="item in filingMonth" :key="item" :label="item" :value="item"></el-option>
+                </el-select>
 
-                    <el-select v-model="regionsSelect" placeholder="请选择" @change="() => filterAlg(currentPage = 1)" :ref="(el) => refElements.push(el)">
-                        <el-option v-for="item in regions" :key="item" :label="item" :value="item"></el-option>
-                    </el-select>
+                <el-select v-model="regionsSelect" placeholder="请选择" @change="() => filterAlg(currentPage = 1)" :ref="(el) => refElements.push(el)">
+                    <el-option v-for="item in regions" :key="item" :label="item" :value="item"></el-option>
+                </el-select>
 
-                    <el-select v-model="sortOrderSelect" placeholder="请选择" @change="() => filterAlg(currentPage = 1)" :ref="(el) => refElements.push(el)">
-                        <el-option v-for="item in sortOrder" :key="item" :label="item" :value="item"></el-option>
-                    </el-select>
-                    <div class = "reset" @click="reset()">
-                        <!-- <svg-icon icon-class="icon-reset" size="60%"></svg-icon> -->
-                        重置
-                    </div>
-                </div>
-                <div class = search-box>
-                    <input v-model = "currentKeyword" type="text" placeholder="请输入关键词" class = "input-box" @keyup.enter="filterAlg(currentPage = 1)" :ref="(el) => refElements.push(el)"/>
-                    <button class = "search-btn" @click="filterAlg(currentPage = 1)">
-                    <svg-icon icon-class="search" size="1rem"></svg-icon>
-                    查询
-                    </button>
+                <el-select v-model="sortOrderSelect" placeholder="请选择" @change="() => filterAlg(currentPage = 1)" :ref="(el) => refElements.push(el)">
+                    <el-option v-for="item in sortOrder" :key="item" :label="item" :value="item"></el-option>
+                </el-select>
+                <div class = "reset" @click="reset()">
+                    <!-- <svg-icon icon-class="icon-reset" size="60%"></svg-icon> -->
+                    重置
                 </div>
             </div>
-            <div class = "alg-table-wrap">
-                <table class="alg-table">
-                    <thead>
-                        <tr>
-                        <th style="width: 20%">名称</th>
-                        <th style="width: 8%">类型</th>
-                        <th style="width: 20%">提供方</th>
-                        <th style="width: 25%">应用名称</th>
-                        <th style="width: 10%">备案日期</th>
-                        <th style="width: 8%">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                        v-for="(row, index) in algData"
-                        :key="row.id"
-                        :class="['table-row', { odd: index % 2 === 0 }]"
-                        >
-                        <td>{{ row.productName }}</td>
-                        <td>{{ row.category }}</td>
-                        <td>{{ row.companyName }}</td>
-                        <td>{{ row.application }}</td>
-                        <td>{{ row.filingDate }}</td>
-                        <td>
-                            <p @click.stop="goToDetail(row.id)">查看详情</p>
-                        </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class = search-box>
+                <input v-model = "currentKeyword" type="text" placeholder="请输入关键词" class = "input-box" @keyup.enter="filterAlg(currentPage = 1)" :ref="(el) => refElements.push(el)"/>
+                <button class = "search-btn" @click="filterAlg(currentPage = 1)">
+                <svg-icon icon-class="search" size="1rem"></svg-icon>
+                查询
+                </button>
             </div>
+        </div>
+        <div class = "alg-thead-wrap">
+            <table class="alg-table">
+                <thead>
+                    <tr>
+                    <th style="width: 20%">名称</th>
+                    <th style="width: 8%">类型</th>
+                    <th style="width: 20%">提供方</th>
+                    <th style="width: 25%">应用名称</th>
+                    <th style="width: 10%">备案日期</th>
+                    <th style="width: 8%">操作</th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+        <div class = "alg-table-wrap">
+            <table  class="alg-table">
+                <tbody>
+                    <tr
+                    v-for="(row, index) in algData"
+                    :key="row.id"
+                    :class="['table-row', { odd: index % 2 === 0 }]"
+                    >
+                    <td style="width: 20%">{{ row.productName }}</td>
+                    <td style="width: 8%">{{ row.category }}</td>
+                    <td style="width: 20%">{{ row.companyName }}</td>
+                    <td style="width: 25%">{{ row.application }}</td>
+                    <td style="width: 10%">{{ row.filingDate }}</td>
+                    <td style="width: 8%">
+                        <p @click.stop="goToDetail(row.id)">查看详情</p>
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
 
         <div class="alg-footer-wrap">
@@ -199,6 +204,7 @@ onMounted(() => {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    position: relative;
 }
 .alg-header {
     width: 100%;
@@ -214,8 +220,6 @@ onMounted(() => {
     gap: 50px;
 }
 
-
-
 .alg-table-filter {
     margin: 20px 0;
     width: 80%;
@@ -226,6 +230,7 @@ onMounted(() => {
     color:#D8F0FF;
     font-size: 16px;
 }
+
 .filters{
     height: 100%;
     width: fit-content;
@@ -249,19 +254,9 @@ onMounted(() => {
             padding-right: 30px; // 适配箭头图标位置
         }
 
-    :deep(.el-select__caret) {
-        color: #D8F0FF;
-        line-height: 40px;
-    }
     
-    :deep(.el-select-dropdown__list) {
-        background-color: rgba(255, 255, 255, 0.15);
-        color: #D8F0FF;
-        border: none;
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-    }
+    
+    
 
     :deep(.el-select-dropdown) {
         background-color: rgba(255, 255, 255, 0.15);
@@ -327,13 +322,40 @@ onMounted(() => {
 
 .alg-table-wrap{
     width: 80%;
-    max-height: calc(100% - 150px);
-    overflow-y: auto;
-    table {
-        width: 100%;
-        height: 100%;
-        border-collapse: collapse;
+    max-height: 540px;
+    overflow: auto;
+}
+.alg-thead-wrap{
+    width: 80%;
+}
+.alg-table {
+    width: 100%;
+    max-height: 100%;
+    border-collapse: collapse;
+}
+
+.alg-table th, .alg-table td {
+    height: 54px;
+    padding-left:20px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    max-width:100px;// 限制单元格宽度，数值随意，似乎不影响
+    p{
+        cursor: pointer;
+        color: #2F73F6;
+        &:hover {
+            text-decoration: underline;
+        }
     }
+}
+.alg-table th {
+    font-weight: bold;
+    color: #D8F0FF;
+    background-color: rgba(55, 105, 206, 0.1);
+    height: 30px;
 }
 
 /* 交替行背景色 */
@@ -343,31 +365,6 @@ onMounted(() => {
 
 .table-row:nth-child(odd) {
   background-color: rgba(0, 85, 255, 0.1);
-}
-
-.alg-table th, .alg-table td {
-    padding: 3px 15px;
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    max-width:10px;// 限制单元格宽度，数值随意，似乎不影响
-    p{
-        cursor: pointer;
-        color: #2F73F6;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-}
-
-.alg-table th {
-    font-weight: bold;
-    color: #D8F0FF;
-    background-color: rgba(49, 114, 245, 0.15);
-    font-size: 14px;
-    padding: 8px 15px;
 }
 
 .alg-footer-wrap {

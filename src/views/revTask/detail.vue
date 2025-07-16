@@ -1,97 +1,106 @@
 <template>
   <div class="detail-wrap">
     <div class="main-title">
-      <Tybtl :title="sceneName" :isHome="false"></Tybtl>
+      <Tybtl :title="taskName" :isHome="false"></Tybtl>
     </div>
     <div class="main-content">
       <div class="main-intro">
         <div class="left">
-          <img
-            src="./imgs/example-scene.png"
-            alt="场景详情背景图"
-            class="bg-image"
-          />
+            <div class="jsmb">技术目标</div>
+            <div class="jsmb-content">{{ techGoal }}</div>
+            <div class = "units">
+                <div class="unit">
+                    <span>发榜方：</span>{{ entName }}
+                </div>
+                <div class="unit">
+                    <span>所属集团：</span>{{ topGroup }}
+                </div>
+            </div>
         </div>
         <div class="right">
-          <div class="cjjs">场景介绍</div>
-          <div class="cjjs-content">{{ discription }}</div>
-          <div class = "units">
-            <div class="unit">
-              <span>场景技术应用单位：</span>{{ application_unit }}
-            </div>
-            <div class="unit">
-              <span>场景技术支持单位：</span>{{ supporting_unit }}
-            </div>
-          </div>
-          <!-- <div class = "units">
-            <div class = "unit"><span>场景技术应用单位：</span>{{ application_unit }}</div>
-            <div class = "unit"><span>场景技术支持单位：</span>{{ supporting_unit }}</div>
-          </div> -->
-          
+            <img
+                src="./imgs/example-task.png"
+                alt="场景详情背景图"
+                class="bg-image"
+            />
         </div>
-        <div class="contact-trigger">联系洽谈</div>
-        <div class = "contact-content">{{ contact }}</div>
-      </div>
-      <div class="sub-intro">
-        <div class="sub-title">拟进一步推广应用的计划</div>
+        <button class="contact-trigger" @click="showContact()">
+        </button>
+        <div class="contact-content" v-if="isShowing">
+          <div>联系方式：{{ contact }} - {{ contactNo }}</div>
+          <span @click="showContact()">X</span>
+        </div> 
+    </div>
+    <div class="sub-intro">
+        <div class="sub-title">揭榜要求</div>
         <div class="sub-content">
-          {{ future_plan }}
+            {{ bidderReq }}
         </div>
-      </div>
-      <div class="sub-intro">
+    </div>
+    <div class="sub-intro">
         <div class="sub-title">相关信息</div>
-        <div class="sub-content info-content">
-          <!-- 相关信息表格 ：{totalInvestment: "2750万元"， sceneClass: "智能制造"， }-->
-          <div v-for="(value, key) in otherInfo" :key="key">
-            <div class="info-key flex-center">{{ key }}</div>
-            <div class="info-value flex-center">{{ value }}</div>
-          </div>
+            <div class="sub-content info-content">
+                <div v-for="(value, key) in otherInfo" :key="key">
+                    <div class="info-key flex-center">{{ key }}</div>
+                    <div class="info-value flex-center">{{ value }}</div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import Api from "@/api/scene/index.js";
+import Api from "@/api/revTask/index.js";
 const route = useRoute();
-const sceneid = ref(10);
-const application_unit = ref("技术应用单位");
-const supporting_unit = ref("技术支持单位");
-const sceneName = ref("场景名称");
-const discription = ref("这是一个示例场景的详细描述信息。");
-const future_plan = ref("这是一个示例场景的未来推广应用计划。");
+const taskid = ref(10);
+const entName = ref("");
+const topGroup = ref("");
+const taskName = ref("");
+const techGoal = ref("");
+const bidderReq = ref("");
 const otherInfo = ref({
-  总投资: "2750万元",
-  场景领域: "智能制造",
-  所属区域: "广州市",
-  落地时间: "2025年",
+  项目时间: "2750万元",
+  技术领域: "智能制造",
+  需求方式: "广州市",
+  项目预算: "2025年",
 });
-const contact = ref("如需联系洽谈，请拨打：1234567890");
-
+const contact = ref("");
+const contactNo = ref("");
+const isShowing = ref(false);
 onMounted(() => {
   if (route.query.id) {
-    sceneid.value = Number(route.query.id);
-    console.log(sceneid.value, "sceneid");
+    taskid.value = Number(route.query.id);
+    console.log(taskid.value, "taskid");
   }
   // 根据id获取场景
-  Api.getCaseById({ id: sceneid.value }).then((res) => {
+  Api.getById({ id: taskid.value }).then((res) => {
     let resData = res.data;
     console.log(resData, "resData");
-    sceneName.value = resData.projectName;
-    discription.value = resData.discription;
-    application_unit.value = resData.applicationUnit;
-    supporting_unit.value = resData.supportingUnit;
-    future_plan.value = resData.futurePlan;
+    taskName.value = resData.projName;
+    techGoal.value = resData.techGoal;
+    entName.value = resData.entName;
+    topGroup.value = resData.topGroup;
+    bidderReq.value = resData.bidderReq;
     otherInfo.value = {
-      总投资: resData.totalInvestment,
-      场景领域: resData.sceneClass,
-      所属区域: resData.district,
-      落地时间: resData.deploymentTime,
+      项目时间: resData.projTime,
+      技术领域: resData.indTechField,
+      需求方式: resData.resMethod,
+      项目预算: resData.projBudget + (/^\d/.test(resData.projBudget) ? "万元":""),
     };
     contact.value = resData.contact;
+    contactNo.value = resData.contactNo;
   });
 });
+
+const showContact = () => {
+  if (contact.value) {
+    isShowing.value = !isShowing.value;
+  }
+};
+
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -122,6 +131,25 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  button{
+    position: absolute;
+    background-image: url("@/assets/images/bg-button1.png");
+    background-color: transparent;
+    background-size: 100% 100%;
+    width: 160px;
+    height: 30px;
+    left: calc(50% - 80px);
+    bottom: -15px;
+    border: none;
+    cursor: pointer;
+    &:hover{
+        scale: 1.01 1.05;
+    }
+    &:active{
+        scale: 1;
+    }
+  }
 }
 
 .main-intro {
@@ -137,37 +165,23 @@ onMounted(() => {
 }
 
 .left {
-  width: 43%;
+  width: 65%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-}
-.right {
-  width: 57%;
-  height: 100%;
-  padding-top: 30px;
-  padding-left: 40px;
+  padding: 10px 40px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  position: relative;
-  gap: 20px;
-  .cjjs {
+  gap:20px;
+  .jsmb {
     font-size: 20px;
     font-weight: 600;
   }
-  .cjjs-content {
-    height: 180px;
+  .jsmb-content {
+    height: 300px;
     width: 100%;
     font-size: 16px;
-    line-height: 1.5rem;
+    line-height: 2rem;
     overflow: scroll;
     /*隐藏滑动条*/
     scrollbar-width: none; /* Firefox */
@@ -183,16 +197,32 @@ onMounted(() => {
   }
 
   .unit {
-    flex:1;
+    width: 50%;
     span {
       font-weight: 600;
     }
   }
 }
+.right {
+  width: 35%;
+  height: 100%;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+}
 
 .contact-trigger {
   position: absolute;
-  right:25px;
+  left:25px;
   bottom: 10px;
   font-size: 16px;
   padding-right: 10px;
@@ -210,12 +240,14 @@ onMounted(() => {
   font-size:16px;
   line-height: 2rem;
   background-color: #162637;
-  right: 25px;
+  left: calc(50% - 200px);
   bottom: 40px;
-  display: none;
-}
-.contact-trigger:hover + .contact-content {
-  display: block;
+  span{
+    position: absolute;
+    top:0px;
+    right:10px;
+    cursor: pointer;
+  }
 }
 
 .sub-intro {
@@ -246,7 +278,7 @@ onMounted(() => {
     padding: 20px;
     min-height: 80px;
     font-size: 16px;
-    line-height: 1.5rem;
+    line-height: 2rem;
     background: linear-gradient(to bottom, #32465e, #224388);
     border: 1px solid rgba(0, 170, 255, 1);
     border-image: linear-gradient(
@@ -265,7 +297,6 @@ onMounted(() => {
       color: #d8f0ff;
     }
     .info-value {
-      margin-top: 10px;
       color: #eac328;
     }
   }

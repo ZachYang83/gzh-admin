@@ -2,10 +2,9 @@
   <div class="board-wrap">
     <div class="inner-wrap">
       <div class="title">{{ title }}</div>
+      <div class = "splitline"></div>
       <div class="main-content">
-        <div class="line1">
-          {{ key1 }}：<span>{{ value1 }}</span><span v-if="value1" style = "font-size: 14px;">万元</span>
-        </div>
+        
         <div class="line2">
           {{ key2 }}：<span>{{ value2 }}</span>
         </div>
@@ -15,7 +14,16 @@
         <div class="line4">
           {{ key4 }}：<span>{{ value4 }}</span>
         </div>
-        <button class="detail-btn" @click.stop="goToDetail(id)">查看详情</button>
+        <div class = "bottom-line">
+          <div class="line1" v-if="/^\d/.test(value1)">
+            {{ key1 }}：<span style = "font-size: 20px;">{{ value1 }}</span><span style = "font-size: 14px;">万元</span>
+          </div>
+          <div class="line1" v-else>
+            {{ key1 }}：<span>{{ value1 }}</span>
+          </div>
+          <button class="detail-btn" @click.stop="goToDetail(id)">查看详情</button>
+        </div>
+        
       </div>
     </div>
   </div>
@@ -89,10 +97,6 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-@font-face {
-  font-family: YouSheBiaoTiYuan;
-  src: url("@/assets/font/YouSheBiaoTiYuan.otf");
-}
 .board-wrap {
   display: flex;
   width: 20%;
@@ -107,56 +111,73 @@ const props = defineProps({
   padding: 2% 4%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: space-around;
   background-image: url("@/assets/images/bg-detail-board4.png");
   background-size: 100% 100%;
 }
 .title {
-  margin-top: 10px;
+  width: 100%;
+  line-height: 24px;
+  height: 48px;
+  font-size: 20px;
   font-family: YouSheBiaoTiYuan;
-  font-size: 22px;
-  width: fit-content;
-  color: #d8f0ff;
-  text-align: center;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   text-overflow: ellipsis;
+  overflow: hidden;
+  color: #e0f7fa;
+  
+}
+
+.splitline{
+  height: 0;
+  width: 100%;
+  border-bottom: #c4c4c4 1px dashed;
 }
 .main-content {
   width: 100%;
-  height: calc(100% - 50px);
+  height: calc(100% - 90px);
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  text-align: center;
+  align-items: flex-start;
+  justify-content: space-between;
+  text-align: start;
+  color:#ffffffe1;
 }
 
 .line1 > span{
   color: #D43030;
   font-weight: 600;
-  font-size: 20px;
 }
 
 .line2 > span {
   background: linear-gradient(40deg, #2b87ff, #2bcaff);
-  padding: 0.2rem 0.5rem;
+  padding: 4px 6px;
   border-radius: 4px;
 }
-.line4 {
-  color: rgba(154, 168, 184, 1);
+
+.bottom-line{
+  width: 100%;
+  display: flex;
+  margin-top:10px;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .detail-btn {
-  width: 50%;
-  height: fit-content;
+  width: 100px;
+  height: 35px;
+  margin-right: 10px;
+  font-size: 14px;
   background-image: url("@/assets/images/bg-button2.png");
   background-size: 100% 100%;
   background-color: transparent;
   color: #fff;
   border: none;
   cursor: pointer;
-  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -31,8 +31,10 @@
             <span>所属区：</span
             ><span class="unit-district">{{ productInfo.district }}</span>
           </div>
-          <div class="contact" :title="productInfo.contact">联系洽谈</div>
+          
         </div>
+        <div class="contact-trigger">联系洽谈</div>
+        <div class = "contact-content">{{ productInfo.contact }}</div>
       </div>
       <div class="sub-intro">
         <div class="sub-title">专利布局情况</div>
@@ -133,8 +135,9 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("./imgs/bg-detail-main.png");
+  background-image: url("@/assets/images/bg-detail-main.png");
   background-size: 100% 100%;
+  position: relative;
 }
 
 .left {
@@ -158,6 +161,7 @@ onMounted(() => {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  position: relative;
   gap: 20px;
   .cjjs {
     font-size: 20px;
@@ -185,12 +189,14 @@ onMounted(() => {
     .unit-kind {
       display: inline-block;
       background: linear-gradient(40deg, #2b87ff, #2bcaff);
-      padding: 2px 5px;
+      padding: 3px 6px;
+      border-radius: 4px;
     }
     .unit-field {
         display: inline-block;
       background: linear-gradient(40deg, #2b87ff, #2bcaff);
       padding: 2px 5px;
+      border-radius: 4px;
     }
     .unit-district {
       color: #2b87ff;
@@ -198,15 +204,32 @@ onMounted(() => {
   }
 }
 
-.contact {
-  width: 100%;
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+.contact-trigger {
+  position: absolute;
+  right:25px;
+  bottom: 10px;
   font-size: 16px;
   padding-right: 10px;
   cursor: context-menu;
+  &:hover {
+    color: #d8f0ff;
+  }
+}
+
+.contact-content{
+  position: absolute;
+  padding:20px;
+  border: #d8f0ff 1px solid;
+  width: 400px;
+  font-size:16px;
+  line-height: 2rem;
+  background-color: #162637;
+  right: 25px;
+  bottom: 40px;
+  display: none;
+}
+.contact-trigger:hover + .contact-content {
+  display: block;
 }
 .sub-intro {
   width: 100%;
@@ -223,7 +246,7 @@ onMounted(() => {
     width: 300px;
     font-family: YouSheBiaoTiHei;
     color: #d8f0ff;
-    background-image: url("./imgs/bg-title1.png");
+    background-image: url("@/assets/images/bg-title1.png");
     background-size: 100% 100%;
     display: flex;
     justify-content: flex-start;

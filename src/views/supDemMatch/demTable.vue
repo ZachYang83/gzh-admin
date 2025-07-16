@@ -6,7 +6,7 @@
     
     <div class = "menu">
       <div class = search-box>
-        <input v-model="currentKeyword" type="text" placeholder="请输入关键词" class = "input-box"/>
+        <input v-model="currentKeyword" type="text" placeholder="请输入关键词" class = "input-box"  @keyup.enter="searchKeywords(currentKeyword)"/>
         <button class = "search-btn" @click="searchKeywords(currentKeyword)">
           <svg-icon icon-class="search" size="1.2rem"></svg-icon>
           查询

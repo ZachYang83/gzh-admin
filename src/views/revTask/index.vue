@@ -6,7 +6,7 @@
     
     <div class = "menu">
       <div class = search-box>
-        <input v-model="currentKeyword" type="text" placeholder="请输入关键词" class = "input-box"/>
+        <input v-model="currentKeyword" type="text" placeholder="请输入关键词" class = "input-box"  @keyup.enter="searchKeywords(currentKeyword)"  ref="refElement"/>
         <button class = "search-btn" @click="searchKeywords(currentKeyword)">
           <svg-icon icon-class="search" size="1.2rem"></svg-icon>
           查询
@@ -15,7 +15,7 @@
       </div>
       <div class = "menu-items" >
         行业领域：
-        <div class = "menu-item" v-for ="(item, index) in scenes" :key="index" :class="{ active: activeIndex === index }" @click="switchTaskClass(item)">
+        <div class = "menu-item" v-for ="(item, index) in taskClass" :key="index" :class="{ active: activeIndex === index }" @click="switchTaskClass(item)">
           <span>{{ item }}</span>
         </div>
       </div>
@@ -48,8 +48,8 @@ import Api from "@/api/revTask/index.js";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute(); 
-
-const scenes = ref(["全部", "人工智能—算法", "人工智能—大数据"]);
+const refElement = ref(null);
+const taskClass = ref(["全部", "人工智能—算法", "人工智能—大数据"]);
 const activeIndex =ref(0)
 const totalCount = ref(0);
 const taskData = ref(null);
@@ -63,17 +63,20 @@ const searchKeywords = (keyword)=> {
   filterTask();
 };
 const switchTaskClass = (item)=>{
-  console.log("切换场景类别:", item);
+  console.log("切换任务类别:", item);
   currentKeyword.value = "";
-  activeIndex.value = scenes.value.indexOf(item);
+  activeIndex.value = taskClass.value.indexOf(item);
   filterTask();
 }
 const filterTask = (pageNum = 1) =>{
   currentPage.value = pageNum;
+  if (refElement.value){
+    refElement.value.blur();
+  }
   //不支持同时关键词和场景查询
   if(currentKeyword.value){
     console.log("当前关键词:", currentKeyword.value);
-    Api.getByKeywords({ 
+    Api.getListByKeywords({ 
       keywords: currentKeyword.value,
       pageNum: currentPage.value,
       pageSize: pageSize
@@ -83,9 +86,9 @@ const filterTask = (pageNum = 1) =>{
       totalCount.value = resData.total;
     });
   }else{
-    console.log("当前场景类别:", scenes.value[activeIndex.value]);
+    console.log("当前任务类别:", taskClass.value[activeIndex.value]);
     Api.getListByClass({ 
-      scene_class: scenes.value[activeIndex.value],
+      indTechField: taskClass.value[activeIndex.value] === "全部" ? "" : taskClass.value[activeIndex.value],
       pageNum: currentPage.value,
       pageSize: pageSize
     }).then((res) => {
@@ -198,7 +201,6 @@ input {
 .main-content {
   width: 100%;
   height: 80%;
-  padding: 0 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -207,7 +209,7 @@ input {
 
 .main-table {
   height:92%;
-  width: 100%;
+  width: 80%;
   //display: grid;
   // grid-template-columns: repeat(3, 1fr); /* 3列，每列等宽 */
   // grid-template-rows: repeat(3, 1fr);
