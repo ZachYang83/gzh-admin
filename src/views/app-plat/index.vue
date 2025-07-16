@@ -6,7 +6,7 @@
     
     <div class = "menu">
       <div class = search-box>
-        <input v-model="currentKeyword" type="text" placeholder="请输入关键词" class = "input-box"/>
+        <input v-model="currentKeyword" type="text" placeholder="请输入关键词" class = "input-box"  @keyup.enter="searchKeywords(currentKeyword)"  ref="refElement"/>
         <button class = "search-btn" @click="searchKeywords(currentKeyword)">
           <svg-icon icon-class="search" size="1.2rem"></svg-icon>
           查询
@@ -49,7 +49,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute(); 
 const props = defineProps(['kind'])
-
+const refElement = ref(null);
 const scenes = ref(["全部", "智能制造", "医药健康", "智能安防","综合交通", "城市治理", "教育教学", "商贸流通", "智慧办公", "能源环保", "政务服务","数字创意","通讯信号","现代农业"]);
 const activeIndex =ref(0)
 const totalCount = ref(0);
@@ -71,6 +71,9 @@ const switchSceneClass = (item)=>{
 }
 const filterScene = (pageNum = 1) =>{
   currentPage.value = pageNum;
+  if (refElement.value){
+    refElement.value.blur();
+  }
   //不支持同时关键词和场景查询
   if(currentKeyword.value){
     console.log("当前关键词:", currentKeyword.value);

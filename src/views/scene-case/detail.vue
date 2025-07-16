@@ -15,18 +15,22 @@
         <div class="right">
           <div class="cjjs">场景介绍</div>
           <div class="cjjs-content">{{ discription }}</div>
-          <div class="unit">
-            <span>场景技术应用单位：</span>{{ application_unit }}
-          </div>
-          <div class="unit">
-            <span>场景技术支持单位：</span>{{ supporting_unit }}
+          <div class = "units">
+            <div class="unit">
+              <span>场景技术应用单位：</span>{{ application_unit }}
+            </div>
+            <div class="unit">
+              <span>场景技术支持单位：</span>{{ supporting_unit }}
+            </div>
           </div>
           <!-- <div class = "units">
             <div class = "unit"><span>场景技术应用单位：</span>{{ application_unit }}</div>
             <div class = "unit"><span>场景技术支持单位：</span>{{ supporting_unit }}</div>
           </div> -->
-          <div class="contact" :title="contact">联系洽谈</div>
+          
         </div>
+        <div class="contact-trigger">联系洽谈</div>
+        <div class = "contact-content">{{ contact }}</div>
       </div>
       <div class="sub-intro">
         <div class="sub-title">拟进一步推广应用的计划</div>
@@ -123,8 +127,9 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("./imgs/bg-detail-main.png");
+  background-image: url("@/assets/images/bg-detail-main.png");
   background-size: 100% 100%;
+  position: relative;
 }
 
 .left {
@@ -148,13 +153,15 @@ onMounted(() => {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  position: relative;
   gap: 20px;
   .cjjs {
     font-size: 20px;
     font-weight: 600;
   }
   .cjjs-content {
-    max-height: 250px;
+    height: 180px;
+    width: 100%;
     font-size: 16px;
     line-height: 1.5rem;
     overflow: scroll;
@@ -166,29 +173,47 @@ onMounted(() => {
     width: 100%;
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 40px;
     color: #d8f0ff;
     font-size: 16px;
   }
 
   .unit {
-    width: 100%;
+    flex:1;
     span {
       font-weight: 600;
     }
   }
 }
 
-.contact {
-  width: 100%;
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+.contact-trigger {
+  position: absolute;
+  right:25px;
+  bottom: 10px;
   font-size: 16px;
   padding-right: 10px;
   cursor: context-menu;
+  &:hover {
+    color: #d8f0ff;
+  }
 }
+
+.contact-content{
+  position: absolute;
+  padding:20px;
+  border: #d8f0ff 1px solid;
+  width: 400px;
+  font-size:16px;
+  line-height: 2rem;
+  background-color: #162637;
+  right: 25px;
+  bottom: 40px;
+  display: none;
+}
+.contact-trigger:hover + .contact-content {
+  display: block;
+}
+
 .sub-intro {
   width: 100%;
   height: fit-content;
@@ -203,7 +228,7 @@ onMounted(() => {
     height: 40px;
     width: 300px;
     font-family: YouSheBiaoTiYuan;
-    background-image: url("./imgs/bg-title1.png");
+    background-image: url("@/assets/images/bg-title1.png");
     background-size: 100% 100%;
     display: flex;
     justify-content: flex-start;

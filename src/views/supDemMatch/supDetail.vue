@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class = "contact">
-        <img src="./imgs/bg-button1.png" alt="电话" class = "phone-icon">
+        <img src="@/assets/images/bg-button1.png" alt="电话" class = "phone-icon">
       </div>
       
       
