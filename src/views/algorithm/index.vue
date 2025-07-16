@@ -1,7 +1,7 @@
 <template>
     <div class = "alg-wrap">
         <div class = "alg-header">
-            <tybtl title="算法超市" :isHome="true"></tybtl>
+            <!-- <tybtl title="算法超市" :isHome="true"></tybtl> -->
         </div>
             <div class = "alg-figure-wrap">
                 <figure-board2 title="总数量" :figure="totalCount"></figure-board2>
@@ -331,6 +331,7 @@ onMounted(() => {
     overflow-y: auto;
     table {
         width: 100%;
+        height: 100%;
         border-collapse: collapse;
     }
 }
