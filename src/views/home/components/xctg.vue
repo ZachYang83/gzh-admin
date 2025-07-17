@@ -26,7 +26,7 @@
             <div class="class-name-underline"></div>
             <div class="intro-title">{{ slide.title }}</div>
             <div class="intro-content">{{ slide.content }}</div>
-            <div class="intro-btn">立即联系</div>
+            <!-- <div class="intro-btn">立即联系</div> -->
           </div>
           <div class="xctg-imgbox">
             <img :src="slide.img_src" :alt="slide.imgalt" /></div

@@ -16,7 +16,7 @@
     </div>
     <div class="sy-center-wrap flex-center">
       <div class="center-top">
-         <Xctg></Xctg>
+        <Xctg></Xctg>
       </div>
       <div class="center-bottom">
         <flexBox title="AI助手">
@@ -36,9 +36,12 @@
         </flexBox>
       </div>
       <div class="right3 flex-center">
-        <div class="card-body">
-          <!-- <Cjsb></Cjsb> -->
-          <div class="shenbao" @click="goToShenbao"></div>
+        <!-- <Cjsb></Cjsb> -->
+        <div class="submit-box flex-center">
+          <div class="scene-submit" @click="goToSence"></div>
+        </div>
+        <div class="submit-box flex-center">
+          <div class="flat-submit" @click="goToFlat"></div>
         </div>
       </div>
       <div class="right4 flex-center">
@@ -62,8 +65,11 @@ import Xctg from "./components/xctg.vue";
 import common from "common";
 const { toPage } = common();
 
-const goToShenbao = () => {
-  toPage("/shenbao");
+const goToSence = () => {
+  toPage("/submit/scene");
+};
+const goToFlat = () => {
+  toPage("/submit/flat");
 };
 </script>
 
@@ -119,6 +125,8 @@ const goToShenbao = () => {
 }
 
 .right3 {
+  display: flex;
+  gap: 10px;
   width: 460px;
   height: 138px;
   margin: 4px 10px;
@@ -156,12 +164,35 @@ const goToShenbao = () => {
   box-sizing: border-box;
 }
 
-.shenbao {
-  width: 100%;
+.submit-box {
+  flex:1;
   height: 100%;
+  padding: 5px;
+  border-radius: 2px;
+  border: 1px solid rgba(42, 130, 228, 0.3);
+  background: rgba(48, 97, 219, 0.12);
+  box-sizing: border-box;
+}
+
+.scene-submit {
+  width: 200px;
+  height: 90px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  background-image: url("./imgs/ai-yysb2.png");
+  background-image: url("./imgs/scene-submit.png");
+  background-position: center center;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.03);
+  }
+}
+
+.flat-submit {
+  width: 200px;
+  height: 90px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url("./imgs/flat-submit.png");
   background-position: center center;
   transition: transform 0.3s ease;
   &:hover {

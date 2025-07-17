@@ -252,7 +252,7 @@ const formRules = reactive({
           callback(); // 验证通过
         }
       },
-    }, // 这里trigger改为change更合适，因为是上传文件操作
+    }, 
   ],
   contactName: [
     { required: true, message: "请输入联系人姓名", trigger: "blur" }, // 一般输入框用blur触发更合适
