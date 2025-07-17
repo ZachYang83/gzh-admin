@@ -108,7 +108,10 @@ const goToDetail = (id) => {
   span {
     position: relative;
     padding-left: 15px;
-    color: #d8f0ff;
+    background: linear-gradient(180deg, #1b8af2 0%, #ffffff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     font-size: 20px;
     font-weight: bold;
 
@@ -118,9 +121,10 @@ const goToDetail = (id) => {
       left: 0;
       top: 50%;
       transform: translateY(-50%);
-      height: 80%; /* 竖线高度为文字高度的80% */
-      width: 5px; /* 竖线宽度 */
-      background-color: #0071f2; /* 蓝色竖线 */
+      height: 80%; 
+      width: 6px;
+      background: linear-gradient(180deg, #1b8af2 0%, #ffffff 100%);
+      border-radius: 2px;
     }
   }
 

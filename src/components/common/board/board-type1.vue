@@ -74,8 +74,7 @@ const props = defineProps({
   },
   value3: {
     type: String,
-    default:
-      "",
+    default: "",
   },
 });
 </script>
@@ -99,13 +98,31 @@ const props = defineProps({
   background-size: 100% 100%;
 }
 .title {
-  font-family: YouSheBiaoTiHei;
+  // padding-left: 15px; 
+  position: relative; 
+  font-family: ALIBABAPUHUITI;
   font-size: 20px;
+  font-weight: 600;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #d8f0ff;
+  background: linear-gradient(180deg, #1b8af2 0%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  // &::before {
+  //   content: "";
+  //   position: absolute;
+  //   left: 0px;
+  //   top: 50%;
+  //   transform: translateY(-50%);
+  //   height: 60%;
+  //   width: 6px;
+  //   background: linear-gradient(180deg, #1b8af2 0%, #ffffff 100%);
+  //   border-radius: 2px;
+  // }
 }
 .main-content {
   width: 100%;
