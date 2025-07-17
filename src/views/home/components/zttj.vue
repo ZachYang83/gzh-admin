@@ -82,6 +82,12 @@ const goToPage = (path) => {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
   .left {
     width: 60%;
     align-items: center;

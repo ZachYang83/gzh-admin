@@ -121,7 +121,7 @@ const goToDetail = (id) => {
       left: 0;
       top: 50%;
       transform: translateY(-50%);
-      height: 80%; 
+      height: 80%;
       width: 6px;
       background: linear-gradient(180deg, #1b8af2 0%, #ffffff 100%);
       border-radius: 2px;
@@ -195,6 +195,7 @@ const goToDetail = (id) => {
   cursor: pointer;
   transition: 0.3s ease;
   color: #d8f0ff;
+  transition: transform 0.3s ease;
 }
 .board-item:hover {
   background-color: rgba(86, 172, 242, 0.66);

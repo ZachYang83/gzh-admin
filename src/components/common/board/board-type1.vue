@@ -86,6 +86,11 @@ const props = defineProps({
   height: 33.33%;
   padding: 0.5%;
   cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.03);
+  }
 }
 
 .inner-wrap {
