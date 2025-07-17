@@ -1,16 +1,16 @@
-$--colors: ("primary": ("base": #168bf2, ), "success": ("base": #21ba45, ), "warning": ("base": #f2711c, ), "danger": ("base": #db2828, ), "error": ("base": #db2828, ), "info": ("base": #42b8dd, ), );
+//$--colors: ("primary": ("base": #168bf2, ), "success": ("base": #21ba45, ), "warning": ("base": #f2711c, ), "danger": ("base": #db2828, ), "error": ("base": #db2828, ), "info": ("base": #42b8dd, ), );
 // You should use them in scss, because we calculate it by sass.
 // comment next lines to use default color
-@forward "element-plus/theme-chalk/src/common/var.scss"with ( // do not use same name, it will override.
-$colors: $--colors, $button-padding-horizontal: ("default": 50px));
+// @forward "element-plus/theme-chalk/src/common/var.scss"with ( // do not use same name, it will override.
+// $colors: $--colors, $button-padding-horizontal: ("default": 50px));
 // if you want to import all
 // @use "element-plus/theme-chalk/src/index.scss" as *;
 // You can comment it to hide debug info.
 // @debug $--colors;
 
 /* 改变 icon 字体路径变量，必需 */
-$--font-path: "node_modules/element-plus/dist/fonts";
+// $--font-path: "node_modules/element-plus/dist/fonts";
 
-// $--el-pagination-button-bg-color:#21ba45;
-// $--el-text-color-regular:#21ba45;
-// $--el-text-color-regular: #fff;
+$--el-pagination-button-bg-color:#21ba45;
+$--el-text-color-regular: #ff0000;
+$--el-color-primary: #d9ff00;

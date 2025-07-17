@@ -86,10 +86,22 @@ const props = defineProps({
   height: 33.33%;
   padding: 0.5%;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 
   &:hover {
     transform: scale(1.03);
+  }
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.5;
+    scale: 0.9;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
   }
 }
 

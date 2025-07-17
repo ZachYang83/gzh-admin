@@ -31,9 +31,12 @@
           {{ construction_base }}
         </div>
       </div>
-      <div class = "contact">
-        <img src="@/assets/images/bg-button1.png" alt="电话" class = "phone-icon">
-      </div>
+      <button class="contact-trigger" @click="showContact()">
+      </button>
+      <div class="contact-content" v-if="isShowing">
+        <div>联系方式：{{ contact }}</div>
+        <span @click="showContact()">X</span>
+      </div> 
       
       
     </div>
@@ -54,6 +57,7 @@ const basicInfo = ref({
   "行业主管部门": "场景所需部门"
 });
 const contact = ref("如需联系洽谈，请拨打：1234567890");
+const isShowing = ref(false);
 
 onMounted(() => {
   if(route.query.id){
@@ -77,6 +81,11 @@ onMounted(() => {
     contact.value = resData.contact;
   });
 });
+const showContact = () => {
+  if (contact.value) {
+    isShowing.value = !isShowing.value;
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -106,6 +115,7 @@ onMounted(() => {
   background-size: 100% 100%;
   padding: 30px 100px;
   gap:20px;
+  position: relative;
 }
 .info-item{
   font-size: 16px;
@@ -133,7 +143,42 @@ onMounted(() => {
   padding:10px 0 10px 20px;
   line-height: 3rem;
 }
-img{
+
+.contact-trigger {
+  font-size: 16px;
+  padding-right: 10px;
   cursor: pointer;
+  background-image: url("@/assets/images/bg-button1.png");
+  background-color: transparent;
+  background-size: 100% 100%;
+  width: 160px;
+  height: 30px;
+  left: calc(50% - 80px);
+  bottom: -15px;
+  border: none;
+  &:hover{
+      scale: 1.01 1.05;
+  }
+  &:active{
+      scale: 1;
+  }
+}
+
+.contact-content{
+  position: absolute;
+  padding:20px;
+  border: #d8f0ff 1px solid;
+  width: 400px;
+  font-size:16px;
+  line-height: 2rem;
+  background-color: #162637;
+  left: 0;
+  bottom: 80px;
+  span{
+    position: absolute;
+    top:0px;
+    right:10px;
+    cursor: pointer;
+  }
 }
 </style>

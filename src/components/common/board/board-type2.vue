@@ -103,6 +103,21 @@ const props = defineProps({
   height: 50%;
   padding: 1%;
   box-sizing: border-box;
+  animation: fadeIn 0.3s ease-out forwards;
+  opacity:0;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(10px);
+    opacity: 0.6;
+    scale:0.995;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+    scale:1;
+  }
 }
 
 .inner-wrap {

@@ -1,7 +1,7 @@
 <template>
   <div class="cj-table-wrap">
     <div class="main-title">
-      <Tybtl title="供给超市"></Tybtl>
+      <Tybtl title="供给超市" attachment = "[切换为需求]" attachmentLink = "demTable"></Tybtl>
     </div>
     
     <div class = "menu">
@@ -74,6 +74,7 @@ const filterScene = (pageNum = 1) =>{
       let resData = res.data;
       sceneData.value = resData.list;
       totalCount.value = resData.total;
+      console.log(sceneData.value);
     });
   }else{
     console.log("当前场景类别:", scenes.value[activeIndex.value]);
@@ -85,10 +86,9 @@ const filterScene = (pageNum = 1) =>{
       let resData = res.data;
       sceneData.value = resData.list;
       totalCount.value = resData.total;
+      console.log(sceneData.value);
     });
   }
-  
-  console.log(sceneData.value);
 }
 
 onMounted(() => {

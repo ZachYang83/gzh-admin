@@ -10,7 +10,7 @@
       />
     </div>
     <div class="title-text">
-      <span>{{ title }}</span>
+      {{ title }}<span @click = "goToLink()">{{ attachment }}</span>
     </div>
   </div>
 </template>
@@ -29,12 +29,27 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  attachment: {
+    type: String,
+    default: "",
+  },
+  attachmentLink: {
+    type: String,
+    default: "",
+  },
 });
 
 const goBack = () => {
   router.back();
   //router.push({ name: 'Scene' })
 };
+
+const goToLink = () => {
+  if (props.attachmentLink) {
+    router.push({ name: props.attachmentLink });
+  } 
+};
+
 </script>
 
 <style lang="scss" scoped>
@@ -63,5 +78,15 @@ const goBack = () => {
   font-size: 36px;
   color: #d8f0ff;
   font-family: ALIBABAPUHUITI;
+  
+  span{
+    margin-left: 10px;
+    font-size: 14px;
+    transform: translateY(9px);
+    cursor: pointer;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
 }
 </style>

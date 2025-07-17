@@ -70,6 +70,7 @@ const switchTaskClass = (item)=>{
 }
 const filterTask = (pageNum = 1) =>{
   currentPage.value = pageNum;
+  taskData.value = null;
   if (refElement.value){
     refElement.value.blur();
   }

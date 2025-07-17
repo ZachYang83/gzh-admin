@@ -103,7 +103,7 @@
   flex-direction: row;
   box-sizing: border-box;
 
-  transition: transform 0.3s ease;
+  transition: all 0.2s ease;
   &:hover {
     transform: scale(1.03);
     box-shadow: 0 0 0 1px rgba(8, 206, 224, 0.5),

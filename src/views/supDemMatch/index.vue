@@ -357,7 +357,7 @@ const goToDemDetail = (id) => {
   background-color: rgba(237, 240, 245, 0.5);
   opacity: 1;
   border-radius: 10px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 
 }
 
