@@ -8,58 +8,58 @@
 import request from "utils/request.js";
 
 export default {
-    /**
-     * 登录
-     *
-     * @param {*} data 参数
-     */
-    Login: (data) => {
-        return request({
-            url: '/api/user/login',
-            method: 'post',
-            data
-        })
-    },
-    /**
-     * 获取用户信息
-     */
-    GetUser: () => {
-        return request({
-            url: `/api/user/info`,
-            method: 'get'
-        })
-    },
-    /**
-     * 修改个人资料
-     *
-     * @param {*} data 参数
-     */
-    EditProfile: (data) => {
-        return request({
-            url: '/api/user/info/edit',
-            method: 'post',
-            data
-        })
-    },
-    /**
-     * 修改密码
-     *
-     * @param {*} data 参数
-     */
-    ChangePwd: (data) => {
-        return request({
-            url: '/api/user/password/edit',
-            method: 'post',
-            data
-        })
-    },
-    /**
-     * 退出登录
-     */
-    Logout: () => {
-        return request({
-            url: '/api/user/logout',
-            method: 'post'
-        })
-    },
+  /**
+   * 登录
+   *
+   * @param {*} data 参数
+   */
+  Login: (data) => {
+    return request({
+      url: "/api/user/login",
+      method: "post",
+      data,
+    });
+  },
+  /**
+   * 获取用户信息
+   */
+  GetUser: () => {
+    return request({
+      url: `/api/user/info`,
+      method: "get",
+    });
+  },
+  /**
+   * 修改个人资料
+   *
+   * @param {*} data 参数
+   */
+  EditProfile: (data) => {
+    return request({
+      url: "/api/user/info/edit",
+      method: "post",
+      data,
+    });
+  },
+  /**
+   * 修改密码
+   *
+   * @param {*} data 参数
+   */
+  ChangePwd: (data) => {
+    return request({
+      url: "/api/user/password/edit",
+      method: "post",
+      data,
+    });
+  },
+  /**
+   * 退出登录
+   */
+  Logout: () => {
+    return request({
+      url: "/api/user/logout",
+      method: "post",
+    });
+  },
 };

@@ -13,47 +13,47 @@
 
 <script setup name="Figureboard">
 const props = defineProps({
-    img_src: {
-        type: String,
-        default: "../imgs/icon-qbcj.png"
-    },
-    count: {
-        type: Number,
-        default: 236
-    },
-    title: {
-        type: String,
-        default: "应用场景"
-    }
+  img_src: {
+    type: String,
+    default: "../imgs/icon-qbcj.png",
+  },
+  count: {
+    type: Number,
+    default: 236,
+  },
+  title: {
+    type: String,
+    default: "应用场景",
+  },
 });
-const displayCount = ref(0)
+const displayCount = ref(0);
 const startAnimation = (start = 0, end = 0, duration = 2000) => {
-  const startTime = performance.now()
+  const startTime = performance.now();
 
   const animate = (currentTime) => {
-    const timeElapsed = currentTime - startTime
-    const progress = Math.min(timeElapsed / duration, 1)
-    displayCount.value = Math.floor(progress * (end - start) + start)
+    const timeElapsed = currentTime - startTime;
+    const progress = Math.min(timeElapsed / duration, 1);
+    displayCount.value = Math.floor(progress * (end - start) + start);
 
     if (timeElapsed < duration) {
-      requestAnimationFrame(animate)
+      requestAnimationFrame(animate);
     }
-  }
+  };
 
-  requestAnimationFrame(animate)
-}
+  requestAnimationFrame(animate);
+};
 
 // 监听 props.count 变化
 watch(
   () => props.count,
   (newCount) => {
-    //duration = log(newCount*20,2) 
+    //duration = log(newCount*20,2)
     startAnimation(0, newCount, Math.log(newCount) * 400);
   },
   {
-    immediate: true // 立即触发一次，如果 count 已经有值
+    immediate: true, // 立即触发一次，如果 count 已经有值
   }
-)
+);
 </script>
 
 <style lang="scss" scoped>
@@ -70,6 +70,11 @@ watch(
   background-position: center;
   overflow: hidden;
   cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
 }
 img {
   height: 50%;
@@ -100,6 +105,6 @@ img {
   align-items: center;
   font-size: 14px;
   font-weight: 600;
-  color: #a7b5c6;
+  color: #c8d1dc;
 }
 </style>

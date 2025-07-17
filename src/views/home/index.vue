@@ -163,5 +163,9 @@ const goToShenbao = () => {
   background-repeat: no-repeat;
   background-image: url("./imgs/ai-yysb2.png");
   background-position: center center;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.03);
+  }
 }
 </style>

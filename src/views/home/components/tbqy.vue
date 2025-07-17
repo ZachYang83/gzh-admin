@@ -153,7 +153,7 @@ const chart = reactive({
 
 const changeNav = (index) => {
   activeNav.value = index;
-  if(index === 0) {
+  if (index === 0) {
     chart.chartData = [
       { name: "北京", qiyeCount: 2400 },
       { name: "上海", qiyeCount: 6000 },
@@ -265,6 +265,11 @@ const changeNav = (index) => {
   background-repeat: no-repeat;
   background-image: url("../imgs//tbqy-data-bg.png");
   background-position: center center;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 
   .logo {
     width: 50px;
@@ -304,6 +309,11 @@ const changeNav = (index) => {
   flex-direction: column;
   width: 35%;
   height: 100%;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
 
   .pie-chart {
     position: relative;

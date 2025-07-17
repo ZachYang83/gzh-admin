@@ -102,6 +102,13 @@
   border-radius: 50px 0 0 50px;
   flex-direction: row;
   box-sizing: border-box;
+
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 1px rgba(8, 206, 224, 0.5),
+      0 0 10px 5px rgba(8, 206, 224, 0.3);
+  }
 }
 
 .left {
@@ -119,7 +126,7 @@
   flex-direction: row;
   flex: 1;
   align-items: center;
-  padding-left:10px;
+  padding-left: 10px;
   justify-content: space-between;
   color: #d8f0ff;
 

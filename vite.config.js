@@ -8,7 +8,6 @@ import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import { viteMockServe } from "vite-plugin-mock";
-// import px2viewport from "postcss-px-to-viewport";
 import pxToViewport from "postcss-px-to-viewport-8-plugin";
 
 const port = settings.webPort;
