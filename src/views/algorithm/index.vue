@@ -172,20 +172,24 @@ const filterAlg = (pageNum = currentPage.value, init = false) =>{
     console.log("当前筛选条件:", getParams());
     Api.search(getParams()).then((res) => {
         console.log("筛选结果:", res.data);
-        algData.value = res.data.pageAlgo.list || [];
-        itemCount.value = res.data.pageAlgo.total;
+        
         if (init) {
             regions.value = ["全部区域"].concat(res.data.regions);
             categories.value = ["全部分类"].concat(res.data.categories);
             filingMonth.value = ["全部月份"].concat(res.data.filingDates);
-            totalCount.value = res.data.totalCount;
-            algCount.value = res.data.algorithmCount;
-            modelCount.value = res.data.modelCount;
+            
             //首次进入选择广东省数据
             if (regions.value.includes("广东省")) {
                 regionsSelect.value = "广东省";
                 filterAlg();
             } 
+        }else{
+            algData.value = res.data.pageAlgo.list || [];
+            itemCount.value = res.data.pageAlgo.total;
+
+            totalCount.value = res.data.totalCount;
+            algCount.value = res.data.algorithmCount;
+            modelCount.value = res.data.modelCount;
         }
     });
 }

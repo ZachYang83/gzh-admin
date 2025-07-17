@@ -132,24 +132,7 @@ const showContact = () => {
   align-items: center;
   justify-content: center;
   position: relative;
-  button{
-    position: absolute;
-    background-image: url("@/assets/images/bg-button1.png");
-    background-color: transparent;
-    background-size: 100% 100%;
-    width: 160px;
-    height: 30px;
-    left: calc(50% - 80px);
-    bottom: -15px;
-    border: none;
-    cursor: pointer;
-    &:hover{
-        scale: 1.01 1.05;
-    }
-    &:active{
-        scale: 1;
-    }
-  }
+  
 }
 
 .main-intro {
@@ -226,9 +209,20 @@ const showContact = () => {
   bottom: 10px;
   font-size: 16px;
   padding-right: 10px;
-  cursor: context-menu;
-  &:hover {
-    color: #d8f0ff;
+  cursor: pointer;
+  background-image: url("@/assets/images/bg-button1.png");
+  background-color: transparent;
+  background-size: 100% 100%;
+  width: 160px;
+  height: 30px;
+  left: calc(50% - 80px);
+  bottom: -15px;
+  border: none;
+  &:hover{
+      scale: 1.01 1.05;
+  }
+  &:active{
+      scale: 1;
   }
 }
 

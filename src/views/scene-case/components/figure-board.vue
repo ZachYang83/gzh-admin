@@ -70,10 +70,13 @@ watch(
   background-position: center;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 
   &:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
+  }
+  &:active {
+    transform: scale(1.05);
   }
 }
 img {

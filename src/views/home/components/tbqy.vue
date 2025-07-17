@@ -265,7 +265,7 @@ const changeNav = (index) => {
   background-repeat: no-repeat;
   background-image: url("../imgs//tbqy-data-bg.png");
   background-position: center center;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 
   &:hover {
     transform: scale(1.1);
@@ -309,7 +309,7 @@ const changeNav = (index) => {
   flex-direction: column;
   width: 35%;
   height: 100%;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 
   &:hover {
     transform: scale(1.2);

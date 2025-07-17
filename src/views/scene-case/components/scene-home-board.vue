@@ -193,9 +193,9 @@ const goToDetail = (id) => {
   backdrop-filter: blur(4px);
   border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: 0.2s ease;
   color: #d8f0ff;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 .board-item:hover {
   background-color: rgba(86, 172, 242, 0.66);

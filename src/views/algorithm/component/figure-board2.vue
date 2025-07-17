@@ -25,15 +25,14 @@ const props = defineProps({
     }
 });
 
-
-
-const startAnimation = (start = 0, end = 0, duration = 2000) => {
+const startAnimation = (start = 0, end = 0, duration = 1000) => {
+  //console.log(duration, 'duration');
   const startTime = performance.now()
 
   const animate = (currentTime) => {
     const timeElapsed = currentTime - startTime
     const progress = Math.min(timeElapsed / duration, 1)
-    displayCount.value = Math.floor(progress * (end - start) + start)
+    displayCount.value = Math.floor(Math.pow(progress,0.05) * (end - start) + start)
 
     if (timeElapsed < duration) {
       requestAnimationFrame(animate)
@@ -45,7 +44,7 @@ watch(
   () => props.figure,
   (newFigure) => {
     //duration = log(newFigure*20,2) 
-    startAnimation(0, newFigure, Math.log(newFigure) * 200);
+    startAnimation(displayCount.value, newFigure, Math.log2(Math.abs(newFigure - displayCount.value)^2)*120);
   },
   {
     immediate: true // 立即触发一次，如果 figure 已经有值
@@ -64,6 +63,11 @@ watch(
     justify-content: center;
     background-image: url("../imgs/bg-figure-board2.png");
     background-size: 100% 100%;
+    transition: all 0.2s ease;
+    &:hover{
+      box-shadow: 0 0 20px rgba(30, 120, 255, 0.8);
+    }
+    
 }
 
 .left {
