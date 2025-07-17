@@ -50,14 +50,14 @@ const cardList = ref([
     path: "/supDemMatch",
     imgSrc: getImage("zttj-gxdj.png"),
     alt: "供需对接",
-    count: 235,
+    count: 4525,
     name: "供需对接",
   },
   {
     path: "/revTask",
     imgSrc: getImage("zttj-bd.png"),
     alt: "榜单",
-    count: 6,
+    count: 13,
     name: "榜单",
   },
 ]);
