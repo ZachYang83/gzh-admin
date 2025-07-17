@@ -52,3 +52,27 @@
 
 
 
+.el-select,.el-input,.el-scrollbar,.el-input--suffix,.el-tooltip__trigger,.select-trigger,.el-scrollbar__view,.el-select-dropdown,.el-select-dropdown__list,.el-select-dropdown__item,.el-popper,.el-select__popper {
+  background: rgba(0, 0, 0, 0.096);
+
+  color: #D8F0FF;
+  border: none;
+}
+
+// .el-pagination.is-background .el-pager li:not(.disabled).active {
+//   background-color: red !important;
+//   color: white;
+// }
+// .el-pagination.is-background .el-pager li:not(.disabled):hover {
+//   background-color: #ff4d4f !important;
+//   color: white;
+// }
+
+// .el-pagination.is-background .btn-next,
+// .el-pagination.is-background .btn-prev,.number,
+// li {
+//   background-color: transparent !important;
+//   border: #7AA3CC 1px solid;
+//   border-radius: 20px;
+//   color: white;
+// }
