@@ -1,7 +1,7 @@
 <template>
   <div class="detail-wrap">
     <div class="main-title">
-      <Tybtl :title="sceneName" :isHome="false"></Tybtl>
+      <Tybtl :title="sceneName+' - 国资'" :isHome="false"></Tybtl>
     </div>
     <div class="main-content">
       <div class="main-intro">
@@ -13,19 +13,27 @@
           />
         </div>
         <div class="right">
-          <div class="cjjs">场景介绍</div>
+          <div class="cjjs">主要技术/应用内容</div>
           <div class="cjjs-content">{{ discription }}</div>
           <div class = "units">
             <div class="unit">
-              <span>场景技术应用单位：</span>{{ application_unit }}
+              <span>集团名称：</span>{{ groupName }}
             </div>
             <div class="unit">
-              <span>场景技术支持单位：</span>{{ supporting_unit }}
+              <span>资本类型：</span>国资场景
+            </div>
+          </div>
+          <div class = "units">
+            <div class="unit">
+              <span>业主单位：</span>{{ companyName }}
+            </div>
+            <div class="unit">
+              <span>场景类别：</span>{{ sceneClass }}
             </div>
           </div>
           <!-- <div class = "units">
-            <div class = "unit"><span>场景技术应用单位：</span>{{ application_unit }}</div>
-            <div class = "unit"><span>场景技术支持单位：</span>{{ supporting_unit }}</div>
+            <div class = "unit"><span>场景技术应用单位：</span>{{ groupName }}</div>
+            <div class = "unit"><span>场景技术支持单位：</span>{{ companyName }}</div>
           </div> -->
           
         </div>
@@ -33,40 +41,40 @@
         <div class = "contact-content">{{ contact }}</div>
       </div>
       <div class="sub-intro">
-        <div class="sub-title">拟进一步推广应用的计划</div>
+        <div class="sub-title">对参加或使用场景建设科技企业的要求</div>
         <div class="sub-content">
-          {{ future_plan }}
+          {{ request }}
         </div>
       </div>
-      <div class="sub-intro">
+      <!-- <div class="sub-intro">
         <div class="sub-title">相关信息</div>
         <div class="sub-content info-content">
-          <!-- 相关信息表格 ：{totalInvestment: "2750万元"， sceneClass: "智能制造"， }-->
           <div v-for="(value, key) in otherInfo" :key="key">
             <div class="info-key flex-center">{{ key }}</div>
             <div class="info-value flex-center">{{ value }}</div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script setup>
-import Api from "@/api/scene/index.js";
+import Api from "@/api/scene/index2.js";
 const route = useRoute();
 const sceneid = ref(10);
-const application_unit = ref("技术应用单位");
-const supporting_unit = ref("技术支持单位");
+const groupName = ref("技术应用单位");
+const companyName = ref("技术支持单位");
 const sceneName = ref("场景名称");
 const discription = ref("这是一个示例场景的详细描述信息。");
-const future_plan = ref("这是一个示例场景的未来推广应用计划。");
-const otherInfo = ref({
-  总投资: "2750万元",
-  场景领域: "智能制造",
-  所属区域: "广州市",
-  落地时间: "2025年",
-});
+const request = ref("这是一个示例场景的未来推广应用计划。");
+const sceneClass = ref("智能制造");
+// const otherInfo = ref({
+//   总投资: "2750万元",
+//   场景领域: "智能制造",
+//   所属区域: "广州市",
+//   落地时间: "2025年",
+// });
 const contact = ref("如需联系洽谈，请拨打：1234567890");
 
 onMounted(() => {
@@ -80,16 +88,17 @@ onMounted(() => {
     console.log(resData, "resData");
     sceneName.value = resData.projectName;
     discription.value = resData.discription;
-    application_unit.value = resData.applicationUnit;
-    supporting_unit.value = resData.supportingUnit;
-    future_plan.value = resData.futurePlan;
-    otherInfo.value = {
-      总投资: resData.totalInvestment,
-      场景领域: resData.sceneClass,
-      所属区域: resData.district,
-      落地时间: resData.deploymentTime,
-    };
-    contact.value = resData.contact;
+    groupName.value = resData.groupName;
+    companyName.value = resData.companyName;
+    request.value = resData.request;
+    sceneClass.value = resData.sceneClass;
+    // otherInfo.value = {
+    //   总投资: resData.totalInvestment,
+    //   场景领域: resData.sceneClass,
+    //   所属区域: resData.district,
+    //   落地时间: resData.deploymentTime,
+    // };
+    contact.value = resData.contact + " " + resData.contactPhone + " " + resData.contactEmail;
   });
 });
 </script>
@@ -227,10 +236,10 @@ onMounted(() => {
     font-size: 18px;
     height: 40px;
     width: 300px;
-    white-space: nowrap;
     font-family: YouSheBiaoTiYuan;
     background-image: url("@/assets/images/bg-title1.png");
     background-size: 100% 100%;
+    white-space: nowrap;
     display: flex;
     justify-content: flex-start;
     padding-left: 50px;

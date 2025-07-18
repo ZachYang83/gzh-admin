@@ -1,7 +1,7 @@
 <template>
   <div class="cj-wrap">
     <div class="main-title">
-      <Tybtl_switch title="千行百业应用场景全覆盖" :title_list="['社会场景','国资场景']" :link_list = "['Scene','Scene2']" :title_index = 0 :isHome="true"></Tybtl_switch>
+      <Tybtl_switch title="千行百业应用场景全覆盖"  :title_list="['社会场景','国资场景']" :link_list = "['Scene','Scene2']" :title_index = 1 :isHome="true"></Tybtl_switch>
     </div>
     <div class="main-content">
       <div class="figure-boards">
@@ -57,7 +57,7 @@
 <script setup>
 import Figureboard from "./components/figure-board.vue";
 import SceneHomeBoard from "./components/scene-home-board.vue";
-import Api from "@/api/scene/index.js";
+import Api from "@/api/scene/index2.js";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import Tybtl_switch from "../../components/common/tybtl/tybtl_switch.vue";
@@ -79,73 +79,31 @@ const figureData = ref([
   {
     img_src: getImage("icon-znzz.png"),
     count: 0,
-    title: "智能制造", 
-    path: "",
-  },
-  {
-    img_src: getImage("icon-yyjk.png"),
-    count: 0,
-    title: "医药健康", 
-    path: "",
-  },
-  {
-    img_src: getImage("icon-zhjt.png"),
-    count: 0,
-    title: "综合交通", 
+    title: "AI+制造", 
     path: "",
   },
   {
     img_src: getImage("icon-nyhb.png"),
     count: 0,
-    title: "能源环保",
+    title: "AI+能源环保", 
+    path: "",
+  },
+  {
+    img_src: getImage("icon-zhjt.png"),
+    count: 0,
+    title: "AI+交通", 
+    path: "",
+  },
+  {
+    img_src: getImage("icon-lyxx.png"),
+    count: 0,
+    title: "AI+旅游休闲",
     path: "",
   },
   {
     img_src: getImage("icon-cszl.png"),
     count: 0,
-    title: "城市治理", 
-    path: "",
-  },
-  {
-    img_src: getImage("icon-jyjx.png"),
-    count: 0,
-    title: "教育教学", 
-    path: "",
-  },
-  {
-    img_src: getImage("icon-zwfw.png"),
-    count: 0,
-    title: "政务服务", 
-    path: "",
-  },
-  {
-    img_src: getImage("icon-smlt.png"),
-    count: 0,
-    title: "商贸流通",
-    path: "",
-  },
-  {
-    img_src: getImage("icon-szcy.png"),
-    count: 0,
-    title: "数字创意",
-    path: "",
-  },
-  {
-    img_src: getImage("icon-znbg.png"),
-    count: 0,
-    title: "智能办公",
-    path: "",
-  },
-  {
-    img_src: getImage("icon-znaf.png"),
-    count: 0,
-    title: "智能安防",
-    path: "",
-  },
-  {
-    img_src: getImage("icon-xdny.png"),
-    count: 0,
-    title: "现代农业",
+    title: "AI+城市治理", 
     path: "",
   },
 ]);
@@ -153,86 +111,37 @@ const figureData = ref([
 const sceneHomeBoards = ref([
   {},
   {
-    title: "智能制造",
+    title: "AI+制造",
     intro:
       "AI在工业机器人、质量检测、设备预测维护、工艺优化等方面成为制造升级的核心驱动力，助力企业实现柔性制造与数字化转型。",
     target: "./table",
     data: [],
   },
   {
-    title: "医药健康",
-    intro:
-      "AI在辅助诊断、医学影像识别、药物研发、慢病管理等方面将极大提升医疗服务效率与质量，推动个性化医疗和远程健康管理的发展。",
-    target: "./table",
-    data: [],
-  },
-  {
-    title: "综合交通",
-    intro:
-      "AI将在交通流量预测、自动驾驶、智能调度、出行规划等方面深度应用，构建安全、高效、绿色的现代综合交通体系。",
-    target: "./table",
-    data: [],
-  },
-  {
-    title: "能源环保",
+    title: "AI+能源环保",
     intro:
       "人工智能将在能源优化调度、碳排放监测、环境质量预测等领域发挥关键作用，助力“双碳”目标实现。通过AI算法提升资源利用效率，实现绿色可持续发展。",
     target: "./table",
     data: [],
   },
   {
-    title: "城市治理",
+    title: "AI+交通",
+    intro:
+      "AI将在交通流量预测、自动驾驶、智能调度、出行规划等方面深度应用，构建安全、高效、绿色的现代综合交通体系。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "AI+旅游休闲",
+    intro:
+      "人工智能将在旅游个性化推荐、智能导览、虚拟现实体验、景区人流管理等方面发挥重要作用，提升游客体验与景区运营效率。",
+    target: "./table",
+    data: [],
+  },
+  {
+    title: "AI+城市治理",
     intro:
       "人工智能将在城市管理中发挥重要作用，通过智能交通、智慧环卫、城市安全监测等应用，提升城市运行效率和公共服务水平。",
-    target: "./table",
-    data: [],
-  },
-  {
-    title: "商贸流通",
-    intro:
-      "AI在精准营销、智能推荐、跨境电商、供应链优化等方面将成为商贸领域的重要支撑，提升运营效率与用户体验。数据分析与商业智能深度融合，推动商业模式创新。",
-    target: "./table",
-    data: [],
-  },
-  {
-    title: "教育教学",
-    intro:
-      "AI技术将推动个性化学习和智能化教学工具的发展，助力因材施教，提高教育质量和公平性。同时，AI在作业批改、学情分析、虚拟教师等方面也将广泛应用。",
-    target: "./table",
-    data: [],
-  },
-  {
-    title: "智能办公",
-    intro:
-      "AI助手、语音识别、文档自动生成、会议纪要整理等功能将显著提升办公效率，打造更智能、协同、个性化的办公环境。",
-    target: "./table",
-    data: [],
-  },
-  {
-    title: "数字创意",
-    intro:
-      "AI赋能的内容生成、数字人、音视频创作等将重塑数字创意产业形态，推动内容生产效率和表现力大幅提升。多模态生成式AI将成为数字创意的新引擎。",
-    target: "./table",
-    data: [],
-  },
-  {
-    title: "政务服务",
-    intro:
-      "政务大模型、智能问答系统、流程自动化等AI应用将提升政府服务的智能化水平，实现高效、便捷、透明的政务服务体验。",
-    target: "./table",
-    data: [],
-  },
-  {
-    title: "智能安防",
-    intro:
-      "AI驱动的人脸识别、行为分析、异常检测等技术将全面提升公共安全防控能力，实现从“事后追溯”到“事前预警”的转变。",
-    target: "./table",
-    data: [],
-  },
-  {
-    title: "现代农业",
-    intro:
-      "AI将在农业智能感知、作物生长建模、病虫害预警、无人农场等方面广泛应用，推动农业生产向精准化、自动化方向发展，提升农业产出和可持续性。",
     target: "./table",
     data: [],
   },
@@ -289,9 +198,9 @@ onMounted(() => {
 const goToTable = (title) => {
   // toPage("./table");
   router.push({
-    name: "scenceTable",
+    name: "scenceTable2",
     query: {
-      sceneClass: title,
+      kind: title,
     },
   });
 };
@@ -338,7 +247,7 @@ const nextBoard = () => {
 }
 
 .separator {
-  width: 1.4vw;
+  width: 4vw;
   height: 0.5vh;
   border-radius: 0.25vh;
   background: #ff8d1a;

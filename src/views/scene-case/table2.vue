@@ -1,7 +1,7 @@
 <template>
   <div class="cj-table-wrap">
     <div class="main-title">
-      <Tybtl title="社会应用场景列表" attachment="[切换为国资]" attachmentLink="scenceTable2"></Tybtl>
+      <Tybtl title="国资应用场景列表" attachment="[切换为社会]" attachmentLink="scenceTable"></Tybtl>
     </div>
     
     <div class = "menu">
@@ -22,7 +22,7 @@
     </div>
     <div class="main-content">  
       <div class = "main-table">
-        <BoardType1 v-for = "(data) in sceneData" :id="data.id" :title=data.projectName key1="支持单位" key2="行业领域" key3="简介" :value1=data.supportingUnit :value2=data.sceneClass :value3=data.discription></BoardType1>
+        <BoardType1 v-for = "(data) in sceneData" :id="data.id" :title=data.projectName key1="业主单位" key2="场景类别" key3="简介" :value1=data.companyName :value2=data.sceneClass :value3=data.discription detailName="sceneDetail2"></BoardType1>
       </div>
       <div class = "table-footer">
         <div class = "page-btns">
@@ -43,7 +43,7 @@
 
 <script setup>
 import BoardType1 from "../../components/common/board/board-type1.vue";
-import Api from "@/api/scene/index.js";
+import Api from "@/api/scene/index2.js";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute(); 
@@ -103,14 +103,14 @@ onMounted(() => {
   // Api.getAll().then((res) => {
   //   let resData = res.data;
   // });
-  scenes.value = ["全部", "智能制造", "医药健康", "综合交通", "能源环保", "城市治理", "教育教学", "政务服务", "商贸流通", "数字创意", "智能办公", "智能安防", "现代农业"];
+  scenes.value = ["全部", "AI+制造", "AI+能源环保", "AI+交通", "AI+旅游休闲", "AI+城市治理"];
   //getData(props.sceneClass,props.keyword,props.page);
 });
 
 const goToTable = (sceneClass=props.sceneClass, keyword = props.keyword, page=props.page) => {
   console.log("跳转参数：",sceneClass,"-",keyword,"-",props.page);
   router.push({
-    name: "scenceTable",
+    name: "scenceTable2",
     query: {
       sceneClass: sceneClass,
       keyword: keyword,

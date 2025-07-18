@@ -86,7 +86,7 @@ const props = defineProps({
   height: 33.33%;
   padding: 0.5%;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  // transition: transform 0.2s ease;
 
   &:hover {
     transform: scale(1.03);
@@ -104,6 +104,19 @@ const props = defineProps({
     scale: 1;
   }
 }
+
+@keyframes fresh {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 
 .inner-wrap {
   width: 100%;

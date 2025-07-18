@@ -21,7 +21,7 @@
         @click="goToDetail(item.id)"
       >
         <div class="item-title">{{ item.projectName }}</div>
-        <div class="item-content">{{ item.supportingUnit }}</div>
+        <div class="item-content">{{ item.supportingUnit || item.companyName}}</div>
       </div>
     </div>
   </div>
@@ -30,16 +30,7 @@
 <script setup>
 import { useRouter } from "vue-router";
 const router = useRouter();
-// 跳转方法
-const goToTable = (title) => {
-  // toPage("./table");
-  router.push({
-    name: "scenceTable",
-    query: {
-      kind: title,
-    },
-  });
-};
+
 const props = defineProps({
   title: {
     type: String,
@@ -59,10 +50,19 @@ const props = defineProps({
     default: () => [],
   },
 });
-
-const goToDetail = (id) => {
+// 跳转方法
+const goToTable = (title) => {
   router.push({
-    name: "sceneDetail",
+    name: router.currentRoute.value.fullPath.endsWith(2) ? "scenceTable2":"scenceTable",
+    query: {
+      sceneClass: title,
+    },
+  });
+};
+const goToDetail = (id) => {
+
+  router.push({
+    name: router.currentRoute.value.fullPath.endsWith(2) ? "sceneDetail2":"sceneDetail",
     query: {
       id: id,
     },

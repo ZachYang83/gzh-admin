@@ -67,6 +67,13 @@ export const constantRoutes = [
         meta: { title: "场景案例", icon: "iconfont icon-shiyongwendang mr-5" },
       },
       {
+        path: "index2",
+        component: () => import("@/views/scene-case/index2.vue"),
+        name: "Scene2",
+        file: "scene-case/index2.vue",
+        meta: { title: "场景案例-国资", icon: "iconfont icon-shiyongwendang mr-5" },
+      },
+      {
         path: "table",
         component: () => import("@/views/scene-case/table.vue"),
         name: "scenceTable",
@@ -77,11 +84,31 @@ export const constantRoutes = [
         }
       },
       {
+        path: "table2",
+        component: () => import("@/views/scene-case/table2.vue"),
+        name: "scenceTable2",
+        file: "scene-case/table2.vue",
+        meta: { title: "场景列表-国资", icon: "iconfont icon-shiyongwendang mr-5" },
+        props(route){
+          return route.query
+        }
+      },
+      {
         path: "detail",
         component: () => import("@/views/scene-case/detail.vue"),
         name: "sceneDetail",
         file: "scene-case/detail.vue",
         meta: { title: "场景详情", icon: "iconfont icon-shiyongwendang mr-5" },
+        props(route){
+          return route.query
+        }
+      },
+      {
+        path: "detail2",
+        component: () => import("@/views/scene-case/detail2.vue"),
+        name: "sceneDetail2",
+        file: "scene-case/detail2.vue",
+        meta: { title: "场景详情2", icon: "iconfont icon-shiyongwendang mr-5" },
         props(route){
           return route.query
         }

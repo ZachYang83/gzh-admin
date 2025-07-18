@@ -64,7 +64,7 @@ watch(
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-image: url("../imgs/bg-figure-board.png");
+  background-image: url("@/assets/images/bg-figure-board.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center;
