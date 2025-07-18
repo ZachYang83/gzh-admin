@@ -31,10 +31,9 @@
             <span>所属区：</span
             ><span class="unit-district">{{ productInfo.district }}</span>
           </div>
-          
         </div>
-        <div class="contact-trigger">联系洽谈</div>
-        <div class = "contact-content">{{ productInfo.contact }}</div>
+        <!-- <div class="contact-trigger">联系洽谈</div> -->
+        <div class="contact-content">{{ productInfo.contact }}</div>
       </div>
       <div class="sub-intro">
         <div class="sub-title">专利布局情况</div>
@@ -189,7 +188,7 @@ onMounted(() => {
       border-radius: 4px;
     }
     .unit-field {
-        display: inline-block;
+      display: inline-block;
       background: linear-gradient(40deg, #2b87ff, #2bcaff);
       padding: 2px 5px;
       border-radius: 4px;
@@ -202,7 +201,7 @@ onMounted(() => {
 
 .contact-trigger {
   position: absolute;
-  right:25px;
+  right: 25px;
   bottom: 10px;
   font-size: 16px;
   padding-right: 10px;
@@ -212,12 +211,12 @@ onMounted(() => {
   }
 }
 
-.contact-content{
+.contact-content {
   position: absolute;
-  padding:20px;
+  padding: 20px;
   border: #d8f0ff 1px solid;
   width: 400px;
-  font-size:16px;
+  font-size: 16px;
   line-height: 2rem;
   background-color: #162637;
   right: 25px;

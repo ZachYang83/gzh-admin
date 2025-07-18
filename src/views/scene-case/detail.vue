@@ -29,7 +29,7 @@
           </div> -->
           
         </div>
-        <div class="contact-trigger">联系洽谈</div>
+        <!-- <div class="contact-trigger">联系洽谈</div> -->
         <div class = "contact-content">{{ contact }}</div>
       </div>
       <div class="sub-intro">

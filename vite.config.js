@@ -90,7 +90,7 @@ export default defineConfig(({ mode }) => {
       port,
       // 是否开启https
       https: false,
-      allowedHosts: ['gzpi-fclab.cn', 'www.gzpi-fclab.cn'],
+      // allowedHosts: ['gzpi-fclab.cn', 'www.gzpi-fclab.cn'],
       proxy: {
         "/api": {
           target: env.VITE_APP_BASE_URL,
