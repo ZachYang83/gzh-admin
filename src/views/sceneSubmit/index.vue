@@ -161,6 +161,35 @@
 
           <div class="form-row">
             <el-form-item
+              prop="organization"
+              label="申请单位"
+              class="flex-item"
+              style="max-width: 400px"
+              size="large"
+            >
+              <el-input
+                v-model="formData.organization"
+                placeholder="请输入单位名称"
+              />
+            </el-form-item>
+
+            <el-form-item
+              prop="district"
+              label="所属区"
+              class="flex-item"
+              style="max-width: 400px"
+              size="large"
+              :error="errorMsg.district"
+            >
+              <el-input
+                v-model="formData.district"
+                placeholder="请输入所属区"
+              />
+            </el-form-item>
+          </div>
+
+          <div class="form-row">
+            <el-form-item
               prop="contactPhone"
               label="电话"
               class="flex-item"
@@ -233,6 +262,8 @@ const formData = reactive({
   isPhonePublic: "是",
   contactEmail: "",
   isEmailPublic: "是",
+  organization: "",
+  district: "",
 });
 
 const formRules = reactive({
@@ -252,7 +283,7 @@ const formRules = reactive({
           callback(); // 验证通过
         }
       },
-    }, 
+    },
   ],
   contactName: [
     { required: true, message: "请输入联系人姓名", trigger: "blur" }, // 一般输入框用blur触发更合适
@@ -272,6 +303,7 @@ const formRules = reactive({
     { required: true, message: "请输入邮箱地址", trigger: "blur" },
     { type: "email", message: "请输入有效的邮箱地址", trigger: "blur" },
   ],
+  district: [{ required: true, message: "请输入所属区", trigger: "blur" }],
 });
 
 // 错误信息存储对象
@@ -284,6 +316,7 @@ const errorMsg = reactive({
   contactPosition: "",
   contactPhone: "",
   contactEmail: "",
+  district: "",
 });
 
 // 处理图片上传（选择文件后）
@@ -358,6 +391,9 @@ const validateForm = () => {
   } else {
     errorMsg.imgList = "";
   }
+
+  if (formData.district == "") errorMsg.district = "请输入所属区";
+  else errorMsg.district = "";
 
   // 检查是否有错误
   return !Object.values(errorMsg).some((msg) => msg);

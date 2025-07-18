@@ -229,7 +229,7 @@
             >
               <el-select
                 v-model="formData.schoolFeature"
-                placeholder="学历"
+                placeholder="请输入"
                 style="width: 400px"
               >
                 <el-option

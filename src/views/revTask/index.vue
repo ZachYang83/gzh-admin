@@ -1,43 +1,69 @@
 <template>
   <div class="cj-table-wrap">
     <div class="main-title">
-      <Tybtl title="榜单列表" :isHome = "true"></Tybtl>
+      <Tybtl title="榜单列表" :isHome="true"></Tybtl>
     </div>
-    
-    <div class = "menu">
-      <div class = search-box>
-        <input v-model="currentKeyword" type="text" placeholder="请输入关键词" class = "input-box"  @keyup.enter="searchKeywords(currentKeyword)"  ref="refElement"/>
-        <button class = "search-btn" @click="searchKeywords(currentKeyword)">
+
+    <div class="menu">
+      <div class="search-box">
+        <input
+          v-model="currentKeyword"
+          type="text"
+          placeholder="请输入关键词"
+          class="input-box"
+          @keyup.enter="searchKeywords(currentKeyword)"
+          ref="refElement"
+        />
+        <button class="search-btn" @click="searchKeywords(currentKeyword)">
           <svg-icon icon-class="search" size="1.2rem"></svg-icon>
           查询
         </button>
-        
       </div>
-      <div class = "menu-items" >
+      <div class="menu-items">
         行业领域：
-        <div class = "menu-item" v-for ="(item, index) in taskClass" :key="index" :class="{ active: activeIndex === index }" @click="switchTaskClass(item)">
+        <div
+          class="menu-item"
+          v-for="(item, index) in taskClass"
+          :key="index"
+          :class="{ active: activeIndex === index }"
+          @click="switchTaskClass(item)"
+        >
           <span>{{ item }}</span>
         </div>
       </div>
     </div>
-    <div class="main-content"> 
-      <div class = "main-table">
-        <BoardType2 v-for = "(data) in taskData" :ifimg="true" detailName="taskDetail" :id="data.id" :title=data.projName key1="预算" key2="行业领域" key3="时间" key4="发榜单位" :value1=data.projBudget :value2=data.indTechField :value3=data.projTime :value4=data.entName></BoardType2>
+    <div class="main-content">
+      <div class="main-table">
+        <BoardType2
+          v-for="data in taskData"
+          :ifimg="true"
+          detailName="taskDetail"
+          :id="data.id"
+          :title="data.projName"
+          key1="预算"
+          key2="行业领域"
+          key3="时间"
+          key4="发榜单位"
+          :value1="data.projBudget"
+          :value2="data.indTechField"
+          :value3="data.projTime"
+          :value4="data.entName"
+        ></BoardType2>
       </div>
-      <div class = "table-footer">
-        <div class = "page-btns">
-          <el-pagination 
-            background 
+      <div class="table-footer">
+        <div class="page-btns">
+          <el-pagination
+            background
             layout="total, prev, pager, next, jumper"
-            :size="pageSize" 
-            :total="totalCount"  
-            v-model:current-page="currentPage" 
-            @current-change="(page) => filterTask(page)">
+            :size="pageSize"
+            :total="totalCount"
+            v-model:current-page="currentPage"
+            @current-change="(page) => filterTask(page)"
+          >
           </el-pagination>
         </div>
         <div class="cj-table-footer"></div>
       </div>
-      
     </div>
   </div>
 </template>
@@ -47,62 +73,65 @@ import { ref } from "vue";
 import Api from "@/api/revTask/index.js";
 import { useRouter } from "vue-router";
 const router = useRouter();
-const route = useRoute(); 
+const route = useRoute();
 const refElement = ref(null);
 const taskClass = ref(["全部", "人工智能—算法", "人工智能—大数据"]);
-const activeIndex =ref(0)
+const activeIndex = ref(0);
 const totalCount = ref(0);
 const taskData = ref(null);
 const currentPage = ref(1);
 const pageSize = 10;
 const currentKeyword = ref("");
-const searchKeywords = (keyword)=> {
+const searchKeywords = (keyword) => {
   console.log("搜索关键词:", keyword);
   currentKeyword.value = keyword;
   activeIndex.value = 0;
   filterTask();
 };
-const switchTaskClass = (item)=>{
+const switchTaskClass = (item) => {
   console.log("切换任务类别:", item);
   currentKeyword.value = "";
   activeIndex.value = taskClass.value.indexOf(item);
   filterTask();
-}
-const filterTask = (pageNum = 1) =>{
+};
+const filterTask = (pageNum = 1) => {
   currentPage.value = pageNum;
   taskData.value = null;
-  if (refElement.value){
+  if (refElement.value) {
     refElement.value.blur();
   }
   //不支持同时关键词和场景查询
-  if(currentKeyword.value){
+  if (currentKeyword.value) {
     console.log("当前关键词:", currentKeyword.value);
-    Api.getListByKeywords({ 
+    Api.getListByKeywords({
       keywords: currentKeyword.value,
       pageNum: currentPage.value,
-      pageSize: pageSize
+      pageSize: pageSize,
     }).then((res) => {
       let resData = res.data;
       taskData.value = resData.list;
       totalCount.value = resData.total;
     });
-  }else{
+  } else {
     console.log("当前任务类别:", taskClass.value[activeIndex.value]);
-    Api.getListByClass({ 
-      indTechField: taskClass.value[activeIndex.value] === "全部" ? "" : taskClass.value[activeIndex.value],
+    Api.getListByClass({
+      indTechField:
+        taskClass.value[activeIndex.value] === "全部"
+          ? ""
+          : taskClass.value[activeIndex.value],
       pageNum: currentPage.value,
-      pageSize: pageSize
+      pageSize: pageSize,
     }).then((res) => {
       let resData = res.data;
       taskData.value = resData.list;
       totalCount.value = resData.total;
     });
   }
-}
+};
 
 onMounted(() => {
-    activeIndex.value = 0;
-    filterTask();
+  activeIndex.value = 0;
+  filterTask();
 });
 </script>
 
@@ -139,7 +168,7 @@ input {
   display: flex;
   align-items: center;
   position: relative;
-  
+
   margin-top: 1%;
 }
 .input-box {
@@ -150,8 +179,13 @@ input {
   background-color: rgba(255, 255, 255, 0.2);
   border: 2px solid rgb(255, 255, 255);
   border-radius: 4px;
-  border-image: linear-gradient(20deg, rgb(42, 152, 255) 30%, rgb(203, 230, 255) 35%, rgba(10, 137, 255) 40%) 1/2px;
-  
+  border-image: linear-gradient(
+      20deg,
+      rgb(42, 152, 255) 30%,
+      rgb(203, 230, 255) 35%,
+      rgba(10, 137, 255) 40%
+    )
+    1/2px;
 }
 .search-btn {
   position: absolute;
@@ -171,13 +205,13 @@ input {
   cursor: pointer;
 }
 
-.menu-items{
+.menu-items {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
-  color: #D8F0FF;
+  color: #d8f0ff;
   font-size: 16px;
 }
 
@@ -209,7 +243,7 @@ input {
 }
 
 .main-table {
-  height:92%;
+  height: 92%;
   width: 80%;
   //display: grid;
   // grid-template-columns: repeat(3, 1fr); /* 3列，每列等宽 */
@@ -219,9 +253,8 @@ input {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-items:flex-start;
+  align-items: flex-start;
 }
-
 
 .table-footer {
   width: 100%;
@@ -232,6 +265,5 @@ input {
   //background-color: #f8f9fa;
 }
 .page-btns {
-  
 }
 </style>
