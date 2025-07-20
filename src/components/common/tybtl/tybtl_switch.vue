@@ -13,7 +13,6 @@
         <div class = "title" v-for="(title,index) in title_list"  :class="{ chosen: title_list.indexOf(title) === title_index }" @click = "goToLink(index)">
             {{ title }}
         </div>
-      
     </div>
   </div>
 </template>
@@ -26,7 +25,7 @@ const router = useRouter();
 const props = defineProps({
   title_list: {
     type: Array,
-    default: () => ["社会场景","国资场景"],
+    default: () => ["典型示范案例","国资场景"],
   },
   link_list: {
     type: Array,
@@ -80,7 +79,7 @@ const goToLink = (index) => {
   display: flex;
   align-items: center;
   justify-content: left;
-  font-size: 32px;
+  font-size: 24px;
   color: #d8f0ff;
   font-family: ALIBABAPUHUITI;
   

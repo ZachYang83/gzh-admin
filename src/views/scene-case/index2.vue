@@ -1,7 +1,7 @@
 <template>
   <div class="cj-wrap">
     <div class="main-title">
-      <Tybtl_switch title="千行百业应用场景全覆盖"  :title_list="['社会场景','国资场景']" :link_list = "['Scene','Scene2']" :title_index = 1 :isHome="true"></Tybtl_switch>
+      <Tybtl_switch title="千行百业应用场景全覆盖"  :title_list="['典型示范案例','国资场景']" :link_list = "['Scene','Scene2']" :title_index = 1 :isHome="true"></Tybtl_switch>
     </div>
     <div class="main-content">
       <div class="figure-boards">

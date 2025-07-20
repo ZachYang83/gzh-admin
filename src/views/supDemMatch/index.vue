@@ -11,7 +11,7 @@
         :centeredSlides="true"
         :loop="productScene.length >= 4"
         :autoplay="{
-          delay: 5000,
+          delay: 3000,
           disableOnInteraction: false,
         }"
         :pagination="{
@@ -254,6 +254,7 @@ const goToDemDetail = (id) => {
     }
 
     .scene-content-btn {
+      margin-top: 10px;
       width: 100px;
       height: 30px;
       background: linear-gradient(

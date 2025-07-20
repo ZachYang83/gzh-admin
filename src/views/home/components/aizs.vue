@@ -13,25 +13,25 @@
         clearable
         placeholder="请输入您的问题，小智为您解答"
       />
-      <div class="send-btn flex-center">
+      <div class="send-btn flex-center" @click="aiFunction()">
         <img src="../imgs/send-btn.png" alt="发送" />
         发送
       </div>
     </div>
     <div class="ai-function">
-      <div class="ai-function-item">
+      <div class="ai-function-item" @click="aiFunction()">
         <img class="funciton-logo" src="../imgs/ai-zaiti.png" alt="找载体" />
         <div class="fuction-text">找载体</div>
       </div>
-      <div class="ai-function-item">
+      <div class="ai-function-item" @click="aiFunction()">
         <img class="funciton-logo" src="../imgs/ai-suanfa.png" alt="找算法" />
         <div class="fuction-text">找算法</div>
       </div>
-      <div class="ai-function-item">
+      <div class="ai-function-item" @click="aiFunction()">
         <img class="funciton-logo" src="../imgs/ai-xuqiu.png" alt="找需求" />
         <div class="fuction-text">找需求</div>
       </div>
-      <div class="ai-function-item">
+      <div class="ai-function-item" @click="aiFunction()">
         <img class="funciton-logo" src="../imgs/ai-yingyong.png" alt="找应用" />
         <div class="fuction-text">找应用</div>
       </div>
@@ -42,6 +42,10 @@
 <script setup>
 import { ref } from "vue";
 const textarea = ref("");
+
+const aiFunction = () => {
+  ElMessage.warning("暂未开通，敬请期待");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -94,6 +98,7 @@ const textarea = ref("");
     border-radius: 4px;
     background: rgba(47, 115, 246, 1);
     justify-content: space-around;
+    cursor: pointer;
   }
 }
 
@@ -118,6 +123,13 @@ const textarea = ref("");
     justify-content: space-around;
     background: url("../imgs/ai-function.png") center center / 100% 100%
       no-repeat;
+    cursor: pointer;
+
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
   .funciton-logo {
     width: 48px;
