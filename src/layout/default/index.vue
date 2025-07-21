@@ -10,7 +10,6 @@
 </template>
 
 <script setup>
-import { computed } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import { AppMain, AppHeader } from "./components/index.js";
 

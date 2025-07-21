@@ -39,7 +39,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang = "scss" scoped>
 .card-box {
   width: v-bind(width);
   height: v-bind(height);
@@ -54,7 +54,8 @@ export default {
   padding: 5px;
   border-radius: 2px;
   border: 1px solid rgba(42, 130, 228, 0.3);
-  background: rgba(48, 97, 219, 0.12);
+  // background: rgba(48, 97, 219, 0.12);
+  background-color: #1B2D4A;
 }
 
 .card-title {

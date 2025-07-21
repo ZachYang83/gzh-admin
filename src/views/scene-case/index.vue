@@ -1,7 +1,8 @@
 <template>
   <div class="cj-wrap">
     <div class="main-title">
-      <Tybtl_switch title="千行百业应用场景全覆盖" :title_list="['典型示范案例','国资场景']" :link_list = "['Scene','Scene2']" :title_index = 0 :isHome="true"></Tybtl_switch>
+      <!-- <Tybtl_switch title="千行百业应用场景全覆盖" :title_list="['典型示范案例','国资场景']" :link_list = "['Scene','Scene2']" :title_index = 0 :isHome="true"></Tybtl_switch> -->
+      <Tybtl title="千行百业应用场景全覆盖" :isHome = "true"></Tybtl>
     </div>
     <div class="main-content">
       <div class="figure-boards">
@@ -289,7 +290,7 @@ onMounted(() => {
 const goToTable = (title) => {
   // toPage("./table");
   router.push({
-    name: "scenceTable",
+    name: "sceneTable",
     query: {
       sceneClass: title,
     },

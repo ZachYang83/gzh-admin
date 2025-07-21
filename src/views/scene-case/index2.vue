@@ -198,7 +198,7 @@ onMounted(() => {
 const goToTable = (title) => {
   // toPage("./table");
   router.push({
-    name: "scenceTable2",
+    name: "sceneTable2",
     query: {
       kind: title,
     },

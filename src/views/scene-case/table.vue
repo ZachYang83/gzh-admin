@@ -1,7 +1,8 @@
 <template>
   <div class="cj-table-wrap">
     <div class="main-title">
-      <Tybtl title="社会应用场景列表" attachment="[切换为国资]" attachmentLink="scenceTable2"></Tybtl>
+      <!-- <Tybtl title="社会应用场景列表" attachment="[切换为国资]" attachmentLink="sceneTable2"></Tybtl> -->
+      <Tybtl title="社会应用场景列表"></Tybtl>
     </div>
     
     <div class = "menu">
@@ -15,7 +16,7 @@
       </div>
       <div class = "menu-items" >
         行业领域：
-        <div class = "menu-item" v-for ="(item, index) in scenes" :key="index" :class="{ active: (props.sceneClass.slice(0,2) === '全部') ? ('全部' === item) : (props.sceneClass === item)}" @click="changeScene(item)">
+        <div class = "menu-item" v-for ="(item, index) in scenes" :key="index" :class="{ active: (route.query.sceneClass === undefined || route.query.sceneClass === '' || route.query.sceneClass.slice(0,2) === '全部') ? ('全部' === item) : (route.query.sceneClass === item)}" @click="changeScene(item)">
           <span>{{ item }}</span>
         </div>
       </div>
@@ -31,7 +32,7 @@
             layout="total, prev, pager, next, jumper"
             :size="pageSize" :total="totalCount"  
             v-model:current-Page="currentPage"
-            @current-change="(cpage) => goToTable(props.sceneClass, props.keyword, cpage)" 
+            @current-change="(cpage) => goToTable(route.query.sceneClass, route.query.keyword, cpage)" 
             class = "pagetest">
           </el-pagination>
         </div>
@@ -47,20 +48,7 @@ import Api from "@/api/scene/index.js";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute(); 
-const props = defineProps({
-  sceneClass:{
-    type: String,
-    default: "全部",
-  },
-  keyword:{
-    type: String,
-    default: ""
-  },
-  page:{
-    type: String,
-    default: "1"
-  }
-})
+const { sceneClass = '全部', keyword = '', page = '1' } = route.query;
 
 const scenes = ref([]);
 const totalCount = ref(0);
@@ -104,23 +92,23 @@ onMounted(() => {
   //   let resData = res.data;
   // });
   scenes.value = ["全部", "智能制造", "医药健康", "综合交通", "能源环保", "城市治理", "教育教学", "政务服务", "商贸流通", "数字创意", "智能办公", "智能安防", "现代农业"];
-  //getData(props.sceneClass,props.keyword,props.page);
 });
 
-const goToTable = (sceneClass=props.sceneClass, keyword = props.keyword, page=props.page) => {
-  console.log("跳转参数：",sceneClass,"-",keyword,"-",props.page);
-  router.push({
-    name: "scenceTable",
+const goToTable = (newScene = sceneClass, newKeyword = keyword, newPage = page) => {
+  console.log("跳转参数：",sceneClass,"-",keyword,"-",page);
+  router.replace({
+    name: "sceneTable",
     query: {
-      sceneClass: sceneClass,
-      keyword: keyword,
-      page: page
+      sceneClass: newScene,
+      keyword: newKeyword,
+      page: newPage
     },
   });
 };
 
 const changeScene = (scene) => {
   // console.log("切换场景：", scene);
+  currentKeyword.value = "";
   goToTable(scene, "", 1);
 };
 
@@ -130,7 +118,7 @@ const searchKeywords = (keyword) => {
 };
 
 
-watch(() => [props.sceneClass, props.keyword, props.page], ([sceneClass, keyword, page]) => {
+watch(() => [route.query.sceneClass, route.query.keyword, route.query.page], ([sceneClass, keyword, page]) => {
   // console.log("监听到变化，重新获取数据：", sceneClass, keyword, page);
   getData(sceneClass, keyword, page);
   currentPage.value = Number(page);

@@ -1,21 +1,22 @@
 <template>
+  <!-- 带价格的揭榜挂帅 -->
   <div class="detail-wrap">
     <div class="main-title">
-      <Tybtl :title="projectName" :isHome="false"></Tybtl>
+      <Tybtl :title="taskName" :isHome="false"></Tybtl>
     </div>
     <div class="main-content">
       <div class="main-intro">
         <div class="left">
-            <div class="jsmb">主要技术应用内容</div>
-            <div class="jsmb-content">{{ discription }}</div>
-            <!-- <div class = "units">
+            <div class="jsmb">技术目标</div>
+            <div class="jsmb-content">{{ techGoal }}</div>
+            <div class = "units">
                 <div class="unit">
                     <span>发榜方：</span>{{ entName }}
                 </div>
                 <div class="unit">
                     <span>所属集团：</span>{{ topGroup }}
                 </div>
-            </div> -->
+            </div>
         </div>
         <div class="right">
             <img
@@ -32,9 +33,9 @@
         </div> 
     </div>
     <div class="sub-intro">
-        <div class="sub-title">对参加或使用场景建设科技企业的要求</div>
+        <div class="sub-title">揭榜要求</div>
         <div class="sub-content">
-            {{ request }}
+            {{ bidderReq }}
         </div>
     </div>
     <div class="sub-intro">
@@ -56,14 +57,14 @@ const route = useRoute();
 const taskid = ref(10);
 const entName = ref("");
 const topGroup = ref("");
-const projectName = ref("");
-const discription = ref("");
-const request = ref("");
+const taskName = ref("");
+const techGoal = ref("");
+const bidderReq = ref("");
 const otherInfo = ref({
-  集团名称: "",
-  业主单位: "",
-  资本类型: "",
-  场景类别: "",
+  项目时间: "2750万元",
+  技术领域: "智能制造",
+  需求方式: "广州市",
+  项目预算: "2025年",
 });
 const contact = ref("");
 const contactNo = ref("");
@@ -74,17 +75,19 @@ onMounted(() => {
     console.log(taskid.value, "taskid");
   }
   // 根据id获取场景
-  Api.getCaseById({ id: taskid.value }).then((res) => {
+  Api.getById({ id: taskid.value }).then((res) => {
     let resData = res.data;
     console.log(resData, "resData");
-    projectName.value = resData.projectName;
-    discription.value = resData.discription;
-    request.value = resData.request;
+    taskName.value = resData.projName;
+    techGoal.value = resData.techGoal;
+    entName.value = resData.entName;
+    topGroup.value = resData.topGroup;
+    bidderReq.value = resData.bidderReq;
     otherInfo.value = {
-      集团名称: resData.groupName,
-      业主单位: resData.companyName,
-      资本类型: "国资",
-      场景类别: resData.sceneClass,
+      项目时间: resData.projTime,
+      技术领域: resData.indTechField,
+      需求方式: resData.resMethod,
+      项目预算: resData.projBudget + (/^\d/.test(resData.projBudget) ? "万元":""),
     };
     contact.value = resData.contact;
     contactNo.value = resData.contactNo;

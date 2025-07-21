@@ -76,7 +76,7 @@ export const constantRoutes = [
       {
         path: "table",
         component: () => import("@/views/scene-case/table.vue"),
-        name: "scenceTable",
+        name: "sceneTable",
         file: "scene-case/table.vue",
         meta: { title: "场景列表", icon: "iconfont icon-shiyongwendang mr-5" },
         props(route){
@@ -86,7 +86,7 @@ export const constantRoutes = [
       {
         path: "table2",
         component: () => import("@/views/scene-case/table2.vue"),
-        name: "scenceTable2",
+        name: "sceneTable2",
         file: "scene-case/table2.vue",
         meta: { title: "场景列表-国资", icon: "iconfont icon-shiyongwendang mr-5" },
         props(route){

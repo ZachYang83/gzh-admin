@@ -10,11 +10,16 @@
 .xcsp-wrap {
   width: 100%;
   height: 100%;
-  padding: 5px;
+  //background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .video{
-    width: auto;
-    height: 200px;
+  width: 95%;
+  height: 95%;
+  object-fit: cover;
 }
 </style>

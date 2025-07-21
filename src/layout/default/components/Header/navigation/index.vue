@@ -15,7 +15,7 @@
         class="nav-item left flex-center"
         active-class="active"
       >
-        场景案例
+        示范案例
       </router-link>
 
       <router-link
@@ -23,7 +23,7 @@
         class="nav-item left flex-center"
         active-class="active"
       >
-        应用平台
+        终端产品
       </router-link>
     </div>
 
@@ -46,7 +46,7 @@
         class="nav-item right flex-center"
         active-class="active"
       >
-        算法超市
+        智算超市
       </router-link>
 
       <router-link
@@ -54,7 +54,7 @@
         class="nav-item right flex-center"
         active-class="active"
       >
-        揭榜挂帅
+        场景开放
       </router-link>
     </div>
   </nav>
@@ -106,7 +106,10 @@ export default {};
 
     &.active {
       background-image: url("@/assets/images/tabs-left-active.png");
+      text-shadow: 0px 0px 4px rgb(255, 153, 0),
+      0px 0px 30px rgba(255, 153, 0);
     }
+    
   }
 
   .right {
@@ -114,6 +117,8 @@ export default {};
 
     &.active {
       background-image: url("@/assets/images/tabs-right-active.png");
+      text-shadow: 0px 0px 4px rgb(255, 153, 0),
+      0px 0px 30px rgba(255, 153, 0);
     }
   }
 }

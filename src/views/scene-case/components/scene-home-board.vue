@@ -53,7 +53,7 @@ const props = defineProps({
 // 跳转方法
 const goToTable = (title) => {
   router.push({
-    name: router.currentRoute.value.fullPath.endsWith(2) ? "scenceTable2":"scenceTable",
+    name: router.currentRoute.value.fullPath.endsWith(2) ? "sceneTable2":"sceneTable",
     query: {
       sceneClass: title,
     },

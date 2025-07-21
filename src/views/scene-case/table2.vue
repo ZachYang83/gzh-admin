@@ -1,7 +1,7 @@
 <template>
   <div class="cj-table-wrap">
     <div class="main-title">
-      <Tybtl title="国资应用场景列表" attachment="[切换为社会]" attachmentLink="scenceTable"></Tybtl>
+      <Tybtl title="国资应用场景列表" attachment="[切换为社会]" attachmentLink="sceneTable"></Tybtl>
     </div>
     
     <div class = "menu">
@@ -42,7 +42,6 @@
 </template>
 
 <script setup>
-import BoardType1 from "../../components/common/board/board-type1.vue";
 import Api from "@/api/scene/index2.js";
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -110,7 +109,7 @@ onMounted(() => {
 const goToTable = (sceneClass=props.sceneClass, keyword = props.keyword, page=props.page) => {
   console.log("跳转参数：",sceneClass,"-",keyword,"-",props.page);
   router.push({
-    name: "scenceTable2",
+    name: "sceneTable2",
     query: {
       sceneClass: sceneClass,
       keyword: keyword,

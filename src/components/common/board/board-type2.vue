@@ -5,20 +5,20 @@
       <div class = "splitline"></div>
       <div class="main-content">
         
-        <div class="line2">
+        <div class="line2" v-if="key2">
           {{ key2 }}：<span>{{ value2 }}</span>
         </div>
-        <div class="line3">
+        <div class="line3" v-if="key3">
           {{ key3 }}：<span>{{ value3 }}</span>
         </div>
-        <div class="line4">
+        <div class="line4" v-if="key4">
           {{ key4 }}：<span>{{ value4 }}</span>
         </div>
         <div class = "bottom-line">
           <div class="line1" v-if="/^\d/.test(value1)">
             {{ key1 }}：<span style = "font-size: 20px;">{{ value1 }}</span><span style = "font-size: 14px;">万元</span>
           </div>
-          <div class="line1" v-else>
+          <div class="line1" v-else-if="key1">
             {{ key1 }}：<span>{{ value1 }}</span>
           </div>
           <button class="detail-btn" @click.stop="goToDetail(id)">查看详情</button>
@@ -61,23 +61,23 @@ const props = defineProps({
   },
   key1: {
     type: String,
-    default: "关键字1",
+    default: "",
   },
   value1: {
     type: String,
-    default: "值1",
+    default: "",
   },
   key2: {
     type: String,
-    default: "关键字2",
+    default: "",
   },
   value2: {
     type: String,
-    default: "值2",
+    default: "",
   },
   key3: {
     type: String,
-    default: "关键字3",
+    default: "",
   },
   value3: {
     type: String,
@@ -86,7 +86,7 @@ const props = defineProps({
   },
   key4: {
     type: String,
-    default: "关键字4",
+    default: "",
   },
   value4: {
     type: String,
@@ -178,7 +178,7 @@ const props = defineProps({
   width: 100%;
   display: flex;
   margin-top:10px;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 

@@ -18,10 +18,9 @@
       <div class="center-top">
         <Xctg></Xctg>
       </div>
-      <div class="center-bottom" :style="{ height: isAICardUnfolded ? '99%' : '33%' }">
-        <flexBox title="AI助手" >
-          <template #more><div class="more-info flex-center"><svg-icon icon-class="arrow-back" :style = "{transform: isAICardUnfolded ? 'rotate(270deg) scale(2.5)' : 'rotate(90deg) scale(2.5)'}" @click = unfoldAICard()></svg-icon></div></template>
-          <template #content><Aizs v-model:isUnfolded = "isAICardUnfolded"></Aizs></template>
+      <div class="center-bottom">
+        <flexBox title="AI助手">
+          <template #content><Aizs></Aizs></template>
         </flexBox>
       </div>
     </div>
@@ -65,17 +64,13 @@ import Tbqy from "./components/tbqy.vue";
 import Xctg from "./components/xctg.vue";
 import common from "common";
 const { toPage } = common();
-const isAICardUnfolded = ref(false);
+
 const goToSence = () => {
   toPage("/submit/scene");
 };
 const goToFlat = () => {
   toPage("/submit/flat");
 };
-
-const unfoldAICard = () =>{
-  isAICardUnfolded.value = !isAICardUnfolded.value;
-}
 </script>
 
 <style lang="scss" scoped>
@@ -83,7 +78,6 @@ const unfoldAICard = () =>{
   width: 100%;
   height: 100%;
   display: flex;
-  position: relative;
 }
 
 .sy-left-wrap,
@@ -93,8 +87,6 @@ const unfoldAICard = () =>{
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  justify-content: flex-start;
-  position: relative;
 }
 
 .sy-center-wrap {
@@ -102,65 +94,54 @@ const unfoldAICard = () =>{
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  position: relative;
 }
 
 .left-top {
-  width: 100%;
-  flex: 3;
-  padding: 4px 10px;
+  width: 460px;
+  height: 350px;
+  margin: 4px 10px;
   box-sizing: border-box;
 }
 
 .left-bottom {
-  width: 100%;
-  flex: 7;
-  padding: 4px 10px;
+  width: 460px;
+  height: 620px;
+  margin: 4px 10px;
   box-sizing: border-box;
 }
 
 .right1 {
-  width: 100%;
-  // height: 288px;
-  flex:3;
-  padding: 4px 10px;
+  width: 460px;
+  height: 288px;
+  margin: 4px 10px;
   box-sizing: border-box;
-  position: relative;
 }
 
 .right2 {
-  width: 100%;
-  // height: 222px;
-  flex:2;
-  padding: 4px 10px;
+  width: 460px;
+  height: 222px;
+  margin: 4px 10px;
   box-sizing: border-box;
-  position: relative;
 }
 
 .right3 {
   display: flex;
   gap: 10px;
-  width: 100%;
-  // height: 138px;
-  flex: 1;
-  padding: 4px 10px;
+  width: 460px;
+  height: 138px;
+  margin: 4px 10px;
   box-sizing: border-box;
-  position: relative;
 }
 
 .right4 {
-  width: 100%;
-  // height: 315px;
-  flex:3;
-  padding: 4px 10px;
+  width: 460px;
+  height: 315px;
+  margin: 4px 10px;
   box-sizing: border-box;
-  position: relative;
 }
 
 .center-top {
-  // height: 674px;
-  height: 65%;
+  height: 674px;
   width: 100%;
   box-sizing: border-box;
   margin: 4px 10px;
@@ -168,14 +149,9 @@ const unfoldAICard = () =>{
 
 .center-bottom {
   width: 100%;
-  height: 33%;//33
-  position: absolute;
-  bottom: 0;
-  z-index: 1;
-  // height: 315px;
+  height: 315px;
   box-sizing: border-box;
   margin: 4px 10px;
-  transition: all 0.3s ease;
 }
 
 .card-body {

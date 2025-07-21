@@ -23,10 +23,6 @@
               <span>场景技术支持单位：</span>{{ supporting_unit }}
             </div>
           </div>
-          <!-- <div class = "units">
-            <div class = "unit"><span>场景技术应用单位：</span>{{ application_unit }}</div>
-            <div class = "unit"><span>场景技术支持单位：</span>{{ supporting_unit }}</div>
-          </div> -->
           
         </div>
         <!-- <div class="contact-trigger">联系洽谈</div> -->

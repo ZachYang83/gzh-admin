@@ -1,31 +1,48 @@
-import request from '@/utils/request.js'
+import request from "utils/request.js";
 
-export default{
-    getListByClass: (params) => {// 获取任务列表
+export default { 
+
+    //统计各类场景数量
+    getCaseCount: (params) => {
         return request({
-            url: '/task_lead/task-lead/class',
+            url: '/scene/scene-case2/getCaseCount',
             method: 'get',
             params
         })
     },
 
-    getListByKeywords: (params) => {// 根据关键词获取任务列表
-        return request({
-            url: '/task_lead/task-lead/keywords',
+    // 获取场景
+    getAll: (params) =>{
+         return request({
+            url: '/scene/scene-case2/getAll',
             method: 'get',
             params
         })
     },
 
-    getById: (params) => {
+    // 根据id获取场景
+    getCaseById:(params)=>{
         return request({
-            url: '/task_lead/task-lead/id',
+            url: '/scene/scene-case2/id',
+            method: 'get',
+            params
+        })
+    },
+
+    //根据类型获取对应的场景列表-分页
+    getByClass:(params)=>{
+        return request({
+            url: '/scene/scene-case2/getByClass',
+            method: 'get',
+            params
+        })
+    },
+
+    getByKeywords: (params) => {
+        return request({
+            url: '/scene/scene-case2/keywords',
             method: 'get',
             params
         })
     }
-
-
-
-
-}
+};
