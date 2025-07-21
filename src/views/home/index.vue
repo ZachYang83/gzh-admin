@@ -14,7 +14,7 @@
         </flexBox>
       </div>
     </div>
-    <div class="sy-center-wrap flex-center">
+    <div class="sy-center-wrap">
       <div class="center-top">
         <Xctg></Xctg>
       </div>
@@ -90,10 +90,11 @@ const goToFlat = () => {
 }
 
 .sy-center-wrap {
-  flex: 1;
+  width: 960px;
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .left-top {
@@ -141,7 +142,7 @@ const goToFlat = () => {
 }
 
 .center-top {
-  height: 674px;
+  height: 660px;
   width: 100%;
   box-sizing: border-box;
   margin: 4px 10px;

@@ -1,74 +1,30 @@
 <template>
   <div class="fzgk-card">
-    <div class="fzgk-item">
+    <div 
+      v-for="(item, index) in cardItems" 
+      :key="index"
+      class="fzgk-item"
+    >
       <div class="left flex-center">
-        <img class="item-logo" src="../imgs/fzgk-cygm.png" alt="产业规模" />
+        <img :class="item.logoClass" :src="item.logoSrc" :alt="item.altText" />
       </div>
       <div class="right">
         <div class="item-total">
-          广州人工智能产业规模
+          {{ item.title }}
           <div class="item-total-count">
-            1265
-            <span class="item-total-unit">亿元</span>
+            {{ item.value }}
+            <span class="item-total-unit">{{ item.unit }}</span>
           </div>
         </div>
         <div class="item-percent">
           <div class="percent-province">
-            占全省
-            <span>25%</span>
+            {{ item.percent1Text }}
+            <span>{{ item.percent1Value }}</span>
+            <svg-icon v-if="item.showArrow" icon-class="arrow-up" class="svg-icon" size="1rem" />
           </div>
           <div class="percent-country">
-            占全国
-            <span>7.8%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="fzgk-item">
-      <div class="left flex-center">
-        <img class="item-logo" src="../imgs/fzgk-zjz.png" alt="增加值" />
-      </div>
-      <div class="right">
-        <div class="item-total">
-          2024年增加值
-          <div class="item-total-count">
-            588
-            <span class="item-total-unit">亿元</span>
-          </div>
-        </div>
-        <div class="item-percent">
-          <div class="percent-province">
-            同比增加
-            <span>11.4%</span>
-            <svg-icon icon-class="arrow-up" class="svg-icon" size="1rem" />
-          </div>
-          <div class="percent-country">
-            占GDP比重
-            <span>1.9%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="fzgk-item">
-      <div class="left flex-center">
-        <img class="item-logo" src="../imgs/gzgk-ssgm.png" alt="税收规模" />
-      </div>
-      <div class="right">
-        <div class="item-total">
-          2024年税收规模
-          <div class="item-total-count">
-            66
-            <span class="item-total-unit">亿元</span>
-          </div>
-        </div>
-        <div class="item-percent">
-          <div class="percent-province">
-            同比增加
-            <span>11%</span>
-            <svg-icon icon-class="arrow-up" class="svg-icon" size="1rem" />
-          </div>
-          <div class="percent-country">
-            <span></span>
+            {{ item.percent2Text }}
+            <span>{{ item.percent2Value }}</span>
           </div>
         </div>
       </div>
@@ -76,24 +32,74 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, onMounted } from 'vue';
+const getImage = (imageName) => {
+  return new URL(`../imgs/${imageName}`, import.meta.url).href;
+};
+
+const cardItems = ref([
+  {
+    logoSrc: getImage("fzgk-cygm.png"),
+    logoClass: 'item-logo',
+    altText: '产业规模',
+    title: '广州人工智能产业规模',
+    value: '1265',
+    unit: '亿元',
+    percent1Text: '占全省',
+    percent1Value: '25%',
+    percent2Text: '占全国',
+    percent2Value: '7.8%',
+    showArrow: false
+  },
+  {
+    logoSrc: getImage("fzgk-zjz.png"),
+    logoClass: 'item-logo',
+    altText: '增加值',
+    title: '2024年增加值',
+    value: '588',
+    unit: '亿元',
+    percent1Text: '同比增加',
+    percent1Value: '11.4%',
+    percent2Text: '占GDP比重',
+    percent2Value: '1.9%',
+    showArrow: true
+  },
+  {
+    logoSrc: getImage("gzgk-ssgm.png"),
+    logoClass: 'item-logo',
+    altText: '税收规模',
+    title: '2024年税收规模',
+    value: '66',
+    unit: '亿元',
+    percent1Text: '同比增加',
+    percent1Value: '11%',
+    percent2Text: '',
+    percent2Value: '',
+    showArrow: true
+  }
+]);
+
+</script>
 
 <style lang="scss" scoped>
+// 样式保持不变
 .fzgk-card {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   cursor: default;
+  padding:2px;
 }
 
 .fzgk-item {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 440px;
-  height: 80px;
+  flex:1;
   margin: 2px 0;
-  padding: 4px;
   background: linear-gradient(
     90.11deg,
     rgba(2, 62, 112, 1) 0%,
@@ -129,6 +135,7 @@
   padding-left: 10px;
   justify-content: space-between;
   color: #d8f0ff;
+  
 
   .item-total {
     width: 190px;
@@ -157,7 +164,8 @@
     flex-direction: column;
     font-size: 12px;
     font-weight: 400;
-    gap: 20px;
+    gap: 5px;
+
 
     span {
       margin-left: 5px;
@@ -167,4 +175,4 @@
     }
   }
 }
-</style>
+</style>  
