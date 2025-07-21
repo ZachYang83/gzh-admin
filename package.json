@@ -18,6 +18,7 @@
     "element-plus": "2.1.8",
     "js-cookie": "^2.2.1",
     "mockjs": "^1.1.0",
+    "openai": "^5.10.1",
     "path-browserify": "^1.0.1",
     "sass-resources-loader": "^2.2.3",
     "swiper": "^11.2.10",

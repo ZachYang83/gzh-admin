@@ -14,7 +14,7 @@
         </flexBox>
       </div>
     </div>
-    <div class="sy-center-wrap flex-center">
+    <div class="sy-center-wrap">
       <div class="center-top">
         <Xctg></Xctg>
       </div>
@@ -98,7 +98,7 @@ const unfoldAICard = () =>{
 }
 
 .sy-center-wrap {
-  flex: 1;
+  width: 960px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -159,7 +159,7 @@ const unfoldAICard = () =>{
 }
 
 .center-top {
-  // height: 674px;
+  // height: 660px;
   height: 65%;
   width: 100%;
   box-sizing: border-box;

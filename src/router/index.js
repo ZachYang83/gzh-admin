@@ -220,6 +220,48 @@ export const constantRoutes = [
       },
     ],
   },
+  {
+    path: "/talent",
+    component: LayoutDefault,
+    redirect: "/talent/index",
+    children: [
+       {
+        path: "index",
+        component: () => import("@/views/talent/index.vue"),
+        name: "Talent",
+        file: "talent/index.vue",
+        meta: { title: "专家人才", icon: "iconfont icon-shiyongwendang mr-5" },
+      },
+    ]
+  },
+  {
+    path: "/policy",
+    component: LayoutDefault,
+    redirect: "/policy/index",
+    children: [
+       {
+        path: "index",
+        component: () => import("@/views/policy/index.vue"),
+        name: "Policy",
+        file: "policy/index.vue",
+        meta: { title: "政策助手", icon: "iconfont icon-shiyongwendang mr-5" },
+      },
+    ]
+  },
+  {
+    path: "/ai",
+    component: LayoutDefault,
+    redirect: "/ai/index",
+    children: [
+       {
+        path: "index",
+        component: () => import("@/views/ai/index.vue"),
+        name: "AiIndex",
+        file: "ai/index.vue",
+        meta: { title: "AI首页", icon: "iconfont icon-shiyongwendang mr-5" },
+      },
+    ]
+  }
 ];
 
 /**

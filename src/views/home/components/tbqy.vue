@@ -144,7 +144,7 @@ const chart = reactive({
   legend: {},
   colorList: ["#4f9aff", "rgba(11,42,84,.3)"],
   labelFontSize: 14,
-  autoplay: true,
+  autoplay: false,
   valueLabelVisible: true,
   chartDirection: "horizontal",
   barBorderRadius: [5, 5, 0, 0],

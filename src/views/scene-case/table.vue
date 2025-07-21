@@ -1,8 +1,7 @@
 <template>
   <div class="cj-table-wrap">
     <div class="main-title">
-      <!-- <Tybtl title="社会应用场景列表" attachment="[切换为国资]" attachmentLink="sceneTable2"></Tybtl> -->
-      <Tybtl title="社会应用场景列表"></Tybtl>
+      <Tybtl title="典型示范案例场景列表" attachment="[切换为国资]" attachmentLink="scenceTable2"></Tybtl>
     </div>
     
     <div class = "menu">
