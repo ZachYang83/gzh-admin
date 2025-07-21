@@ -8,26 +8,26 @@
       <div class="left flex-center">
         <img :class="item.logoClass" :src="item.logoSrc" :alt="item.altText" />
       </div>
-      <div class="right">
-        <div class="item-total">
+      <div class="middle">
           {{ item.title }}
           <div class="item-total-count">
             {{ item.value }}
             <span class="item-total-unit">{{ item.unit }}</span>
           </div>
-        </div>
-        <div class="item-percent">
-          <div class="percent-province">
-            {{ item.percent1Text }}
-            <span>{{ item.percent1Value }}</span>
-            <svg-icon v-if="item.showArrow" icon-class="arrow-up" class="svg-icon" size="1rem" />
+        
+      </div>
+      <div class = "right">
+          <div class="item-name">
+            <span>{{ item.percent1Text }}</span>
+            <span>{{ item.percent2Text }}</span>
+            
           </div>
-          <div class="percent-country">
-            {{ item.percent2Text }}
+          <div class="item-percent">
+            <span>{{ item.percent1Value }}<svg-icon v-if="item.showArrow" icon-class="arrow-up" class="svg-icon" size="1rem" /></span>
             <span>{{ item.percent2Value }}</span>
           </div>
-        </div>
       </div>
+
     </div>
 
   </div>
@@ -89,20 +89,18 @@ const cardItems = ref([
   width: 100%;
   height: 100%;
   display: flex;
-  gap:5px;
+  gap:6px;
   padding:4px;
   flex-direction: column;
   cursor: default;
-  padding:2px;
 }
 
 .fzgk-item {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 440px;
-  flex:1;
-  margin: 2px 0;
+  width: 100%;
+  height: 33%;
   background: linear-gradient(
     90.11deg,
     rgba(2, 62, 112, 1) 0%,
@@ -118,6 +116,7 @@ const cardItems = ref([
     box-shadow: 0 0 0 1px rgba(8, 206, 224, 0.5),
       0 0 10px 5px rgba(8, 206, 224, 0.3);
   }
+  padding: 10px 0;
 }
 
 .left {
@@ -127,6 +126,7 @@ const cardItems = ref([
   .item-logo {
     max-height: 85%;
     width: auto;
+    max-width: 85%;
   }
 }
 
@@ -139,16 +139,7 @@ const cardItems = ref([
   justify-content: space-around;
   padding-left: 10px;
   color: #d8f0ff;
-  
-
-  .item-total {
-    width: 190px;
-    height: 100%;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: ALIBABAPUHUITI;
-    color: rgba(212, 237, 253, 1);
-  }
+  font-size: 18px;
   .item-total-count {
     height: max-content;
     font-family: "YouSheBiaoTiYuan";
@@ -172,6 +163,7 @@ const cardItems = ref([
   height: 100%;
   display: flex;
   flex-direction: row;
+  
   .item-name {
     width: 40%;
     white-space: nowrap;
@@ -179,20 +171,38 @@ const cardItems = ref([
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: flex-end;
     font-size: 14px;
     font-weight: 400;
-    gap: 5px;
+    color: #d8f0ff;
+    span{
+      height: 20px;
+    }
+  }
 
-
+  .item-percent {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 14px;
+    font-weight: 400;
+    padding-left: 10px;
+    color: #d8f0ff;
     span {
       margin-left: 5px;
       text-shadow: 0px 0px 4px rgba(0, 167, 255, 1);
       font-size: 20px;
       font-weight: 500;
+      height: 20px;
       display: flex;
       align-items: center;
-    }
 
+      svg-icon {
+        margin-left: 5px;
+      }
+    }
   }
 
 }

@@ -127,6 +127,8 @@ export default {};
 
     &.active {
       background-image: url("@/assets/images/tabs-left-active.png");
+      text-shadow: 0px 0px 4px rgb(255, 153, 0),
+      0px 0px 30px rgba(255, 153, 0);
     }
   }
 
@@ -135,6 +137,8 @@ export default {};
 
     &.active {
       background-image: url("@/assets/images/tabs-right-active.png");
+      text-shadow: 0px 0px 4px rgb(255, 153, 0),
+      0px 0px 30px rgba(255, 153, 0);
     }
   }
 }
