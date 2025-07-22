@@ -221,16 +221,23 @@ export const constantRoutes = [
     ],
   },
   {
-    path: "/talent",
+    path: "/expert",
     component: LayoutDefault,
-    redirect: "/talent/index",
+    redirect: "/expert/index",
     children: [
        {
         path: "index",
-        component: () => import("@/views/talent/index.vue"),
-        name: "Talent",
-        file: "talent/index.vue",
+        component: () => import("@/views/expert/index.vue"),
+        name: "Expert",
+        file: "expert/index.vue",
         meta: { title: "专家人才", icon: "iconfont icon-shiyongwendang mr-5" },
+      },
+      {
+        path: "detail",
+        component: () => import("@/views/expert/detail.vue"),
+        name: "ExpertDetail",
+        file: "expert/detail.vue",
+        meta: { title: "专家详情", icon: "iconfont icon-shiyongwendang mr-5" },
       },
     ]
   },

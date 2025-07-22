@@ -57,7 +57,7 @@
       </router-link>
 
       <router-link
-        to="/talent"
+        to="/expert"
         class="nav-item right flex-center"
         active-class="active"
       >

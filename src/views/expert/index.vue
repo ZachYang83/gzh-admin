@@ -1,39 +1,38 @@
 <template>
   <div class="cj-table-wrap">
     <div class="main-title">
-      <Tybtl title="国资场景" :isHome="true"></Tybtl>
+      <Tybtl title="专家人才" :isHome="true"></Tybtl>
     </div>
 
     <div class="menu">
       <div class="search-box">
-        <input v-model="currentKeyword" type="text" placeholder="请输入关键词" class = "input-box" @keyup.enter="searchKeywords(currentKeyword)"/>
+        <input v-model="currentKeyword" type="text" placeholder="请输入专家名称或所属机构" class = "input-box" @keyup.enter="searchKeywords(currentKeyword)"/>
         <button class = "search-btn" @click="searchKeywords(currentKeyword)">
           <svg-icon icon-class="search" size="1.2rem"></svg-icon>
           查询
         </button>
       </div>
       <div class="menu-items">
-        行业领域：
-        <div class = "menu-item" v-for ="(item, index) in scenes" :key="index" :class="{ active: (route.query.sceneClass === undefined || route.query.sceneClass === '' || route.query.sceneClass.slice(0,2) === '全部') ? ('全部' === item) : (route.query.sceneClass === item)}" @click="changeScene(item)">
+        所属院所：
+        <div class = "menu-item" v-for ="(item, index) in scenes" :key="index" :class="{ active: (route.query.workplace === undefined || route.query.workplace === '' || route.query.workplace.slice(0,2) === '全部') ? ('全部' === item) : (route.query.workplace === item)}" @click="changeScene(item)">
           <span>{{ item }}</span>
         </div>
       </div>
     </div>
     <div class="main-content">
       <div class="main-table">
-        <BoardType2
+        <BoardType3
           v-for="data in sceneData"
-          :ifimg="true"
-          detailName="taskDetail"
+          detailName="ExpertDetail"
           :id="data.id"
-          :title="data.projectName"
-          key2="行业领域"
-          key3="所属集团"
-          key4="业主单位"
-          :value2="data.sceneClass"
-          :value3="data.groupName"
-          :value4="data.companyName"
-        ></BoardType2>
+          :name="data.name"
+          :key1="'所属院所'"
+          :value1="data.workplace"
+          :key2="'职称'"
+          :value2="data.position"
+          :key3="'研究领域'"
+          :value3="data.field"
+        ></BoardType3>
       </div>
       <div class="table-footer">
         <div class="page-btns">
@@ -41,8 +40,8 @@
             background
             layout="total, prev, pager, next, jumper"
             :size="pageSize" :total="totalCount"  
-            v-model:current-Page="currentPage"
-            @current-change="(cpage) => goToTable(route.query.sceneClass, route.query.keyword, cpage)" 
+            v-model:current-page="currentPage"
+            @current-change="(cpage) => goToTable(route.query.workplace, route.query.keyword, cpage)" 
             class = "pagetest">
           </el-pagination>
         </div>
@@ -53,22 +52,20 @@
 </template>
 
 <script setup>
-import Api from "@/api/revTask/index.js";
+import Api from "@/api/expert/index.js";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute(); 
 const { sceneClass = '全部', keyword = '', page = '1' } = route.query;
 
-const scenes = ref([]);
+const scenes = ref(["全部", "中山大学","华南理工大学","华南师范大学","暨南大学","华南农业大学","广东工业大学","广州大学","广州南方学院","香港科技大学（广州）","琶洲实验室"]);
 const totalCount = ref(0);
 const sceneData = ref(null);
 const pageSize = 10;
 const currentPage = ref(1);
 const currentKeyword = ref(null);
 const getData = (sceneClass="", keyword = "", page=1) =>{
-  //不支持同时关键词和场景查询
   page = parseInt(page);
-  // console.log("获取数据：", sceneClass, keyword, page);
   if(keyword){
     Api.getByKeywords({ 
       keywords: keyword,
@@ -84,7 +81,7 @@ const getData = (sceneClass="", keyword = "", page=1) =>{
       sceneClass = "";
     }
     Api.getByClass({ 
-      scene_class: sceneClass,
+      workplace: sceneClass,
       pageNum: page,
       pageSize: pageSize
     }).then((res) => {
@@ -95,20 +92,12 @@ const getData = (sceneClass="", keyword = "", page=1) =>{
   }
 }
 
-onMounted(() => {
-  // 获取场景，换成接口获取
-  // Api.getAll().then((res) => {
-  //   let resData = res.data;
-  // });
-  scenes.value = ["全部", "AI+制造", "AI+能源环保", "AI+交通", "AI+旅游休闲", "AI+城市治理"];
-});
-
 const goToTable = (newScene = sceneClass, newKeyword = keyword, newPage = page) => {
-  console.log("跳转参数：",sceneClass,"-",keyword,"-",page);
+  console.log("跳转参数：",newScene,"-",keyword,"-",page);
   router.replace({
-    name: "RevTask",
+    name: "Expert",
     query: {
-      sceneClass: newScene,
+      workplace: newScene,
       keyword: newKeyword,
       page: newPage
     },
@@ -121,15 +110,18 @@ const changeScene = (scene) => {
   goToTable(scene, "", 1);
 };
 
+
+
+
 const searchKeywords = (keyword) => {
   console.log("搜索关键词：", keyword);
   goToTable("", keyword, 1);
 };
 
 
-watch(() => [route.query.sceneClass, route.query.keyword, route.query.page], ([sceneClass, keyword, page]) => {
-  console.log("监听到变化，重新获取数据：", sceneClass, keyword, page);
-  getData(sceneClass, keyword, page);
+watch(() => [route.query.workplace, route.query.keyword, route.query.page], ([workplace, keyword, page]) => {
+  console.log("监听到变化，重新获取数据：", workplace, keyword, page);
+  getData(workplace, keyword, page);
   currentPage.value = Number(page) || 1;
 }, { immediate: true });
 </script>
@@ -163,7 +155,7 @@ input {
 
 .search-box {
   width: 100%;
-  height: 40px;
+  height: 50px;
   display: flex;
   align-items: center;
   position: relative;
@@ -190,11 +182,11 @@ input {
   position: absolute;
   right: 0;
   height: 100%;
-  width: fit-content;
+  width: 110px;
   padding: 0 15px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   gap: 5px;
   font-size: 16px;
   background-color: #007bff;
