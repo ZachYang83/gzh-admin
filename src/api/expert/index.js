@@ -11,19 +11,10 @@ export default {
         })
     },
 
-    // 根据所属机构获取专家
-    getByClass: (params) =>{
+    // 多条件获取专家
+    search: (params) =>{
          return request({
-            url: '/experts/experts-ai/getByClass',
-            method: 'get',
-            params
-        })
-    },
-
-    //根据关键词获取专家
-    getByKeywords: (params) =>{
-         return request({
-            url: '/experts/experts-ai/keywords',
+            url: '/experts/experts-ai/search',
             method: 'get',
             params
         })

@@ -89,7 +89,7 @@ onMounted(() => {
 });
 
 const goBack = () => {
-  router.back();
+   router.back();
 };
 </script>
 

@@ -6,32 +6,15 @@
 
     <div class="menu">
       <div class="search-box">
-        <input
-          v-model="currentKeyword"
-          type="text"
-          placeholder="请输入专家名称或所属机构"
-          class="input-box"
-          @keyup.enter="multiSearch(activeTab, currentKeyword, currentPage)"
-        />
-        <button
-          class="search-btn"
-          @click="multiSearch(activeTab, currentKeyword, currentPage)"
-        >
+        <input v-model="currentKeyword" type="text" placeholder="请输入专家名称或所属机构" class = "input-box" @keyup.enter="searchKeywords(currentKeyword)"/>
+        <button class = "search-btn" @click="searchKeywords(currentKeyword)">
           <svg-icon icon-class="search" size="1.2rem"></svg-icon>
           查询
         </button>
       </div>
       <div class="menu-items">
         所属院所：
-        <div
-          class="menu-item"
-          v-for="(item, index) in tabList"
-          :key="index"
-          :class="{
-            active: activeTab === item,
-          }"
-          @click="multiSearch(item, currentKeyword, 1)"
-        >
+        <div class = "menu-item" v-for ="(item, index) in scenes" :key="index" :class="{ active: (route.query.workplace === undefined || route.query.workplace === '' || route.query.workplace.slice(0,2) === '全部') ? ('全部' === item) : (route.query.workplace === item)}" @click="changeScene(item)">
           <span>{{ item }}</span>
         </div>
       </div>
@@ -56,14 +39,10 @@
           <el-pagination
             background
             layout="total, prev, pager, next, jumper"
-            :size="pageSize"
-            :total="totalCount"
+            :size="pageSize" :total="totalCount"  
             v-model:current-page="currentPage"
-            @current-change="
-              (cpage) => multiSearch(activeTab, currentKeyword, cpage)
-            "
-            class="pagetest"
-          >
+            @current-change="(cpage) => goToTable(route.query.workplace, route.query.keyword, cpage)" 
+            class = "pagetest">
           </el-pagination>
         </div>
         <div class="cj-table-footer"></div>
@@ -74,55 +53,77 @@
 
 <script setup>
 import Api from "@/api/expert/index.js";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const route = useRoute(); 
+const { sceneClass = '全部', keyword = '', page = '1' } = route.query;
 
-defineOptions(
-  {
-    name: "Expert"
-  }
-);
-
-const tabList = ref([
-  "全部",
-  "中山大学",
-  "华南理工大学",
-  "华南师范大学",
-  "暨南大学",
-  "华南农业大学",
-  "广东工业大学",
-  "广州大学",
-  "广州南方学院",
-  "香港科技大学（广州）",
-  "琶洲实验室",
-]);
-const activeTab = ref("全部");
+const scenes = ref(["全部", "中山大学","华南理工大学","华南师范大学","暨南大学","华南农业大学","广东工业大学","广州大学","广州南方学院","香港科技大学（广州）","琶洲实验室"]);
 const totalCount = ref(0);
 const sceneData = ref(null);
 const pageSize = 10;
 const currentPage = ref(1);
 const currentKeyword = ref(null);
+const getData = (sceneClass="", keyword = "", page=1) =>{
+  page = parseInt(page);
+  if(keyword){
+    Api.getByKeywords({ 
+      keywords: keyword,
+      pageNum: page,
+      pageSize: pageSize
+    }).then((res) => {
+      let resData = res.data;
+      sceneData.value = resData.list;
+      totalCount.value = resData.total;
+    });
+  }else{
+    if (sceneClass.slice(0,2) === "全部"){
+      sceneClass = "";
+    }
+    Api.getByClass({ 
+      workplace: sceneClass,
+      pageNum: page,
+      pageSize: pageSize
+    }).then((res) => {
+      let resData = res.data;
+      sceneData.value = resData.list;
+      totalCount.value = resData.total;
+    });
+  }
+}
 
-onMounted(() => {
-  Api.getAll().then((res) => {
-    let resData = res.data;
-    sceneData.value = resData.list;
-    totalCount.value = resData.total;
-  });
-});
-
-const multiSearch = (workplace, keywords, pageNum) => {
-  activeTab.value = workplace;
-  Api.search({
-    workplace: workplace === "全部" ? "" : workplace,
-    keywords: keywords,
-    pageNum: pageNum,
-  }).then((res) => {
-    console.log(res.data, "safasfdas");
-    let resData = res.data;
-    sceneData.value = resData.list;
-    totalCount.value = resData.total;
-    currentPage.value = resData.pageNum;
+const goToTable = (newScene = sceneClass, newKeyword = keyword, newPage = page) => {
+  console.log("跳转参数：",newScene,"-",keyword,"-",page);
+  router.replace({
+    name: "Expert",
+    query: {
+      workplace: newScene,
+      keyword: newKeyword,
+      page: newPage
+    },
   });
 };
+
+const changeScene = (scene) => {
+  console.log("切换场景：", scene);
+  currentKeyword.value = "";
+  goToTable(scene, "", 1);
+};
+
+
+
+
+const searchKeywords = (keyword) => {
+  console.log("搜索关键词：", keyword);
+  goToTable("", keyword, 1);
+};
+
+
+watch(() => [route.query.workplace, route.query.keyword, route.query.page], ([workplace, keyword, page]) => {
+  console.log("监听到变化，重新获取数据：", workplace, keyword, page);
+  getData(workplace, keyword, page);
+  currentPage.value = Number(page) || 1;
+}, { immediate: true });
 </script>
 
 <style lang="scss" scoped>

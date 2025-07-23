@@ -19,27 +19,28 @@
   </div>
 </template>
 
-<script>
-export default {
+<script setup>
+defineOptions({
   name: "flexBox",
-  props: {
-    width: {
-      type: String,
-      default: "100%",
-    },
-    height: {
-      type: String,
-      default: "100%",
-    },
-    title: {
-      type: String,
-      default: "发展概况",
-    },
+});
+
+const props = defineProps({
+  width: {
+    type: String,
+    default: "100%",
   },
-};
+  height: {
+    type: String,
+    default: "100%",
+  },
+  title: {
+    type: String,
+    default: "发展概况",
+  },
+});
 </script>
 
-<style lang = "scss" scoped>
+<style lang="scss" scoped>
 .card-box {
   width: v-bind(width);
   height: v-bind(height);
@@ -55,7 +56,7 @@ export default {
   border-radius: 2px;
   border: 1px solid rgba(42, 130, 228, 0.3);
   // background: rgba(48, 97, 219, 0.12);
-  background-color: #1B2D4A;
+  background-color: #1b2d4a;
 }
 
 .card-title {
@@ -69,11 +70,11 @@ export default {
   background: rgba(21, 77, 160, 0.3);
   user-select: none;
 
-  .card-title-left{
-    flex:5;
+  .card-title-left {
+    flex: 5;
   }
-  .card-title-right{
-    flex:1;
+  .card-title-right {
+    flex: 1;
   }
 }
 
