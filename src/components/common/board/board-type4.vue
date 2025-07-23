@@ -1,25 +1,17 @@
 <template>
   <div class="board-wrap">
-    <div class="inner-wrap" @click="goToDetail(id)">
+    <div class="inner-wrap">
       <div class="decoration"></div>
-      <div class="main-content">
-        <div class="line1 flex-center">
-          <span class="name">{{ name }}</span> <span>·</span
-          ><span class="school">{{ value1 }}</span>
+
+      <div class="main-content" @click="openNewPage(webLink)">
+        <div class="title-box">
+          <span class="title">{{ title }}</span>
+          <span class="lable">{{ lable }}</span>
         </div>
-        <div class="line3" v-if="key2">
-          <svg-icon icon-class="expert-zhicheng" calss="svg-icon" size="1rem" />
-          <span>{{ value2 }}</span>
-        </div>
-        <div class="line4" v-if="key3" data-full-text="{{ value3 }}">
-          <svg-icon icon-class="expert-field" calss="svg-icon" size="1rem" />
-          {{ key3 }}：<el-tooltip
-            class="box-item"
-            effect="light"
-            :content="value3"
-            placement="top-start"
-            ><span>{{ value3 }}</span>
-          </el-tooltip>
+        <div class="info-box">
+          <span class="info-item"> 发布日期：{{ releaseDate }} </span>
+          <span class="info-item"> 发布机构：{{ publisher }} </span>
+          <span class="info-item"> </span>
         </div>
       </div>
     </div>
@@ -27,48 +19,32 @@
 </template>
 
 <script setup name="BoardType4">
-import { useRouter } from "vue-router";
-const router = useRouter();
-
-const goToDetail = (id) => {
-  router.push({
-    name: props.detailName,
-    query: {
-      id: id,
-    },
-  });
-};
-
 const props = defineProps({
-  id: {
-    type: Number,
-    default: 1,
-  },
-  detailName: {
-    type: String,
-    default: "sceneDetail",
-  },
-  name: {
+  title: {
     type: String,
     default: "",
   },
-  key1: {
+  lable: {
     type: String,
     default: "",
   },
-  value1: {
+  releaseDate: {
     type: String,
     default: "",
   },
-  key2: {
+  publisher: {
     type: String,
     default: "",
   },
-  value2: {
+  webLink: {
     type: String,
     default: "",
-  }
+  },
 });
+
+const openNewPage = (webLink) => {
+  window.open(webLink, "_blank");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -76,7 +52,7 @@ const props = defineProps({
   display: flex;
   width: 100%;
   height: 20%;
-  
+
   padding: 5px 0;
   box-sizing: border-box;
   animation: fadeIn 0.3s ease-out forwards;
@@ -104,81 +80,89 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  background: linear-gradient(to right, #224064, #213A56);
+  justify-content: space-between;
+  background: linear-gradient(
+    270deg,
+    rgba(0, 156, 255, 0.05) 0%,
+    rgba(2, 132, 255, 0.15) 100%
+  );
+  box-sizing: border-box;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: radial-gradient(
+      circle,
+      rgb(122, 201, 251) 30%,
+      rgba(255, 255, 255, 0) 70%
+    );
+    z-index: 1;
+  }
+
+  &:hover {
+    border-width: 2px;
+    border-style: solid;
+    border-image: linear-gradient(20deg, #2a98ff, #cbe6ff 50%, #0a89ff) 1;
+    box-sizing: border-box;
+  }
 }
+
 .decoration {
-  position:absolute;
-  left:0;
-  top:20px;
+  position: absolute;
+  left: 0;
+  top: 20px;
   width: 6px;
   height: 22px;
-  background-color:#2b87ff;
+  background-color: #2b87ff;
 }
 
 .main-content {
   width: 100%;
-  height: calc(100% - 120px);
-  padding-top: 10px;
+  height: 100px;
+  padding: 5px 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
   text-align: start;
-  color: #fff;
-}
-
-.line1 {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  font-family: ALIBABAPUHUITI;
-
-  .name {
-    font-size: 20px;
+  color: #d8f0ff;
+  
+  &:hover{
     color: #2b87ff;
-    font-weight: 600;
   }
+}
 
-  .school {
-    color: #999;
-    font-size: 16px;
-    font-weight: 600;
-  }
-
-  > span {
-    margin: 0 5px;
+.title-box {
+  display: flex;
+  align-items: center;
+  .title {
+    font-family: ALIBABAPUHUITI;
     font-size: 20px;
-    font-weight: 900;
-    color: #999;
+    font-weight: 500;
+  }
+
+  .lable {
+    margin-left: 10px;
+    display: inline-block;
+    color: #2b87ff;
+    border: #2b87ff 1px solid;
+    padding: 2px 5px;
+    border-radius: 5px;
   }
 }
 
-.line2 > span {
-  background: linear-gradient(40deg, #2b87ff, #2bcaff);
-  padding: 4px 6px;
-  border-radius: 4px;
-}
+.info-box {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  color: rgb(154, 168, 184);
 
-.line3 {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: rgba(154, 168, 184, 1);
-}
-
-.line4 {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: rgba(154, 168, 184, 1);
-}
-
-.svg-icon {
-  margin-right: 8px;
+  .info-item {
+    margin-right: 80px;
+  }
 }
 </style>

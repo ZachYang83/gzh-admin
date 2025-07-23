@@ -47,12 +47,12 @@
       <div class="content-bottom">
         <div class="sub-intro">
           <div class="sub-title">简介</div>
-          <div class="sub-content"></div>
+          <div class="sub-content">{{ exportInfo.introduction}}</div>
         </div>
-        <div class="sub-intro">
+        <!-- <div class="sub-intro">
           <div class="sub-title">科研成果</div>
           <div class="sub-content"></div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

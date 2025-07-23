@@ -26,7 +26,7 @@
             :label="item"
             :value="item"
           ></el-option>
-        </el-select>
+        </el-select> 
 
         <el-select
           v-model="categoriesSelect"

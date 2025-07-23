@@ -348,7 +348,7 @@ export const constantRoutes = [
         meta: {
           title: "政策助手",
           icon: "iconfont icon-shiyongwendang mr-5",
-          keepAlive: true,
+          keepAlive: false,
         },
       },
     ],

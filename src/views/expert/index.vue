@@ -254,6 +254,4 @@ input {
   align-items: center;
   //background-color: #f8f9fa;
 }
-.page-btns {
-}
 </style>
