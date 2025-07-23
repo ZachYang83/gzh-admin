@@ -4,14 +4,24 @@
       <div class="ai-logo"></div>
       <span>AI智能 一键触达</span>
     </div>
-    <div class = "dialog" :style="{flex: props.isUnfolded ? '1' : '0'}">
+    <div id = "dialog" :style="{flex: props.isUnfolded ? '1' : '0'}">
       <div class="dialog-content" v-for ="(item,index) in conversation" :key="index" :class="item.role">
         <img v-if="item.role === 'assistant'" src="@/assets/images/logo-ai.png" class="conv-logo"/>
-        <div class="dialog-text"><pre>{{ item.content }}</pre></div>
+        <div class="dialog-text"><markdown :source="item.content" /></div>
         <img v-if="item.role === 'user'" src="@/assets/images/logo-user.png" class="conv-logo"/>
       </div>
     </div>
     <div class = "fixed-parts">
+      <div class = "ai-prompts">
+        <div class = "shuffle-btn" @click="changePrompt">
+          换一换 <svg-icon icon-class="icon-shuffle" class="svg-icon" size="1.2rem" />
+        </div>
+        <div class = "prompt-texts">
+          <div class="prompt-text" v-for="(prompt, index) in currentPrompt" :key="index" @click="fillInPrompt(prompt)">
+            {{ prompt }}
+          </div>
+        </div>
+      </div>
       <div class="ai-input flex-center">
         <el-input
           v-model="textarea"
@@ -27,6 +37,8 @@
           发送
         </div>
       </div>
+
+
       <!-- <div class="ai-function">
         <div class="ai-function-item" @click="aiFunction()">
           <img class="funciton-logo" src="../imgs/ai-zaiti.png" alt="找载体" />
@@ -45,16 +57,7 @@
           <div class="fuction-text">找应用</div>
         </div>
       </div> -->
-      <div class = "ai-prompts">
-        <div class = "shuffle-btn" @click="changePrompt">
-          换一换 <svg-icon icon-class="icon-shuffle" class="svg-icon" size="1.2rem" />
-        </div>
-        <div class = "prompt-texts">
-          <div class="prompt-text" v-for="(prompt, index) in currentPrompt" :key="index" @click="fillInPrompt(prompt)">
-            {{ prompt }}
-          </div>
-        </div>
-      </div>
+      
 
     </div>
   </div>
@@ -63,8 +66,8 @@
 <script setup>
 import { ElMessage } from "element-plus";
 import { el } from "element-plus/lib/locale/index.js";
+import Markdown from 'vue3-markdown-it';
 import { computed, ref } from "vue";
-import axios from "axios";
 const textarea = ref("");
 const isLoading = ref(false);
 const emit = defineEmits(['update:isUnfolded']);
@@ -94,20 +97,16 @@ const currentPrompt = computed(() => {
     prompts.value[(promptIndex.value + 1) % prompts.value.length],
   ];
 });
-const conversation = ref([
-  {
-    role: "assistant",
-    content: "你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。",
-  },
-  {
-    role: "user",
-    content: "请问我可以在哪里找到合适的载体？",
-  },
-  {
-    role: "assistant",
-    content: "你可以通过我们的平台查询最新的载体信息，或者直接联系相关部门获取帮助。",
-  },
-]);
+
+// {
+//     role: "assistant",
+//     content: "你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。你是一个AI助手，擅长回答关于载体、算法、需求和应用的问题。",
+//   },
+// {
+//     role: "user",
+//     content: "请问我可以在哪里找到合适的载体？",
+//   },
+const conversation = ref([]);
 
 const fillInPrompt = (prompt) =>{
   textarea.value = prompt;
@@ -127,7 +126,12 @@ const aiFunction = () => {
     });
     let question = textarea.value;
     textarea.value = "";
-    isLoading.value = true;    
+    isLoading.value = true;
+    conversation.value.push({
+      role: 'assistant',
+      content: ''
+    });
+    pretendThinking();
     getAIREply(question);
   }else{
     ElMessage({
@@ -141,10 +145,34 @@ function updateLastAssistantMessage(text) {
   conversation.value[conversation.value.length - 1].content = text;
 }
 
+const thinkingMessages = [
+  "正在理解问题.",
+  "正在理解问题..",
+  "正在理解问题...",
+  "正在收集数据.",
+  "正在收集数据..",
+  "正在收集数据...",
+  "正在总结回答.",
+  "正在总结回答..",
+  "正在总结回答...",
+];
+const pretendThinking = () => {
+  let thinkingIndex = 0;
+  const interval = setInterval(() => {
+    if (isLoading.value && thinkingIndex < thinkingMessages.length) {
+      updateLastAssistantMessage(thinkingMessages[thinkingIndex]);
+      thinkingIndex = (thinkingIndex + 1);
+    } else {
+      clearInterval(interval);
+    }
+  }, 1000);
+};
+
+//流式获取AI输出
 const getAIREply = async (question) => {
     const apiKey = "sk-1d7b4dbe784940b1ad1211bf180f832e";
-    const appId = '1ebc45b10da1486ab36fe607caa1a2fe';
-
+    // const appId = '1ebc45b10da1486ab36fe607caa1a2fe';
+    const appId = '71e3a8b3fe154056b6ed09fb9f48eaf8';
     const url = `https://dashscope.aliyuncs.com/api/v1/apps/${appId}/completion`;
 
     const data = {
@@ -173,11 +201,6 @@ const getAIREply = async (question) => {
       return;
     }
 
-    // 初始化临时消息对象并推送到对话数组
-    conversation.value.push({
-      role: 'assistant',
-      content: ''
-    });
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
@@ -188,8 +211,7 @@ const getAIREply = async (question) => {
       if (done) break;
 
       const chunk = decoder.decode(value, { stream: true });
-      console.log(`Received chunk:`, chunk);
-
+      // console.log(`Received chunk:`, chunk);
       const lines = chunk.split('\n');
       for (const line of lines) {
         if (line.startsWith('data:')) {
@@ -205,13 +227,15 @@ const getAIREply = async (question) => {
 
               // 如果 finish_reason 是 stop，则不再等待更多数据
               if (parsed.output.finish_reason === 'stop') {
-                console.log('Final result:', result);
+                //console.log('Final result:', result);
                 break;
               }
             } catch (e) {
               console.error('JSON parse error:', e);
             }
           }
+        }else if (line.startsWith('Final result:')) {
+          break
         }
       }
     }
@@ -224,11 +248,13 @@ const getAIREply = async (question) => {
   }
 };
 
+//滚动到底
+
 watch(() => conversation.value, () => {
-  //滚动到底
-  //console.log("Conversation updated:", conversation.value);
-  const dialog = document.querySelector('.dialog');
+  
+  let dialog = document.getElementById('dialog');
   dialog.scrollTop = dialog.scrollHeight;
+  //console.log(dialog.scrollHeight);
 },{ deep: true });
 </script>
 
@@ -281,7 +307,6 @@ watch(() => conversation.value, () => {
   height: fit-content;
   margin: 5px 0;
   position: relative;
-  margin: 20px 0;
   .send-btn {
     position: absolute;
     right: 10px;
@@ -296,7 +321,8 @@ watch(() => conversation.value, () => {
 }
 
 :deep(.el-textarea__inner) {
-  background-color: rgba(255, 255, 255, 0.15);
+  //background-color: rgba(255, 255, 255, 0.15);
+  background-color: #404B64;
   box-shadow: 0 0 2px 1px rgba(1, 126, 255, 0.82);
   color: #fff !important;
 }
@@ -304,6 +330,7 @@ watch(() => conversation.value, () => {
 .ai-prompts{
   width: fit-content;
   height: 50px;
+  margin: 10px 0;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -378,11 +405,11 @@ watch(() => conversation.value, () => {
 }
 
 
-.dialog{
+#dialog{
   width: 90%;
   min-height: 0;
   margin-bottom: 160px;
-  overflow: auto;
+  overflow: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
   transition: all 0.1s ease;
@@ -393,7 +420,7 @@ watch(() => conversation.value, () => {
 }
 
 .dialog-content {
-  width: 80%;
+  width: 85%;
   height: fit-content;
   display: flex;
   flex-direction: row;
@@ -407,13 +434,6 @@ watch(() => conversation.value, () => {
     background-color: #0000002f;
     border-radius: 20px;
     padding: 20px;
-    pre{
-      margin: 0;
-      font-family: "ALIBABAPUHUITI";
-      color: #fff;
-      white-space: pre-wrap; /* 保持空格和换行 */
-      word-break: break-word; /* 长单词换行 */
-    }
   }
 }
 

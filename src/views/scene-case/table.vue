@@ -1,7 +1,7 @@
 <template>
   <div class="cj-table-wrap">
     <div class="main-title">
-      <Tybtl title="典型示范案例场景列表" attachment="[切换为国资]" attachmentLink="scenceTable2"></Tybtl>
+      <Tybtl title="典型示范案例场景列表"></Tybtl>
     </div>
     
     <div class = "menu">
@@ -31,8 +31,7 @@
             layout="total, prev, pager, next, jumper"
             :size="pageSize" :total="totalCount"  
             v-model:current-Page="currentPage"
-            @current-change="(cpage) => goToTable(route.query.sceneClass, route.query.keyword, cpage)" 
-            class = "pagetest">
+            @current-change="(cpage) => goToTable(route.query.sceneClass, route.query.keyword, cpage)" >
           </el-pagination>
         </div>
         <div class="cj-table-footer"></div>
@@ -42,7 +41,6 @@
 </template>
 
 <script setup>
-import BoardType1 from "../../components/common/board/board-type1.vue";
 import Api from "@/api/scene/index.js";
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -121,6 +119,7 @@ watch(() => [route.query.sceneClass, route.query.keyword, route.query.page], ([s
   // console.log("监听到变化，重新获取数据：", sceneClass, keyword, page);
   getData(sceneClass, keyword, page);
   currentPage.value = Number(page);
+  currentKeyword.value = keyword;
 }, { immediate: true });
 </script>
 
