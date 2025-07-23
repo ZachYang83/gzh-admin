@@ -31,8 +31,7 @@
             layout="total, prev, pager, next, jumper"
             :size="pageSize" :total="totalCount"  
             v-model:current-Page="currentPage"
-            @current-change="(cpage) => goToTable(route.query.sceneClass, route.query.keyword, cpage)" 
-            class = "pagetest">
+            @current-change="(cpage) => goToTable(route.query.sceneClass, route.query.keyword, cpage)" >
           </el-pagination>
         </div>
         <div class="cj-table-footer"></div>
@@ -42,7 +41,6 @@
 </template>
 
 <script setup>
-import BoardType1 from "../../components/common/board/board-type1.vue";
 import Api from "@/api/scene/index.js";
 import { useRouter } from "vue-router";
 const router = useRouter();

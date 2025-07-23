@@ -129,8 +129,9 @@ const aiFunction = () => {
     isLoading.value = true;
     conversation.value.push({
       role: 'assistant',
-      content: '...'
+      content: ''
     });
+    pretendThinking();
     getAIREply(question);
   }else{
     ElMessage({
@@ -144,11 +145,34 @@ function updateLastAssistantMessage(text) {
   conversation.value[conversation.value.length - 1].content = text;
 }
 
+const thinkingMessages = [
+  "正在理解问题.",
+  "正在理解问题..",
+  "正在理解问题...",
+  "正在收集数据.",
+  "正在收集数据..",
+  "正在收集数据...",
+  "正在总结回答.",
+  "正在总结回答..",
+  "正在总结回答...",
+];
+const pretendThinking = () => {
+  let thinkingIndex = 0;
+  const interval = setInterval(() => {
+    if (isLoading.value && thinkingIndex < thinkingMessages.length) {
+      updateLastAssistantMessage(thinkingMessages[thinkingIndex]);
+      thinkingIndex = (thinkingIndex + 1);
+    } else {
+      clearInterval(interval);
+    }
+  }, 1000);
+};
+
 //流式获取AI输出
 const getAIREply = async (question) => {
     const apiKey = "sk-1d7b4dbe784940b1ad1211bf180f832e";
-    const appId = '1ebc45b10da1486ab36fe607caa1a2fe';
-
+    // const appId = '1ebc45b10da1486ab36fe607caa1a2fe';
+    const appId = '71e3a8b3fe154056b6ed09fb9f48eaf8';
     const url = `https://dashscope.aliyuncs.com/api/v1/apps/${appId}/completion`;
 
     const data = {

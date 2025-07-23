@@ -1,7 +1,7 @@
 <template>
   <div class="board-wrap">
     <div class="inner-wrap" @click="goToDetail(id)">
-      <div class="avatar"></div>
+      <div class="decoration"></div>
       <div class="main-content">
         <div class="line1 flex-center">
           <span class="name">{{ name }}</span> <span>·</span
@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script setup name="BoardType3">
+<script setup name="BoardType4">
 import { useRouter } from "vue-router";
 const router = useRouter();
 
@@ -67,28 +67,21 @@ const props = defineProps({
   value2: {
     type: String,
     default: "",
-  },
-  key3: {
-    type: String,
-    default: "",
-  },
-  value3: {
-    type: String,
-    default: "",
-  },
+  }
 });
 </script>
 
 <style lang="scss" scoped>
 .board-wrap {
   display: flex;
-  width: 20%;
-  height: 50%;
-  padding: 1%;
+  width: 100%;
+  height: 20%;
+  
+  padding: 5px 0;
   box-sizing: border-box;
   animation: fadeIn 0.3s ease-out forwards;
-  opacity: 0;
   cursor: pointer;
+  position: relative;
 }
 
 @keyframes fadeIn {
@@ -107,20 +100,20 @@ const props = defineProps({
 .inner-wrap {
   width: 100%;
   height: 100%;
-  padding: 4% 4%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-image: url("@/assets/images/bg-detail-board4.png");
-  background-size: 100% 100%;
+  background: linear-gradient(to right, #224064, #213A56);
 }
-
-.avatar {
-  width: 120px;
-  height: 120px;
-  background: url("@/assets/images/expert-avatar.png") center center / 100% 100%
-    no-repeat;
+.decoration {
+  position:absolute;
+  left:0;
+  top:20px;
+  width: 6px;
+  height: 22px;
+  background-color:#2b87ff;
 }
 
 .main-content {
