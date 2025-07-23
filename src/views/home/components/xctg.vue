@@ -7,7 +7,7 @@
         :centeredSlides="true"
         :loop="slides.length >= 4"
         :autoplay="{
-          delay: 2000,
+          delay: 4000,
           disableOnInteraction: false,
         }"
         :pagination="{
@@ -127,6 +127,7 @@ const slides = ref([
 .xctg-intro {
   width: 40%;
   padding: 30px;
+  padding-top: 60px;
   color: #fff;
   box-sizing: border-box;
 
@@ -175,7 +176,8 @@ const slides = ref([
 }
 .xctg-imgbox {
   width: 60%;
-  padding: 5%;
+  padding: 40px;
+  padding-top: 80px;
   box-sizing: border-box;
 
   img {

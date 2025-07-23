@@ -279,7 +279,7 @@ const changeNav = (index) => {
   .data {
     width: 75%;
     height: 100%;
-    padding-left: 10px;
+    padding-left: 10%;
     text-shadow: 0px 0px 4px rgba(0, 167, 255, 1);
 
     .count {
