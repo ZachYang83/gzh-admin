@@ -144,28 +144,39 @@ const aiFunction = () => {
 function updateLastAssistantMessage(text) {
   conversation.value[conversation.value.length - 1].content = text;
 }
-
+//应用型的回答不是流式输出，所以要假装思考
 const thinkingMessages = [
-  "正在理解问题.",
-  "正在理解问题..",
-  "正在理解问题...",
-  "正在收集数据.",
-  "正在收集数据..",
-  "正在收集数据...",
-  "正在总结回答.",
-  "正在总结回答..",
-  "正在总结回答...",
+  "正在理解问题",
+  "正在从数据库和网络获取信息",
+  "正在分析数据",
+  "正在生成回答",
 ];
 const pretendThinking = () => {
   let thinkingIndex = 0;
-  const interval = setInterval(() => {
-    if (isLoading.value && thinkingIndex < thinkingMessages.length) {
-      updateLastAssistantMessage(thinkingMessages[thinkingIndex]);
-      thinkingIndex = (thinkingIndex + 1);
+  let dots = '.';
+  const textInterval = setInterval(() => {
+      if (thinkingIndex < thinkingMessages.length - 1) {
+        thinkingIndex = (thinkingIndex + 1);
+      } else {
+        clearInterval(textInterval);
+      }
+    }, 6000);
+
+  const dotsInterval = setInterval(() => {
+    if (dots.length < 3) {
+      dots += '.';
     } else {
-      clearInterval(interval);
+      dots = '';
     }
-  }, 1000);
+    if (isLoading.value){
+      updateLastAssistantMessage(thinkingMessages[thinkingIndex]+dots);
+    }else{
+      clearInterval(dotsInterval);
+      clearInterval(textInterval);
+    }
+  }, 500);
+
+  
 };
 
 //流式获取AI输出
@@ -223,11 +234,17 @@ const getAIREply = async (question) => {
               result += text;
 
               // 更新临时消息对象的内容
-              updateLastAssistantMessage(result);
+              //updateLastAssistantMessage(result);
 
               // 如果 finish_reason 是 stop，则不再等待更多数据
               if (parsed.output.finish_reason === 'stop') {
                 //console.log('Final result:', result);
+                isLoading.value = false;
+                updateLastAssistantMessage(text);
+                break;
+              }else if(parsed.output.finish_reason != 'null'){
+                isLoading.value = false;
+                updateLastAssistantMessage("服务器开小差了~请稍后再试");
                 break;
               }
             } catch (e) {
@@ -239,8 +256,8 @@ const getAIREply = async (question) => {
         }
       }
     }
-
     isLoading.value = false;
+    
 
   } catch (error) {
     console.error(`Error calling DashScope: ${error.message}`);
