@@ -1,7 +1,10 @@
 <template>
   <div class="board-wrap">
     <div class="inner-wrap" @click="goToDetail(id)">
-      <div class="avatar"></div>
+      <div
+        class="avatar"
+        :style="{ backgroundImage: `url(${avatarUrl})` }"
+      ></div>
       <div class="main-content">
         <div class="line1 flex-center">
           <span class="name">{{ name }}</span> <span>·</span
@@ -27,6 +30,8 @@
 </template>
 
 <script setup name="BoardType3">
+import avatar_male from "@/assets/images/expert-avatar-male.png";
+import avatar_female from "@/assets/images/expert-avatar-female.png";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
@@ -49,6 +54,10 @@ const props = defineProps({
     default: "sceneDetail",
   },
   name: {
+    type: String,
+    default: "",
+  },
+  gender: {
     type: String,
     default: "",
   },
@@ -76,6 +85,10 @@ const props = defineProps({
     type: String,
     default: "",
   },
+});
+
+const avatarUrl = computed(() => {
+  return props.gender === "女" ? avatar_female : avatar_male;
 });
 </script>
 
@@ -119,8 +132,11 @@ const props = defineProps({
 .avatar {
   width: 120px;
   height: 120px;
-  background: url("@/assets/images/expert-avatar.png") center center / 100% 100%
-    no-repeat;
+  // background: url("@/assets/images/expert-avatar-male.png") center center / 100% 100%
+  //   no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
 .main-content {

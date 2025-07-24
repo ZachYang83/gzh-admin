@@ -4,16 +4,15 @@
       <Tybtl :title="requirementName" :isHome="false"></Tybtl>
     </div> -->
     <div class="back-icon flex-center" @click="goBack()">
-      <svg-icon
-        icon-class="arrow-back"
-        class="svg-icon"
-        size="3em"
-      />
+      <svg-icon icon-class="arrow-back" class="svg-icon" size="3em" />
       <span>返回</span>
     </div>
     <div class="main-content">
       <div class="content-top flex-center">
-        <div class="content-top-left"></div>
+        <div
+          class="content-top-left"
+          :style="{ backgroundImage: `url(${avatarUrl})` }"
+        ></div>
         <div class="content-top-right">
           <div class="info-name">{{ exportInfo.name }}</div>
           <div class="info-detail">
@@ -47,7 +46,7 @@
       <div class="content-bottom">
         <div class="sub-intro">
           <div class="sub-title">简介</div>
-          <div class="sub-content">{{ exportInfo.introduction}}</div>
+          <div class="sub-content">{{ exportInfo.introduction }}</div>
         </div>
         <!-- <div class="sub-intro">
           <div class="sub-title">科研成果</div>
@@ -67,18 +66,22 @@ const router = useRouter();
 const expertId = ref(10);
 const requirementName = ref("场景名称");
 const exportInfo = reactive({});
+import avatar_male from "@/assets/images/expert-avatar-male.png";
+import avatar_female from "@/assets/images/expert-avatar-female.png";
+
+const avatarUrl = computed(() => {
+  return exportInfo.gender === "女" ? avatar_female : avatar_male;
+});
 
 onMounted(() => {
   if (route.query.id) {
     expertId.value = Number(route.query.id);
-    // console.log(expertId.value, "expertId");
   }
   // 根据id获取场景
   Api.getById({ id: expertId.value })
     .then((res) => {
       let resData = res.data;
       Object.assign(exportInfo, resData);
-      // console.log(exportInfo, "exportInfo");
     })
     .catch((error) => {
       ElMessage({
@@ -89,7 +92,7 @@ onMounted(() => {
 });
 
 const goBack = () => {
-   router.back();
+  router.back();
 };
 </script>
 
@@ -142,8 +145,11 @@ const goBack = () => {
     .content-top-left {
       width: 150px;
       height: 150px;
-      background: url("@/assets/images/expert-avatar.png") center center / 100%
-        100% no-repeat;
+      // background: url("@/assets/images/expert-avatar.png") center center / 100%
+      //   100% no-repeat;
+      background-position: center center;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
     }
 
     .content-top-right {

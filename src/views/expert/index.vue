@@ -6,12 +6,13 @@
 
     <div class="menu">
       <div class="search-box">
-        <input
+        <el-input
           v-model="currentKeyword"
-          type="text"
-          placeholder="请输入专家名称或所属机构"
           class="input-box"
-          @keyup.enter="multiSearch(activeTab, currentKeyword, currentPage)"
+          placeholder="请输入专家名称或所属院校"
+          clearable
+          @keydown="multiSearch(activeTab, currentKeyword, currentPage)"
+          @clear="multiSearch(activeTab, currentKeyword, currentPage)"
         />
         <button
           class="search-btn"
@@ -44,6 +45,7 @@
           detailName="ExpertDetail"
           :id="data.id"
           :name="data.name"
+          :gender="data.gender"
           :key1="'所属院所'"
           :value1="data.workplace"
           :key2="'职称'"
@@ -76,11 +78,9 @@
 <script setup>
 import Api from "@/api/expert/index.js";
 
-defineOptions(
-  {
-    name: "Expert"
-  }
-);
+defineOptions({
+  name: "Expert",
+});
 
 const tabList = ref([
   "全部",
@@ -150,38 +150,24 @@ input {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding:0 30px;
 }
 
 .search-box {
-  width: 100%;
+  width: 93%;
   height: 50px;
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
+  margin-top: 5px;
+}
 
-  margin-top: 1%;
-}
-.input-box {
-  flex: 1;
-  height: 100%;
-  padding: 0 10px;
-  box-sizing: border-box;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgb(255, 255, 255);
-  border-radius: 4px;
-  border-image: linear-gradient(
-      20deg,
-      rgb(42, 152, 255) 30%,
-      rgb(203, 230, 255) 35%,
-      rgba(10, 137, 255) 40%
-    )
-    1/2px;
-}
 .search-btn {
   position: absolute;
-  right: 0;
+  right: -95px;
+  width: 100px;
   height: 100%;
-  width: 110px;
   padding: 0 15px;
   display: flex;
   align-items: center;
@@ -194,7 +180,6 @@ input {
   border-radius: 4px;
   cursor: pointer;
 }
-
 .menu-items {
   display: flex;
   flex-wrap: wrap;
@@ -235,11 +220,6 @@ input {
 .main-table {
   height: 92%;
   width: 80%;
-  //display: grid;
-  // grid-template-columns: repeat(3, 1fr); /* 3列，每列等宽 */
-  // grid-template-rows: repeat(3, 1fr);
-  // grid-gap: 20px;
-  // padding: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -252,6 +232,25 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  //background-color: #f8f9fa;
+}
+
+:deep(.input-box .el-input__inner) {
+  height: 50px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-width: 2.5px;
+  border-style: solid; 
+  border-radius: 4px;
+  border-image: linear-gradient(
+      20deg,
+      rgb(42, 152, 255) 30%,
+      rgb(203, 230, 255) 35%,
+      rgba(10, 137, 255) 40%
+    )
+    1;
+  box-shadow: none;
+  color: #d8f0ff;
+  font-size: 16px;
 }
 </style>
