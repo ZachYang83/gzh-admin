@@ -49,7 +49,7 @@
           v-for="data in policyData"
           :id="data.id"
           :title="data.policyName"
-          :lable="data.level"
+          :lable="data.region"
           :releaseDate="data.releaseDate"
           :publisher="data.publisher"
           :webLink="data.webLink"
@@ -250,12 +250,12 @@ input {
   //background-color: #f8f9fa;
 }
 
-:deep(.el-input__inner) {
+:deep(.input-box .el-input__inner) {
   height: 50px;
   padding: 0 10px;
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.1);
-  border-width: 3px;
+  border-width: 2.5px;
   border-style: solid; 
   border-radius: 4px;
   border-image: linear-gradient(
