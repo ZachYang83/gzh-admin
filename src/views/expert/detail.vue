@@ -71,14 +71,14 @@ const exportInfo = reactive({});
 onMounted(() => {
   if (route.query.id) {
     expertId.value = Number(route.query.id);
-    console.log(expertId.value, "expertId");
+    // console.log(expertId.value, "expertId");
   }
   // 根据id获取场景
   Api.getById({ id: expertId.value })
     .then((res) => {
       let resData = res.data;
       Object.assign(exportInfo, resData);
-      console.log(exportInfo, "exportInfo");
+      // console.log(exportInfo, "exportInfo");
     })
     .catch((error) => {
       ElMessage({

@@ -19,48 +19,78 @@
 
 <script setup>
 import common from "common";
+import { onMounted } from "vue";
+import API from "@/api/home/index.js"
 const { toPage } = common();
 const getImage = (imageName) => {
   return new URL(`../imgs/${imageName}`, import.meta.url).href;
 };
 
-const cardList = ref([
+const counts = reactive({
+  "cases": 0,
+  "products": 0,
+  "scenes": 0,
+  "sup_dem": 0,
+  "model_market": 0,
+  "experts": 0
+})
+
+const cardList = computed(() =>{
+  return [
   {
     path: "/scene",
     imgSrc: getImage("zttj-cj.png"),
     alt: "示范案例案例",
-    count: 129,
+    count: counts.cases,
     name: "示范案例",
   },
   {
     path: "/app",
     imgSrc: getImage("zttj-yypt.png"),
     alt: "终端产品图标",
-    count: 125,
+    count: counts.products,
     name: "终端产品",
   },
   {
-    path: "/revTask",
+    path: "/openScene",
     imgSrc: getImage("zttj-sf.png"),
-    alt: "场景开放图表",
-    count: 60,
+    alt: "场景开放图标",
+    count: counts.scenes,
     name: "场景开放",
   },
   {
     path: "/supDemMatch",
     imgSrc: getImage("zttj-gxdj.png"),
     alt: "供需对接图标",
-    count: 204,
+    count: counts.sup_dem,
     name: "供需对接",
   },
   {
     path: "/algorithm",
     imgSrc: getImage("zttj-bd.png"),
     alt: "智算超市图标",
-    count: 4525,
+    count: counts.model_market,
     name: "智算超市",
   },
-]);
+  {
+    path: "/policy",
+    imgSrc: getImage("zttj-expert.png"),
+    alt: "人才图标",
+    count: counts.experts,
+    name: "专家人才",
+  }
+];});
+
+onMounted(() => {
+  API.getAll().then((res) =>{
+    let resData = res.data;
+    console.log(resData);
+    
+    Object.assign(counts, resData)
+    console.log(counts)
+  })
+});
+
 
 const goToPage = (path) => {
   // 使用路由跳转到指定页面

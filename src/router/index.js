@@ -249,15 +249,15 @@ export const constantRoutes = [
     ],
   },
   {
-    path: "/revTask",
+    path: "/openScene",
     component: LayoutDefault,
-    redirect: "/revTask/index",
+    redirect: "/openScene/index",
     children: [
       {
         path: "index",
-        component: () => import("@/views/revTask/index.vue"),
-        name: "RevTask",
-        file: "revTask/index.vue",
+        component: () => import("@/views/openScene/index.vue"),
+        name: "openScene",
+        file: "openScene/index.vue",
         meta: {
           title: "榜单列表",
           icon: "iconfont icon-shiyongwendang mr-5",
@@ -266,9 +266,9 @@ export const constantRoutes = [
       },
       {
         path: "detail",
-        component: () => import("@/views/revTask/detail.vue"),
+        component: () => import("@/views/openScene/detail.vue"),
         name: "taskDetail",
-        file: "revTask/detail.vue",
+        file: "openScene/detail.vue",
         meta: {
           title: "任务详情",
           icon: "iconfont icon-shiyongwendang mr-5",

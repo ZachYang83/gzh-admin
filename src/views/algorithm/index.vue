@@ -238,9 +238,8 @@ const filterAlg = (pageNum = currentPage.value, init = false) => {
     });
   }
   currentPage.value = pageNum;
-  console.log("当前筛选条件:", getParams());
   Api.search(getParams()).then((res) => {
-    console.log("筛选结果:", res.data);
+    // console.log("筛选结果:", res.data);
 
     if (init) {
       regions.value = ["全部区域"].concat(res.data.regions);

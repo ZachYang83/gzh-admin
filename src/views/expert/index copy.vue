@@ -93,7 +93,6 @@ const getData = (sceneClass="", keyword = "", page=1) =>{
 }
 
 const goToTable = (newScene = sceneClass, newKeyword = keyword, newPage = page) => {
-  console.log("跳转参数：",newScene,"-",keyword,"-",page);
   router.replace({
     name: "Expert",
     query: {
@@ -105,7 +104,6 @@ const goToTable = (newScene = sceneClass, newKeyword = keyword, newPage = page) 
 };
 
 const changeScene = (scene) => {
-  console.log("切换场景：", scene);
   currentKeyword.value = "";
   goToTable(scene, "", 1);
 };
@@ -114,13 +112,11 @@ const changeScene = (scene) => {
 
 
 const searchKeywords = (keyword) => {
-  console.log("搜索关键词：", keyword);
   goToTable("", keyword, 1);
 };
 
 
 watch(() => [route.query.workplace, route.query.keyword, route.query.page], ([workplace, keyword, page]) => {
-  console.log("监听到变化，重新获取数据：", workplace, keyword, page);
   getData(workplace, keyword, page);
   currentPage.value = Number(page) || 1;
 }, { immediate: true });

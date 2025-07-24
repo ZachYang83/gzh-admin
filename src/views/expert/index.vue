@@ -40,6 +40,7 @@
       <div class="main-table">
         <BoardType3
           v-for="data in sceneData"
+          :key="data.id"
           detailName="ExpertDetail"
           :id="data.id"
           :name="data.name"
@@ -116,7 +117,6 @@ const multiSearch = (workplace, keywords, pageNum) => {
     keywords: keywords,
     pageNum: pageNum,
   }).then((res) => {
-    console.log(res.data, "safasfdas");
     let resData = res.data;
     sceneData.value = resData.list;
     totalCount.value = resData.total;

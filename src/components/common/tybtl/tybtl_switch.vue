@@ -48,7 +48,6 @@ const goBack = () => {
 };
 
 const goToLink = (index) => {
-    console.log(index)
   if (props.link_list) {
     router.push({ name: props.link_list[index] });
   } 

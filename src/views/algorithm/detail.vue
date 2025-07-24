@@ -73,8 +73,7 @@ const load = () => {
   // 根据id获取场景
   Api.getById({'id':algid.value}).then((res) => {
     let resData = res.data;
-    console.log(resData,'resData');
-    productName.value = resData.productName;
+    // console.log(resData,'resData');
     companyName.value = resData.companyName;
     basicInfo.value = {
       "备案编号": resData.filingNumber,
@@ -100,7 +99,6 @@ const load = () => {
           relatives.value.push(data);
         }
       }
-      console.log(relatives.value,'relatives');
     });
   });
 }
@@ -116,7 +114,6 @@ watch(() => route.query.id, (newId) => {
 });
 
 const goToDetail = (id) =>{
-  console.log(id,'id');
     router.replace({
         name: "algDetail",
         query: { 

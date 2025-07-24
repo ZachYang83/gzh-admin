@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import Api from "@/api/revTask/index.js";
+import Api from "@/api/openScene/index.js";
 const route = useRoute();
 const taskid = ref(10);
 const entName = ref("");
@@ -71,12 +71,11 @@ const isShowing = ref(false);
 onMounted(() => {
   if (route.query.id) {
     taskid.value = Number(route.query.id);
-    console.log(taskid.value, "taskid");
   }
   // 根据id获取场景
   Api.getCaseById({ id: taskid.value }).then((res) => {
     let resData = res.data;
-    console.log(resData, "resData");
+    // console.log(resData, "resData");
     projectName.value = resData.projectName;
     discription.value = resData.discription;
     request.value = resData.request;

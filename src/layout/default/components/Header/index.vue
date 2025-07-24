@@ -26,7 +26,7 @@
         终端产品
       </router-link>
       <router-link
-        to="/revTask"
+        to="/openScene"
         class="nav-item left flex-center"
         active-class="active"
       >

@@ -70,7 +70,6 @@ const currentKeyword = ref(null);
 const getData = (sceneClass="", keyword = "", page=1) =>{
   //不支持同时关键词和场景查询
   page = parseInt(page);
-  // console.log("获取数据：", sceneClass, keyword, page);
   if(keyword){
     Api.getByKeywords({ 
       keywords: keyword,
@@ -107,7 +106,6 @@ onMounted(() => {
 });
 
 const goToTable = (sceneClass=props.sceneClass, keyword = props.keyword, page=props.page) => {
-  console.log("跳转参数：",sceneClass,"-",keyword,"-",props.page);
   router.push({
     name: "sceneTable2",
     query: {
@@ -119,12 +117,10 @@ const goToTable = (sceneClass=props.sceneClass, keyword = props.keyword, page=pr
 };
 
 const changeScene = (scene) => {
-  // console.log("切换场景：", scene);
   goToTable(scene, "", 1);
 };
 
 const searchKeywords = (keyword) => {
-  // console.log("搜索关键词：", keyword);
   goToTable("", keyword, 1);
 };
 

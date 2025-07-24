@@ -85,7 +85,7 @@ const load = () => {
   // 根据id获取场景
   Api.getById({'id':algid.value}).then((res) => {
     let resData = res.data;
-    console.log(resData,'resData');
+    // console.log(resData,'resData');
     productName.value = resData.productName;
     companyName.value = resData.companyName;
     basicInfo.value = {
@@ -106,7 +106,6 @@ const load = () => {
       'company_name': companyName.value
     }).then((res) => {
       let resData = res.data;
-      console.log(resData,'relative data');
       for (const data of resData){
         if(data.filingType === 'algorithm' && data.id !== algid.value){
           relAlg.value = data;
@@ -134,7 +133,6 @@ watch(() => route.query.id, (newId) => {
 });
 
 const goToDetail = (id) =>{
-  console.log(id,'id');
     router.replace({
         name: "algDetail",
         query: { 

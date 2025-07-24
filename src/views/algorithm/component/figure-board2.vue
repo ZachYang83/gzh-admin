@@ -26,7 +26,6 @@ const props = defineProps({
 });
 
 const startAnimation = (start = 0, end = 0, duration = 1000) => {
-  //console.log(duration, 'duration');
   const startTime = performance.now()
 
   const animate = (currentTime) => {

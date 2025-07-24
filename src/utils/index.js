@@ -385,7 +385,7 @@ export function logInfo(msg) {
     const NODE_ENV =
         import.meta.env.NODE_ENV;
     if (NODE_ENV !== "production") {
-        console.log(msg);
+        // console.log(msg);
         return true;
     }
     return false;

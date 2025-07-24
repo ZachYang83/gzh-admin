@@ -1,5 +1,5 @@
 <template>
-  <div class="cj-table-wrap">
+  <div class="zdcp-table-wrap">
     <div class="main-title">
       <Tybtl title="智能终端产品" :isHome = "true"></Tybtl>
     </div>
@@ -22,7 +22,7 @@
     </div>
     <div class="main-content"> 
       <div class = "main-table">
-        <BoardType1 v-for = "(data) in productData" :ifimg="true" detailName="ProductDetail" :id="data.id" :title=data.productName key1="供应商" key2="行业领域" key3="简介" :value1=data.supportingUnit :value2=data.sceneClass :value3=data.discription></BoardType1>
+        <BoardType1 v-for = "(data) in productData" :key="data.id" :ifimg="true" detailName="ProductDetail" :id="data.id" :title=data.productName key1="供应商" key2="行业领域" key3="简介" :value1=data.supportingUnit :value2=data.sceneClass :value3=data.discription></BoardType1>
       </div>
       <div class = "table-footer">
         <div class = "page-btns">
@@ -35,7 +35,7 @@
             @current-change="(page) => filterScene(page)">
           </el-pagination>
         </div>
-        <div class="cj-table-footer"></div>
+        <div class="zdcp-table-footer"></div>
       </div>
       
     </div>
@@ -58,13 +58,11 @@ const currentPage = ref(1);
 const pageSize = 9;
 const currentKeyword = ref("");
 const searchKeywords = (keyword)=> {
-  console.log("搜索关键词:", keyword);
   currentKeyword.value = keyword;
   activeIndex.value = 0;
   filterScene();
 };
 const switchSceneClass = (item)=>{
-  console.log("切换场景类别:", item);
   currentKeyword.value = "";
   activeIndex.value = scenes.value.indexOf(item);
   filterScene();
@@ -76,7 +74,6 @@ const filterScene = (pageNum = 1) =>{
   }
   //不支持同时关键词和场景查询
   if(currentKeyword.value){
-    console.log("当前关键词:", currentKeyword.value);
     Api.getByKeywords({ 
       keywords: currentKeyword.value,
       pageNum: currentPage.value,
@@ -87,7 +84,6 @@ const filterScene = (pageNum = 1) =>{
       totalCount.value = resData.total;
     });
   }else{
-    console.log("当前场景类别:", scenes.value[activeIndex.value]);
     Api.getByClass({ 
       scene_class: scenes.value[activeIndex.value],
       pageNum: currentPage.value,
@@ -114,7 +110,7 @@ input {
   font-size: 16px;
 }
 
-.cj-table-wrap {
+.zdcp-table-wrap {
   width: 100%;
   height: 100%;
   align-items: center;

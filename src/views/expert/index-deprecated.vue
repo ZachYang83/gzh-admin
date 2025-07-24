@@ -37,6 +37,7 @@
       <div class="main-table">
         <BoardType2
           v-for="data in taskData"
+          :key="data.id"
           :ifimg="true"
           detailName="taskDetail"
           :id="data.id"
@@ -71,7 +72,7 @@
 
 <script setup>
 import { ref } from "vue";
-import Api from "@/api/revTask/index.js";
+import Api from "@/api/openScene/index.js";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute();
@@ -84,13 +85,11 @@ const currentPage = ref(1);
 const pageSize = 10;
 const currentKeyword = ref("");
 const searchKeywords = (keyword) => {
-  console.log("搜索关键词:", keyword);
   currentKeyword.value = keyword;
   activeIndex.value = 0;
   filterTask();
 };
 const switchTaskClass = (item) => {
-  console.log("切换任务类别:", item);
   currentKeyword.value = "";
   activeIndex.value = taskClass.value.indexOf(item);
   filterTask();
@@ -103,7 +102,6 @@ const filterTask = (pageNum = 1) => {
   }
   //不支持同时关键词和场景查询
   if (currentKeyword.value) {
-    console.log("当前关键词:", currentKeyword.value);
     Api.getListByKeywords({
       keywords: currentKeyword.value,
       pageNum: currentPage.value,
@@ -114,7 +112,6 @@ const filterTask = (pageNum = 1) => {
       totalCount.value = resData.total;
     });
   } else {
-    console.log("当前任务类别:", taskClass.value[activeIndex.value]);
     Api.getListByClass({
       indTechField:
         taskClass.value[activeIndex.value] === "全部"

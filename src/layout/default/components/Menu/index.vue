@@ -38,8 +38,8 @@
   
   const activeMenu = computed(() => {
     const { meta, path } = route;
-    console.log(meta.activeMenu,'mate');
-    console.log(path,'path');
+    // console.log(meta.activeMenu,'mate');
+    // console.log(path,'path');
     if (meta.activeMenu) {
       return meta.activeMenu;
     }

@@ -247,7 +247,6 @@ const visibleBoards = computed(() => {
     {...sceneHomeBoards.value[currentBoardIndex.value + 3], position: 'chip4'},  
     {...sceneHomeBoards.value[currentBoardIndex.value + 4], position: 'chip5'},
     {...sceneHomeBoards.value[currentBoardIndex.value + 5], position: 'chip6'}
-
   ];
 });
 

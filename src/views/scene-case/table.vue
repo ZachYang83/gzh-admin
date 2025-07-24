@@ -22,7 +22,7 @@
     </div>
     <div class="main-content">  
       <div class = "main-table">
-        <BoardType1 v-for = "(data) in sceneData" :id="data.id" :title=data.projectName key1="支持单位" key2="行业领域" key3="简介" :value1=data.supportingUnit :value2=data.sceneClass :value3=data.discription></BoardType1>
+        <BoardType1 v-for = "(data) in sceneData" :key="data.id" :id="data.id" :title=data.projectName key1="支持单位" key2="行业领域" key3="简介" :value1=data.supportingUnit :value2=data.sceneClass :value3=data.discription></BoardType1>
       </div>
       <div class = "table-footer">
         <div class = "page-btns">
@@ -56,7 +56,6 @@ const currentKeyword = ref(null);
 const getData = (sceneClass="", keyword = "", page=1) =>{
   //不支持同时关键词和场景查询
   page = parseInt(page);
-  // console.log("获取数据：", sceneClass, keyword, page);
   if(keyword){
     Api.getByKeywords({ 
       keywords: keyword,
@@ -92,7 +91,6 @@ onMounted(() => {
 });
 
 const goToTable = (newScene = sceneClass, newKeyword = keyword, newPage = page) => {
-  console.log("跳转参数：",sceneClass,"-",keyword,"-",page);
   router.replace({
     name: "sceneTable",
     query: {
@@ -104,22 +102,19 @@ const goToTable = (newScene = sceneClass, newKeyword = keyword, newPage = page) 
 };
 
 const changeScene = (scene) => {
-  // console.log("切换场景：", scene);
   currentKeyword.value = "";
   goToTable(scene, "", 1);
 };
 
 const searchKeywords = (keyword) => {
-  // console.log("搜索关键词：", keyword);
   goToTable("", keyword, 1);
 };
 
 
 watch(() => [route.query.sceneClass, route.query.keyword, route.query.page], ([sceneClass, keyword, page]) => {
-  // console.log("监听到变化，重新获取数据：", sceneClass, keyword, page);
   getData(sceneClass, keyword, page);
-  currentPage.value = Number(page);
-  currentKeyword.value = keyword;
+  currentPage.value = Number(page) || 1;
+  currentKeyword.value = keyword || "";
 }, { immediate: true });
 </script>
 

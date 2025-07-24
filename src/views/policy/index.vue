@@ -47,6 +47,7 @@
       <div class="main-table">
         <BoardType4
           v-for="data in policyData"
+          :key="data.id"
           :id="data.id"
           :title="data.policyName"
           :lable="data.level"

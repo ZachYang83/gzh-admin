@@ -26,7 +26,7 @@ const innerIframe = ref(getUrlQuery("innerIframe", window.location.href));
 
 const locale = zhCn;
 
-console.log(`current environment is ${currentEnv.value}`);
+// console.log(`current environment is ${currentEnv.value}`);
 
 const navigation = performance.getEntriesByType("navigation")[0];
 if (navigation && navigation.type === "reload") {

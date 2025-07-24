@@ -22,7 +22,7 @@
     </div>
     <div class="main-content"> 
       <div class = "main-table">
-        <BoardType1 v-for = "(data) in sceneData" :ifimg="false" detailName="demDetail" :id="data.id" :title=data.requirementName key1="需求方" key2="行业领域" key3="简介" :value1=data.requireUnit :value2=data.sceneClass :value3=data.discription></BoardType1>
+        <BoardType1 v-for = "(data) in sceneData" :key="data.id" :ifimg="false" detailName="demDetail" :id="data.id" :title=data.requirementName key1="需求方" key2="行业领域" key3="简介" :value1=data.requireUnit :value2=data.sceneClass :value3=data.discription></BoardType1>
       </div>
       <div class = "table-footer">
         <div class = "page-btns">
@@ -37,7 +37,6 @@
 
 <script setup>
 import { ref } from "vue";
-import BoardType1 from "../../components/common/board/board-type1.vue";
 import Api from "@/api/supDemMatch/demand.js";
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -52,13 +51,11 @@ const currentPage = ref(1);
 const pageSize = 9;
 const currentKeyword = ref("");
 const searchKeywords = (keyword)=> {
-  console.log("搜索关键词:", keyword);
   currentKeyword.value = keyword;
   activeIndex.value = 0;
   filterScene();
 };
 const switchSceneClass = (item)=>{
-  console.log("切换场景类别:", item);
   currentKeyword.value = "";
   activeIndex.value = scenes.value.indexOf(item);
   filterScene();
@@ -67,7 +64,6 @@ const filterScene = (pageNum = 1) =>{
   currentPage.value = pageNum;
   //不支持同时关键词和场景查询
   if(currentKeyword.value){
-    console.log("当前关键词:", currentKeyword.value);
     Api.getByKeywords({ 
       keywords: currentKeyword.value,
       pageNum: currentPage.value,
@@ -76,10 +72,8 @@ const filterScene = (pageNum = 1) =>{
       let resData = res.data;
       sceneData.value = resData.list;
       totalCount.value = resData.total;
-      console.log(sceneData.value);
     });
   }else{
-    console.log("当前场景类别:", scenes.value[activeIndex.value]);
     Api.getByClass({ 
       scene_class: scenes.value[activeIndex.value],
       pageNum: currentPage.value,
@@ -88,7 +82,6 @@ const filterScene = (pageNum = 1) =>{
       let resData = res.data;
       sceneData.value = resData.list;
       totalCount.value = resData.total;
-      console.log(sceneData.value);
     });
   }
 }

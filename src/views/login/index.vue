@@ -116,7 +116,6 @@ const rules = reactive({
 watch(
   () => remeberPwd.value,
   (newVal, oldVal) => {
-    // console.log(newVal, oldVal);
     if (!newVal && Cookies.get("username")) {
       Cookies.remove("username");
       Cookies.remove("password");
@@ -143,9 +142,7 @@ const onSubmit = async () => {
       submitLoading.value = true;
 
       const params = toRaw(form);
-      const userInfo = await store.dispatch("user/login", params);
-      console.log(userInfo,'userInfo');
-      
+      const userInfo = await store.dispatch("user/login", params);      
 
       if (remeberPwd.value) {
         // 本地存储用户名和密码

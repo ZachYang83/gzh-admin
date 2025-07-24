@@ -80,12 +80,11 @@ const contact = ref("如需联系洽谈，请拨打：1234567890");
 onMounted(() => {
   if (route.query.id) {
     sceneid.value = Number(route.query.id);
-    console.log(sceneid.value, "sceneid");
   }
   // 根据id获取场景
   Api.getCaseById({ id: sceneid.value }).then((res) => {
     let resData = res.data;
-    console.log(resData, "resData");
+    // console.log(resData, "resData");
     sceneName.value = resData.projectName;
     discription.value = resData.discription;
     groupName.value = resData.groupName;

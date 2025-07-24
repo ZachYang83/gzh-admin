@@ -62,12 +62,11 @@ const isShowing = ref(false);
 onMounted(() => {
   if(route.query.id){
     supplyid.value = Number(route.query.id);
-    console.log(supplyid.value,'supplyid'); 
   }
   // 根据id获取场景
   Api.getById({'id':supplyid.value}).then((res) => {
     let resData = res.data;
-    console.log(resData,'resData');
+    // console.log(resData,'resData');
     productName.value = resData.productName;
     discription.value = resData.discription;
     construction_base.value = resData.constructionBase;

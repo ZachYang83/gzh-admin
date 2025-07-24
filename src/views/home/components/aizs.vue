@@ -160,7 +160,7 @@ const pretendThinking = () => {
       } else {
         clearInterval(textInterval);
       }
-    }, 6000);
+    }, 3000);
 
   const dotsInterval = setInterval(() => {
     if (dots.length < 3) {
@@ -183,7 +183,7 @@ const pretendThinking = () => {
 const getAIREply = async (question) => {
     const apiKey = "sk-1d7b4dbe784940b1ad1211bf180f832e";
     // const appId = '1ebc45b10da1486ab36fe607caa1a2fe';
-    const appId = '71e3a8b3fe154056b6ed09fb9f48eaf8';
+    const appId = 'b92122688bdb468b835fbc2a088f1e47';
     const url = `https://dashscope.aliyuncs.com/api/v1/apps/${appId}/completion`;
 
     const data = {
