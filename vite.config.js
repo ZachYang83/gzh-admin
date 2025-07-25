@@ -38,6 +38,9 @@ export default defineConfig(({ mode }) => {
       outDir: "gzh",
       // 修改打包块限制大小
       chunkSizeWarningLimit: 10000,
+      esbuild: {
+      drop: ['console', 'debugger'], // 移除 console 和 debugger
+    },
     },
     plugins: [
       vue(),
@@ -87,7 +90,7 @@ export default defineConfig(({ mode }) => {
       // 使用IP启动项目
       host: "0.0.0.0",
       // 配置启用的端口号
-      port,
+      port:8686,
       // 是否开启https
       https: false,
       // allowedHosts: ['gzpi-fclab.cn', 'www.gzpi-fclab.cn'],

@@ -84,10 +84,7 @@ const cardList = computed(() =>{
 onMounted(() => {
   API.getAll().then((res) =>{
     let resData = res.data;
-    console.log(resData);
-    
     Object.assign(counts, resData)
-    console.log(counts)
   })
 });
 
