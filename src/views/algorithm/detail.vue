@@ -74,6 +74,7 @@ const load = () => {
   Api.getById({'id':algid.value}).then((res) => {
     let resData = res.data;
     // console.log(resData,'resData');
+    productName.value = resData.productName;
     companyName.value = resData.companyName;
     basicInfo.value = {
       "备案编号": resData.filingNumber,

@@ -26,7 +26,7 @@
       </div>
       <div class = "table-footer">
         <div class = "page-btns">
-          <el-pagination background layout="prev, pager, next" :size="pageSize" :total="totalCount"  v-model:current-page="currentPage" @current-change="(page) => filterScene(page)"></el-pagination>
+          <el-pagination background layout="total, prev, pager, next, jumper" :size="pageSize" :total="totalCount"  v-model:current-page="currentPage" @current-change="(page) => filterScene(page)"></el-pagination>
         </div>
         <div class="cj-table-footer"></div>
       </div>
