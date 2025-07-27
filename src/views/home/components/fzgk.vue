@@ -116,7 +116,7 @@ const cardItems = ref([
     box-shadow: 0 0 0 1px rgba(8, 206, 224, 0.5),
       0 0 10px 5px rgba(8, 206, 224, 0.3);
   }
-  padding: 10px 0;
+  padding: 5px 0;
 }
 
 .left {
