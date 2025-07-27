@@ -153,7 +153,9 @@ const thinkingMessages = [
 ];
 const pretendThinking = () => {
   let thinkingIndex = 0;
-  let dots = '.';
+  let dots = '';
+  let lastMessage = '';
+  updateLastAssistantMessage("");
   const textInterval = setInterval(() => {
       if (thinkingIndex < thinkingMessages.length - 1) {
         thinkingIndex = (thinkingIndex + 1);
@@ -168,8 +170,9 @@ const pretendThinking = () => {
     } else {
       dots = '';
     }
-    if (isLoading.value){
-      updateLastAssistantMessage(thinkingMessages[thinkingIndex]+dots);
+    if (isLoading.value && lastMessage == conversation.value[conversation.value.length - 1].content) {
+      lastMessage = thinkingMessages[thinkingIndex]+dots;
+      updateLastAssistantMessage(lastMessage);
     }else{
       clearInterval(dotsInterval);
       clearInterval(textInterval);
@@ -239,7 +242,6 @@ const getAIREply = async (question) => {
               // 如果 finish_reason 是 stop，则不再等待更多数据
               if (parsed.output.finish_reason === 'stop') {
                 //console.log('Final result:', result);
-                isLoading.value = false;
                 updateLastAssistantMessage(text);
                 break;
               }else if(parsed.output.finish_reason != 'null'){

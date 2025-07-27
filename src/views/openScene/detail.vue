@@ -86,7 +86,7 @@ onMounted(() => {
       场景类别: resData.sceneClass,
     };
     contact.value = resData.contact;
-    contactNo.value = resData.contactNo;
+    contactNo.value = resData.contactNumber;
   });
 });
 
