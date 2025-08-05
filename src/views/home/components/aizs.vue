@@ -84,7 +84,6 @@ const prompts = ref([
   "我的公司擅长使用人工智能处理数据，广州市目前是否有相关的需求或项目可以合作？",
   "最近有哪些新的大模型备案？",
   "是否已有人工智能在遥感方面的应用？",
-  "我需要一个可以处理大数据的算法，广州市有哪些推荐？",
 ]);
 
 const promptIndex = ref(0);
@@ -153,7 +152,9 @@ const thinkingMessages = [
 ];
 const pretendThinking = () => {
   let thinkingIndex = 0;
-  let dots = '.';
+  let dots = '';
+  let lastMessage = '';
+  updateLastAssistantMessage("");
   const textInterval = setInterval(() => {
       if (thinkingIndex < thinkingMessages.length - 1) {
         thinkingIndex = (thinkingIndex + 1);
@@ -168,8 +169,9 @@ const pretendThinking = () => {
     } else {
       dots = '';
     }
-    if (isLoading.value){
-      updateLastAssistantMessage(thinkingMessages[thinkingIndex]+dots);
+    if (isLoading.value && lastMessage == conversation.value[conversation.value.length - 1].content) {
+      lastMessage = thinkingMessages[thinkingIndex]+dots;
+      updateLastAssistantMessage(lastMessage);
     }else{
       clearInterval(dotsInterval);
       clearInterval(textInterval);
@@ -239,7 +241,6 @@ const getAIREply = async (question) => {
               // 如果 finish_reason 是 stop，则不再等待更多数据
               if (parsed.output.finish_reason === 'stop') {
                 //console.log('Final result:', result);
-                isLoading.value = false;
                 updateLastAssistantMessage(text);
                 break;
               }else if(parsed.output.finish_reason != 'null'){
