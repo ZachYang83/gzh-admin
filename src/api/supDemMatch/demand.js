@@ -10,9 +10,9 @@ export default {
             params
         })
     },
-    getByClass: (params) => {
+    search: (params) => {
         return request({
-            url: '/supDemMatch/requirement-list/getByClass',
+            url: '/supDemMatch/requirement-list/search',
             method: 'get',
             params
         })
@@ -24,11 +24,4 @@ export default {
             params
         })
     },
-    getByKeywords: (params) => {
-        return request({
-            url: '/supDemMatch/requirement-list/keywords',
-            method: 'get',
-            params
-        })
-    }
 };

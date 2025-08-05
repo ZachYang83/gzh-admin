@@ -19,7 +19,7 @@
       </router-link>
 
       <router-link
-        to="/app"
+        to="/product"
         class="nav-item left flex-center"
         active-class="active"
       >

@@ -92,6 +92,8 @@ const policyField = ref([
   "基础设施",
   "技术研发",
   "标准规范",
+  "人才政策",
+  "科技创新",
   "其他",
 ]);
 const policyLevel = ref([
@@ -233,13 +235,14 @@ input {
 }
 
 .main-table {
+  padding:10px;
   height: 92%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
-  overflow-y: auto;
-
+  align-items: center;
+  justify-content: start;
+  gap:10px;
 }
 
 .table-footer {
@@ -248,7 +251,6 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  //background-color: #f8f9fa;
 }
 
 :deep(.input-box .el-input__inner) {

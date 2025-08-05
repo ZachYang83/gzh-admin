@@ -100,7 +100,8 @@ const cardItems = ref([
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 33%;
+  flex:1;
+  // height: 33%;
   background: linear-gradient(
     90.11deg,
     rgba(2, 62, 112, 1) 0%,
@@ -116,7 +117,6 @@ const cardItems = ref([
     box-shadow: 0 0 0 1px rgba(8, 206, 224, 0.5),
       0 0 10px 5px rgba(8, 206, 224, 0.3);
   }
-  padding: 10px 0;
 }
 
 .left {

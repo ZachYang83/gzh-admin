@@ -59,6 +59,13 @@ CMD ["nginx", "-g", "daemon off;"]
 docker build -f Dockerfile -t gzh_admin:v1.0
 
 
+#前端容器启动
+docker run -d -p 8686:8686 \
+--network gzh_network \
+--name gzh_admin \
+gzh_admin:v1.0
+
+
 # nginx.conf 配置文件
 server {
     listen       8686;

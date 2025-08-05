@@ -29,7 +29,7 @@
               <div class="scene-content-title">{{ item.productName }}</div>
               <div class="scene-content-desc">{{ item.discription }}</div>
               <div class="scene-content-label">{{ item.sceneClass }}</div>
-              <div class="scene-content-btn flex-center">查看联系</div>
+              <!-- <div class="scene-content-btn flex-center">查看联系</div> -->
             </div>
           </div>
         </swiper-slide>
@@ -95,12 +95,6 @@
 </template>
 
 <script setup>
-// import { Swiper, SwiperSlide } from "swiper/vue";
-// import "swiper/css";
-// import "swiper/css/pagination";
-// import "swiper/css/navigation";
-// import { Autoplay, Pagination, Navigation } from "swiper/modules";
-// const modules = [Autoplay, Pagination, Navigation];
 import supplyApi from "@/api/supDemMatch/supply.js";
 import demandApi from "@/api/supDemMatch/demand.js";
 import productApi from "@/api/product/index.js";

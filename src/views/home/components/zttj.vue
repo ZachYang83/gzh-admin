@@ -45,7 +45,7 @@ const cardList = computed(() =>{
     name: "示范案例",
   },
   {
-    path: "/app",
+    path: "/product",
     imgSrc: getImage("zttj-yypt.png"),
     alt: "终端产品图标",
     count: counts.products,

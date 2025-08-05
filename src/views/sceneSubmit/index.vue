@@ -7,7 +7,7 @@
           icon-class="dianzhui2-left"
           size="5rem"
         ></svg-icon>
-        <span class="form-top-title">发布场景</span>
+        <span class="form-top-title">发布产品</span>
         <svg-icon
           class="svg-icon"
           icon-class="dianzhui2-right"
@@ -22,9 +22,9 @@
           label-width="auto"
           ref="formRef"
         >
-          <span class="content-item">场景信息</span>
+          <span class="content-item">产品信息</span>
           <el-form-item
-            label="场景名称"
+            label="产品名称"
             prop="sceneName"
             label-width="auto"
             class="form-item"
@@ -32,12 +32,12 @@
             :error="errorMsg.sceneName"
           >
             <el-input
-              placeholder="请输入场景名称"
+              placeholder="请输入产品名称"
               v-model="formData.sceneName"
             />
           </el-form-item>
           <el-form-item
-            label="场景类型"
+            label="产品类型"
             prop="sceneType"
             size="large"
             class="form-item"
@@ -84,7 +84,7 @@
           </el-form-item>
           <el-form-item
             prop="description"
-            label="需求描述"
+            label="产品描述"
             label-width="auto"
             class="form-item"
             size="large"
@@ -93,11 +93,11 @@
             <el-input
               type="textarea"
               v-model="formData.description"
-              placeholder="围绕拟建设的具体应用场景，请逐条简述建设需求，包括但不限于建没总体目标、建设内容、建设期限、预期成效等"
+              placeholder="围绕拟建设的具体应用产品，请逐条简述建设需求，包括但不限于建没总体目标、建设内容、建设期限、预期成效等"
               rows="3"
             />
           </el-form-item>
-          <el-form-item
+          <!-- <el-form-item
             prop="foundation"
             label="建设基础"
             label-width="auto"
@@ -107,13 +107,13 @@
             <el-input
               type="textarea"
               v-model="formData.foundation"
-              placeholder="请简要阐述本单位在人工智能应用场景建设方面已有的基础，包括但不限于数据、算力等"
+              placeholder="请简要阐述本单位在人工智能应用产品建设方面已有的基础，包括但不限于数据、算力等"
               rows="3"
             />
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item
             prop="imgList"
-            label="场景封面"
+            label="产品封面"
             :error="errorMsg.imgList"
           >
             <el-upload
@@ -267,18 +267,18 @@ const formData = reactive({
 });
 
 const formRules = reactive({
-  sceneName: [{ required: true, message: "请输入场景名称", trigger: "blur" }],
-  sceneType: [{ required: true, message: "请选择场景类型", trigger: "change" }],
+  sceneName: [{ required: true, message: "请输入产品名称", trigger: "blur" }],
+  sceneType: [{ required: true, message: "请选择产品类型", trigger: "change" }],
   description: [{ required: true, message: "请输入需求描述", trigger: "blur" }],
   imgList: [
     {
       required: true,
-      message: "请上传场景封面",
+      message: "请上传产品封面",
       trigger: "change",
       validator: (rule, value, callback) => {
         // 自定义验证：检查图片列表是否有文件
         if (value.length === 0) {
-          callback(new Error("请上传场景封面"));
+          callback(new Error("请上传产品封面"));
         } else {
           callback(); // 验证通过
         }
@@ -333,7 +333,7 @@ const handleRemove = (file, fileList) => {
   formData.imgList = fileList;
   // 如果移除后没有图片了，手动触发错误提示
   if (fileList.length === 0) {
-    errorMsg.imgList = "请上传场景封面";
+    errorMsg.imgList = "请上传产品封面";
   }
 };
 
@@ -377,17 +377,17 @@ const validateForm = () => {
     errorMsg.contactPosition = "请输入联系人职务/职称";
   else errorMsg.contactPosition = "";
 
-  if (formData.sceneName == "") errorMsg.sceneName = "请输入场景名称";
+  if (formData.sceneName == "") errorMsg.sceneName = "请输入产品名称";
   else errorMsg.sceneName = "";
 
-  if (formData.sceneType.length == 0) errorMsg.sceneType = "请输入场景所属领域";
+  if (formData.sceneType.length == 0) errorMsg.sceneType = "请输入产品所属领域";
   else errorMsg.sceneType = "";
 
-  if (formData.description == "") errorMsg.description = "请描述场景需求";
+  if (formData.description == "") errorMsg.description = "请描述产品需求";
   else errorMsg.description = "";
 
   if (formData.imgList.length === 0) {
-    errorMsg.imgList = "请上传场景封面";
+    errorMsg.imgList = "请上传产品封面";
   } else {
     errorMsg.imgList = "";
   }

@@ -51,9 +51,6 @@ const openNewPage = (webLink) => {
 .board-wrap {
   display: flex;
   width: 100%;
-  height: 20%;
-
-  padding: 5px 0;
   box-sizing: border-box;
   animation: fadeIn 0.3s ease-out forwards;
   cursor: pointer;
@@ -75,12 +72,9 @@ const openNewPage = (webLink) => {
 
 .inner-wrap {
   width: 100%;
-  height: 100%;
+  height: 100px;
+  padding: 5px 20px;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
   background: linear-gradient(
     270deg,
     rgba(0, 156, 255, 0.05) 0%,
@@ -122,23 +116,19 @@ const openNewPage = (webLink) => {
 
 .main-content {
   width: 100%;
-  height: 100px;
-  padding: 5px 20px;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: space-around;
-  text-align: start;
   color: #d8f0ff;
-  
-  &:hover{
+
+  &:hover {
     color: #2b87ff;
   }
 }
 
 .title-box {
   display: flex;
-  align-items: center;
   .title {
     font-family: ALIBABAPUHUITI;
     font-size: 20px;

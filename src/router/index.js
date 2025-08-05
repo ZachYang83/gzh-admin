@@ -44,15 +44,15 @@ export const constantRoutes = [
     ],
   },
   {
-    path: "/app",
+    path: "/product",
     component: LayoutDefault,
-    redirect: "/app/index",
+    redirect: "/product/index",
     children: [
       {
         path: "index",
-        component: () => import("@/views/app-plat/index.vue"),
+        component: () => import("@/views/product/index.vue"),
         name: "App",
-        file: "app-plat/index.vue",
+        file: "product/index.vue",
         meta: {
           title: "终端产品",
           icon: "iconfont icon-shiyongwendang mr-5",
@@ -61,9 +61,9 @@ export const constantRoutes = [
       },
       {
         path: "productDetail",
-        component: () => import("@/views/app-plat/productDetail.vue"),
+        component: () => import("@/views/product/productDetail.vue"),
         name: "ProductDetail",
-        file: "app-plat/productDetail.vue",
+        file: "product/productDetail.vue",
         meta: {
           title: "终端产品详情",
           icon: "iconfont icon-shiyongwendang mr-5",
@@ -83,18 +83,7 @@ export const constantRoutes = [
         name: "Scene",
         file: "scene-case/index.vue",
         meta: {
-          title: "场景案例",
-          icon: "iconfont icon-shiyongwendang mr-5",
-          keepAlive: false,
-        },
-      },
-      {
-        path: "index2",
-        component: () => import("@/views/scene-case/index2.vue"),
-        name: "Scene2",
-        file: "scene-case/index2.vue",
-        meta: {
-          title: "场景案例-国资",
+          title: "示范案例",
           icon: "iconfont icon-shiyongwendang mr-5",
           keepAlive: false,
         },
@@ -105,21 +94,7 @@ export const constantRoutes = [
         name: "sceneTable",
         file: "scene-case/table.vue",
         meta: {
-          title: "场景列表",
-          icon: "iconfont icon-shiyongwendang mr-5",
-          keepAlive: true,
-        },
-        props(route) {
-          return route.query;
-        },
-      },
-      {
-        path: "table2",
-        component: () => import("@/views/scene-case/table2.vue"),
-        name: "sceneTable2",
-        file: "scene-case/table2.vue",
-        meta: {
-          title: "场景列表-国资",
+          title: "案例列表",
           icon: "iconfont icon-shiyongwendang mr-5",
           keepAlive: true,
         },
@@ -133,21 +108,7 @@ export const constantRoutes = [
         name: "sceneDetail",
         file: "scene-case/detail.vue",
         meta: {
-          title: "场景详情",
-          icon: "iconfont icon-shiyongwendang mr-5",
-          keepAlive: false,
-        },
-        props(route) {
-          return route.query;
-        },
-      },
-      {
-        path: "detail2",
-        component: () => import("@/views/scene-case/detail2.vue"),
-        name: "sceneDetail2",
-        file: "scene-case/detail2.vue",
-        meta: {
-          title: "场景详情2",
+          title: "案例详情",
           icon: "iconfont icon-shiyongwendang mr-5",
           keepAlive: false,
         },

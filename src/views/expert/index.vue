@@ -11,16 +11,30 @@
           class="input-box"
           placeholder="请输入专家名称或所属院校"
           clearable
-          @keydown="multiSearch(activeTab, currentKeyword, currentPage)"
-          @clear="multiSearch(activeTab, currentKeyword, currentPage)"
+          @keydown="multiSearch(activeTab,activeCate, currentKeyword, currentPage)"
+          @clear="multiSearch(activeTab,activeCate, currentKeyword, currentPage)"
         />
         <button
           class="search-btn"
-          @click="multiSearch(activeTab, currentKeyword, currentPage)"
+          @click="multiSearch(activeTab, activeCate,currentKeyword, currentPage)"
         >
           <svg-icon icon-class="search" size="1.2rem"></svg-icon>
           查询
         </button>
+      </div>
+      <div class="menu-items">
+        研究领域：
+        <div
+          class="menu-item"
+          v-for="(item, index) in categoryList"
+          :key="index"
+          :class="{
+            active: activeCate === item,
+          }"
+          @click="multiSearch(activeTab,item, currentKeyword, 1)"
+        >
+          <span>{{ item }}</span>
+        </div>
       </div>
       <div class="menu-items">
         所属院所：
@@ -31,7 +45,7 @@
           :class="{
             active: activeTab === item,
           }"
-          @click="multiSearch(item, currentKeyword, 1)"
+          @click="multiSearch(item,activeCate, currentKeyword, 1)"
         >
           <span>{{ item }}</span>
         </div>
@@ -63,7 +77,7 @@
             :total="totalCount"
             v-model:current-page="currentPage"
             @current-change="
-              (cpage) => multiSearch(activeTab, currentKeyword, cpage)
+              (cpage) => multiSearch(activeTab, activeCate,currentKeyword, cpage)
             "
             class="pagetest"
           >
@@ -82,6 +96,16 @@ defineOptions({
   name: "Expert",
 });
 
+const categoryList = ref([
+  "全部",
+  "计算机视觉与图像处理",
+  "计算与芯片技术",
+  "人工智能基础",
+  "人机交互与具身智能",
+  "智能系统应用",
+  "数据处理与分析",
+  "其他",
+]);
 const tabList = ref([
   "全部",
   "中山大学",
@@ -96,6 +120,7 @@ const tabList = ref([
   "琶洲实验室",
 ]);
 const activeTab = ref("全部");
+const activeCate = ref("全部");
 const totalCount = ref(0);
 const sceneData = ref(null);
 const pageSize = 10;
@@ -110,10 +135,12 @@ onMounted(() => {
   });
 });
 
-const multiSearch = (workplace, keywords, pageNum) => {
+const multiSearch = (workplace,category, keywords, pageNum) => {
   activeTab.value = workplace;
+  activeCate.value = category;
   Api.search({
     workplace: workplace === "全部" ? "" : workplace,
+    category: category === "全部" ? "" : category,
     keywords: keywords,
     pageNum: pageNum,
   }).then((res) => {

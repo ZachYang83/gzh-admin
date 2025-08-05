@@ -1,31 +1,31 @@
 <template>
-  <div class="cj-table-wrap">
+  <div class="zdcp-table-wrap">
     <div class="main-title">
-      <Tybtl
-        title="需求广场"
-        attachment="[切换为供给]"
-        attachmentLink="supTable"
-      ></Tybtl>
+      <Tybtl title="智能终端产品" :isHome="true"></Tybtl>
     </div>
 
     <div class="menu">
       <div class="search-box">
-        <el-input
-          v-model="searchObj.keywords"
-          class="input-box"
-          placeholder="请输入关键词"
-          clearable
-          @keydown="multiSearch({'keywords':searchObj.keywords})"
-          @clear="multiSearch({'keywords':searchObj.keywords})"
-        />
-        <button
-          class="search-btn"
-          @click="multiSearch({'keywords':searchObj.keywords})"
-        >
-          <svg-icon icon-class="search" size="1.2rem"></svg-icon>
-          查询
-        </button>
+        <div class="input-wrap">
+          <el-input
+            v-model="searchObj.keywords"
+            class="input-box"
+            placeholder="请输入关键词"
+            clearable
+            @keydown="multiSearch({ keywords: searchObj.keywords })"
+            @clear="multiSearch({ keywords: searchObj.keywords })"
+          />
+          <button
+            class="search-btn"
+            @click="multiSearch({ keywords: searchObj.keywords  })"
+          >
+            <svg-icon icon-class="search" size="1.2rem"></svg-icon>
+            查询
+          </button>
+        </div>
+        <div class="publish-btn" @click="goToSence"></div>
       </div>
+
       <div class="menu-items">
         行业领域：
         <div
@@ -42,16 +42,16 @@
     <div class="main-content">
       <div class="main-table">
         <BoardType1
-          v-for="data in demandData"
+          v-for="data in productData"
           :key="data.id"
-          :ifimg="false"
-          detailName="demDetail"
+          :ifimg="true"
+          detailName="ProductDetail"
           :id="data.id"
-          :title="data.requirementName"
-          key1="需求方"
+          :title="data.productName"
+          key1="供应商"
           key2="行业领域"
           key3="简介"
-          :value1="data.requireUnit"
+          :value1="data.supportingUnit"
           :value2="data.sceneClass"
           :value3="data.discription"
         ></BoardType1>
@@ -60,60 +60,70 @@
         <div class="page-btns">
           <el-pagination
             background
-            layout="prev, pager, next"
+            layout="total, prev, pager, next, jumper"
             :size="pageSize"
             :total="totalCount"
             v-model:current-page="searchObj.pageNum"
             @current-change="(page) => multiSearch({'pageNum':page})"
-          ></el-pagination>
+          >
+          </el-pagination>
         </div>
-        <div class="cj-table-footer"></div>
+        <div class="zdcp-table-footer"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import Api from "@/api/supDemMatch/demand.js";
+import { ref } from "vue";
+import Api from "@/api/product/index.js";
+import common from "common";
+const { toPage } = common();
+const goToSence = () => {
+  toPage("/submit/scene");
+};
 const fieldList = ref([
   "全部",
   "智能制造",
   "医药健康",
+  "智能安防",
   "综合交通",
   "城市治理",
   "教育教学",
   "商贸流通",
-  "智能办公",
+  "智慧办公",
   "能源环保",
   "政务服务",
-  "智慧物流",
+  "数字创意",
+  "通讯信号",
+  "现代农业",
 ]);
 const totalCount = ref(0);
-const demandData = ref(null);
+const productData = ref(null);
 const pageSize = 9;
 const searchObj = {
-  scene_class:'全部',
-  keywords:'',
-  pageNum:1,
-}
+  scene_class: "全部",
+  keywords: "",
+  pageNum: 1,
+};
 
 onMounted(() => {
   multiSearch(searchObj);
 });
 
 const multiSearch = (params) => {
-  if(params.scene_class){
-    searchObj.scene_class = params.scene_class
+  if (params.scene_class) {
+    searchObj.scene_class = params.scene_class;
   }
-  if(params.keywords){
-    searchObj.keywords = params.keywords
+  if (params.keywords) {
+    searchObj.keywords = params.keywords;
   }
-  if(params.pageNum){
-    searchObj.pageNum = params.pageNum
+  if (params.pageNum) {
+    searchObj.pageNum = params.pageNum;
   }
   Api.search(searchObj).then((res) => {
     let resData = res.data;
-    demandData.value = resData.list;
+    productData.value = resData.list;
     totalCount.value = resData.total;
   });
 };
@@ -125,7 +135,7 @@ input {
   font-size: 16px;
 }
 
-.cj-table-wrap {
+.zdcp-table-wrap {
   width: 100%;
   height: 100%;
   align-items: center;
@@ -147,30 +157,52 @@ input {
 }
 
 .search-box {
-  width: 80%;
+  width: 100%;
   height: 50px;
   display: flex;
   align-items: center;
   position: relative;
   margin-top: 5px;
+  justify-content: space-between;
 }
 
-.search-btn {
-  position: absolute;
-  right: -95px;
-  width: 100px;
-  height: 100%;
-  padding: 0 15px;
+.input-wrap {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 5px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+  width: 80%;
+  height: 100%;
+  position:relative;
+
+  .search-btn {
+    position: absolute;
+    right: -95px;
+    width: 100px;
+    height: 100%;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 5px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
+.publish-btn {
+  width: 150px;
+  height: 100%;
+  background-color: aqua;
+  background: url("./imgs/publish-product.png") center center / 100% 100%
+    no-repeat;
   cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+  animation: fadeIn 0.3s ease-out forwards;
 }
 
 .menu-items {
@@ -185,6 +217,8 @@ input {
 
 .menu-item {
   padding: 6px 12px;
+  //background-color: #e0f7fa;
+  //border-radius: 4px;
   cursor: pointer;
   white-space: nowrap; /* 防止文字换行 */
   border-radius: 4px;
@@ -224,16 +258,15 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+  //background-color: #f8f9fa;
 }
-
-
 :deep(.input-box .el-input__inner) {
   height: 50px;
   padding: 0 10px;
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.1);
   border-width: 2.5px;
-  border-style: solid; 
+  border-style: solid;
   border-radius: 4px;
   border-image: linear-gradient(
       20deg,
@@ -247,4 +280,3 @@ input {
   font-size: 16px;
 }
 </style>
-

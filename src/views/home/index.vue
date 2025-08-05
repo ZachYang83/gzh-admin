@@ -109,14 +109,15 @@ const unfoldAICard = () =>{
 
 .left-top {
   width: 100%;
-  flex: 3;
+  // height: 300px;
+  flex: 1;
   padding: 4px 10px;
   box-sizing: border-box;
 }
 
 .left-bottom {
   width: 100%;
-  flex: 7;
+  flex: 2;
   padding: 4px 10px;
   box-sizing: border-box;
 }
@@ -124,7 +125,7 @@ const unfoldAICard = () =>{
 .right1 {
   width: 100%;
   // height: 288px;
-  flex:2;
+  flex:2.5;
   padding: 4px 10px;
   box-sizing: border-box;
   position: relative;

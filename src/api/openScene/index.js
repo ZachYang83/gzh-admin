@@ -5,7 +5,7 @@ export default {
     //统计各类场景数量
     getCaseCount: (params) => {
         return request({
-            url: '/scene/scene-case2/getCaseCount',
+            url: '/scene/scene-guozi/getCaseCount',
             method: 'get',
             params
         })
@@ -14,7 +14,7 @@ export default {
     // 获取场景
     getAll: (params) =>{
          return request({
-            url: '/scene/scene-case2/getAll',
+            url: '/scene/scene-guozi/getAll',
             method: 'get',
             params
         })
@@ -23,26 +23,17 @@ export default {
     // 根据id获取场景
     getCaseById:(params)=>{
         return request({
-            url: '/scene/scene-case2/id',
+            url: '/scene/scene-guozi/id',
             method: 'get',
             params
         })
     },
 
-    //根据类型获取对应的场景列表-分页
-    getByClass:(params)=>{
+    search:(params)=>{
         return request({
-            url: '/scene/scene-case2/getByClass',
+            url: '/scene/scene-guozi/search',
             method: 'get',
             params
         })
     },
-
-    getByKeywords: (params) => {
-        return request({
-            url: '/scene/scene-case2/keywords',
-            method: 'get',
-            params
-        })
-    }
 };
