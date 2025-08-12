@@ -37,35 +37,12 @@
           发送
         </div>
       </div>
-
-
-      <!-- <div class="ai-function">
-        <div class="ai-function-item" @click="aiFunction()">
-          <img class="funciton-logo" src="../imgs/ai-zaiti.png" alt="找载体" />
-          <div class="fuction-text">找载体</div>
-        </div>
-        <div class="ai-function-item" @click="aiFunction()">
-          <img class="funciton-logo" src="../imgs/ai-suanfa.png" alt="找算法" />
-          <div class="fuction-text">找算法</div>
-        </div>
-        <div class="ai-function-item" @click="aiFunction()">
-          <img class="funciton-logo" src="../imgs/ai-xuqiu.png" alt="找需求" />
-          <div class="fuction-text">找需求</div>
-        </div>
-        <div class="ai-function-item" @click="aiFunction()">
-          <img class="funciton-logo" src="../imgs/ai-yingyong.png" alt="找应用" />
-          <div class="fuction-text">找应用</div>
-        </div>
-      </div> -->
-      
-
     </div>
   </div>
 </template>
 
 <script setup>
 import { ElMessage } from "element-plus";
-import { el } from "element-plus/lib/locale/index.js";
 import Markdown from 'vue3-markdown-it';
 import { computed, ref } from "vue";
 const textarea = ref("");
@@ -181,93 +158,133 @@ const pretendThinking = () => {
   
 };
 
-//流式获取AI输出
+//两步获取AI输出，第一步获取信息收集，第二步获取AI回答
 const getAIREply = async (question) => {
-    const apiKey = "sk-1d7b4dbe784940b1ad1211bf180f832e";
-    // const appId = '1ebc45b10da1486ab36fe607caa1a2fe';
-    const appId = 'b92122688bdb468b835fbc2a088f1e47';
-    const url = `https://dashscope.aliyuncs.com/api/v1/apps/${appId}/completion`;
-
-    const data = {
-        input: {
-            prompt: question
-        },
-        parameters: {'incremental_output' : 'true'},
-        debug: {}
-    };
-
-    try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        'X-DashScope-SSE': 'enable'
+    let apiKey = 'sk-1d7b4dbe784940b1ad1211bf180f832e';
+    let appId = 'fe36dd7839d046a38fb977e442ef6534';//信息收集者Id
+    let url = `https://dashscope.aliyuncs.com/api/v1/apps/${appId}/completion`;
+    let data = {
+      input: {
+          prompt: question
       },
-      body: JSON.stringify(data)
-    });
-
-    if (!response.ok) {
-      const errData = await response.json();
-      console.error(`Request failed: ${response.status}`);
-      console.error(errData);
-      return;
-    }
-
-
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let result = '';
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-
-      const chunk = decoder.decode(value, { stream: true });
-      // console.log(`Received chunk:`, chunk);
-      const lines = chunk.split('\n');
-      for (const line of lines) {
-        if (line.startsWith('data:')) {
-          const jsonStr = line.slice(5).trim();
-          if (jsonStr !== '[DONE]') {
-            try {
-              const parsed = JSON.parse(jsonStr);
-              const text = parsed.output.text || '';
-              result += text;
-
-              // 更新临时消息对象的内容
-              //updateLastAssistantMessage(result);
-
-              // 如果 finish_reason 是 stop，则不再等待更多数据
-              if (parsed.output.finish_reason === 'stop') {
-                //console.log('Final result:', result);
-                updateLastAssistantMessage(text);
-                break;
-              }else if(parsed.output.finish_reason != 'null'){
-                isLoading.value = false;
-                updateLastAssistantMessage("服务器开小差了~请稍后再试");
-                break;
-              }
-            } catch (e) {
-              console.error('JSON parse error:', e);
-            }
+      parameters: {},
+      debug: {}
+    };
+    try{
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        console.error(`Request failed: ${response.status}`, errData);
+        updateLastAssistantMessage("服务器开小差了~~请稍后再试");
+        isLoading.value = false;
+        return;
+      }
+      const resultData = await response.json();
+      const output = resultData.output;
+      let question2 = '';
+      if (output && output.text) {
+        if (output.finish_reason === 'stop') {
+          question2 = output.text;
+          // console.log('信息收集完成，开始生成回答:', question2);
+          if (!question2.trim().startsWith('用户的问题')) {
+            updateLastAssistantMessage(question2);
+            return;
           }
-        }else if (line.startsWith('Final result:')) {
-          break
+        } else {
+          updateLastAssistantMessage("服务器开小差了~请稍后再试");
+          return;
+        }
+      } else {
+        updateLastAssistantMessage("服务器开小差了~请稍后再试");
+        return;
+      }
+
+      const appId2 = 'c38c32a1e98e4c399853f9cc13912b85';//最终回答者Id
+      const url2 = `https://dashscope.aliyuncs.com/api/v1/apps/${appId2}/completion`;
+      const data2 = {
+          input: {
+              prompt: question2
+          },
+          parameters: {'incremental_output' : 'true'},
+          debug: {}
+      };
+
+
+      const response2 = await fetch(url2, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+          'X-DashScope-SSE': 'enable'
+        },
+        body: JSON.stringify(data2)
+      });
+
+      if (!response2.ok) {
+        const errData = await response2.json();
+        console.error(`Request failed: ${response2.status}`);
+        console.error(errData);
+        updateLastAssistantMessage("服务器开小差了~请稍后再试");
+        return;
+      }
+
+      const reader = response2.body.getReader();
+      const decoder = new TextDecoder();
+      let result = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        // console.log(`Received chunk:`, chunk);
+        const lines = chunk.split('\n');
+        for (const line of lines) {
+          if (line.startsWith('data:')) {
+            const jsonStr = line.slice(5).trim();
+            if (jsonStr !== '[DONE]') {
+              try {
+                const parsed = JSON.parse(jsonStr);
+                const text = parsed.output.text || '';
+                result += text;
+
+                // 更新临时消息对象的内容
+                updateLastAssistantMessage(result);
+
+                // 如果 finish_reason 是 stop，则不再等待更多数据
+                if (parsed.output.finish_reason === 'stop') {
+                  //console.log('Final result:', result);
+                  updateLastAssistantMessage(result);
+                  break;
+                }else if(parsed.output.finish_reason != 'null'){
+                  updateLastAssistantMessage("服务器开小差了~请稍后再试");
+                  break;
+                }
+              } catch (e) {
+                console.error('JSON parse error:', e);
+              }
+            }
+          }else if (line.startsWith('Final result:')) {
+            break
+          }
         }
       }
-    }
-    isLoading.value = false;
-    
-
   } catch (error) {
     console.error(`Error calling DashScope: ${error.message}`);
+    updateLastAssistantMessage("服务器开小差了~请稍后再试");
+  }finally{
     isLoading.value = false;
   }
 };
 
 //滚动到底
-
 watch(() => conversation.value, () => {
   
   let dialog = document.getElementById('dialog');
@@ -357,14 +374,12 @@ watch(() => conversation.value, () => {
   .shuffle-btn{
     width: fit-content;
     gap:5px;
-    height: 100%;
+    height: fit-content;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     cursor: pointer;
-    svg-icon {
-      color: #fff;
-    }
+    
   }
   .prompt-texts {
     height: 100%;
